@@ -1,0 +1,34 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "bachelorarbeit"
+version = "0.0.1"
+description = "Code f\u00fcr Bachelorarbeit"
+authors = [
+  { name = "Philipp Scheer" },
+]
+
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    
+]
+requires-python = "~=3.11.0"
+
+
+[tool.ruff]
+line-length = 99
+src = ["bachelorarbeit"]
+include = ["pyproject.toml", "bachelorarbeit/**/*.py"]
+
+[tool.ruff.lint]
+extend-select = ["I"]  # Add import sorting
+
+[tool.ruff.lint.isort]
+known-first-party = ["bachelorarbeit"]
+force-sort-within-sections = true
+
+[flake8]
+max-line-length = 120
