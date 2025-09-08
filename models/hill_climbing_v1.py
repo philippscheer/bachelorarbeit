@@ -29,6 +29,8 @@ Adaptations:
 - Because we don't differentiate between mandatory and electives, there is only one group.
     Because we don't pick a group, we also don't have to pick a course from the group and an offering from the course.
     We can pick an offering directly from all offerings.
+- Stopping on a valid schedule would mean that always the minimum course count constraint would be satisfied.
+    When scheduling one more course leads to a better schedule, we continue scheduling
 
 
 Constraints are encoded in the following way:
@@ -36,10 +38,6 @@ Constraints are encoded in the following way:
     dict[int, int]:
         key: hour of the day
         value: priority P ranging from -100 (blocked) to +100 (must schedule)
-
-- Non fixed time constraints:
-    TODO
-
 
 - Course priorities:
     dict[str, int]:
@@ -49,6 +47,10 @@ Constraints are encoded in the following way:
 - Hour load:
     tuple[int, int]:
         hour load per week: (min, max)
+
+- Course count constraint:
+    tuple[int, int]:
+        min and max amount of courses scheduled to build a valid schedule
 """
 
 

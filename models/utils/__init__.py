@@ -1,6 +1,7 @@
 from loguru import logger
 from typing import TypeVar
 from itertools import combinations
+from collections import defaultdict
 from datetime import datetime, time
 from functools import lru_cache
 
@@ -33,6 +34,13 @@ def is_valid_schedule(schedule: list[Offering], ignore_length: bool = False, ver
         if verbose:
             logger.debug("schedule does not satisfy course count constraint")
         return False
+
+    if not ignore_length:
+        min_hrs, max_hrs = weekly_schedule_hours(schedule)
+        if min_hrs < HOUR_LOAD_CONSTRAINT[0] or max_hrs > HOUR_LOAD_CONSTRAINT[1]:
+            if verbose:
+                logger.debug("schedule does not satisfy hour load constraint")
+            return False
 
     for offering in schedule:
         if violates_hard_constraints(offering):
@@ -91,6 +99,57 @@ def violates_hard_constraints(offering: Offering):
             return True
 
     return False
+
+
+def weekly_schedule_hours(schedule: list[Offering]) -> tuple[float, float]:
+    """
+    Returns (min_hours, max_hours) the schedule takes up in one week (Mo-Fr),
+    counting parallel sessions only once.
+    """
+    week_intervals = defaultdict(list)  # (year, week) -> list of (start, end)
+
+    for offering in schedule:
+        for session in offering.dates:
+            start = session["start"]
+            end = session["end"]
+
+            # only count Mo - Fr
+            if start.weekday() > 4 or end.weekday() > 4:
+                continue
+
+            year, week, _ = start.isocalendar()
+            week_intervals[(year, week)].append((start, end))
+
+    week_hours = {}
+    for week, intervals in week_intervals.items():
+        merged = merge_intervals(intervals)
+        total_hours = sum((end - start).total_seconds() / 3600 for start, end in merged)
+        week_hours[week] = total_hours
+
+    if not week_hours:
+        return (0.0, 0.0)
+
+    totals = week_hours.values()
+    return (min(totals), max(totals))
+
+
+def merge_intervals(intervals: list[tuple[datetime, datetime]]) -> list[tuple[datetime, datetime]]:
+    """
+    Merge overlapping intervals and return a list of disjoint intervals.
+    Courses at the same time do not count twice to the hour load constraint
+    """
+    if not intervals:
+        return []
+    intervals.sort(key=lambda x: x[0])
+    merged = [intervals[0]]
+
+    for current_start, current_end in intervals[1:]:
+        last_start, last_end = merged[-1]
+        if current_start <= last_end:  # overlap
+            merged[-1] = (last_start, max(last_end, current_end))
+        else:
+            merged.append((current_start, current_end))
+    return merged
 
 
 # === Calculate mark ===
