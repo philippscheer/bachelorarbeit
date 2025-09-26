@@ -29,6 +29,3 @@ extend-select = ["I"]  # Add import sorting
 [tool.ruff.lint.isort]
 known-first-party = ["bachelorarbeit"]
 force-sort-within-sections = true
-
-[flake8]
-max-line-length = 120

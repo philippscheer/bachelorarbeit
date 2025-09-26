@@ -7,8 +7,6 @@ from functools import lru_cache
 
 from bachelorarbeit.dtypes import Offering
 from bachelorarbeit.constraints import (
-    FIXED_TIME_CONSTRAINTS,
-    NON_FIXED_TIME_CONSTRAINTS,
     COURSE_PRIORITY_CONSTRAINTS,
     HOUR_LOAD_CONSTRAINT,
     COURSE_COUNT_CONSTRAINT,
@@ -88,14 +86,15 @@ def violates_fixed_time(start: datetime, end: datetime):
 
 
 @lru_cache(maxsize=500)
-def violates_hard_constraints(offering: Offering):
+def violates_hard_constraints(offering: Offering, verbose: bool = False):
     if offering.courseId in COURSE_MUST_NOT_SCHEDULE:
         logger.debug("course id not allowed")
         return True
 
     for date in offering.dates:
         if violates_fixed_time(date["start"], date["end"]):
-            logger.debug("violates fixed time")
+            if verbose:
+                logger.debug("violates fixed time")
             return True
 
     return False
@@ -175,7 +174,9 @@ def get_schedule_mark(schedule: list[Offering]):
     return mark
 
 
-def rebuild_available_offerings(schedule: list[Offering], available_offerings: list[Offering]) -> list[Offering]:
+def rebuild_available_offerings(
+    schedule: list[Offering], available_offerings: list[Offering], v3: bool = False
+) -> list[Offering]:
     taken_group_ids = list(set(map(lambda offering: offering.groupId, schedule)))
     taken_course_ids = list(map(lambda o: o.courseId, schedule))
 
@@ -191,12 +192,14 @@ def rebuild_available_offerings(schedule: list[Offering], available_offerings: l
 
         return True
 
-    return list(filter(_filter_available_offerings, available_offerings))
+    available_offerings = list(filter(_filter_available_offerings, available_offerings))
+    return available_offerings[(len(available_offerings) - 1) // 2 :] if v3 else available_offerings
 
 
 def preprocess(offerings: list[Offering]) -> list[Offering]:
     """
-    Filter the offerings by variable inconsistency as mentioned on p357
+    Filter the offerings by variable inconsistency as mentioned on p357.
+    Return offerings sorted by mark (highest first)
     """
     logger.info(f"preprocessing {len(offerings)} offerings")
     keep_offerings = [
@@ -207,4 +210,4 @@ def preprocess(offerings: list[Offering]) -> list[Offering]:
         keep_offerings[i].mark = get_offering_mark(offering)
 
     logger.success(f"preprocessed offerings, keep {len(keep_offerings)}")
-    return keep_offerings
+    return sorted(keep_offerings, key=lambda o: -o.mark)

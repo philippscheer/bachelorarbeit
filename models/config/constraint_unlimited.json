@@ -1,0 +1,8 @@
+{
+    "title": "No constraints",
+
+    "FIXED_TIME_CONSTRAINTS": {},
+    "COURSE_PRIORITY_CONSTRAINTS": {},
+    "HOUR_LOAD_CONSTRAINT": [0, 999],
+    "COURSE_COUNT_CONSTRAINT": [1,15]
+}

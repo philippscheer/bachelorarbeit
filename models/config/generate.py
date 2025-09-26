@@ -1,8 +1,6 @@
 import json
-import os
 from pathlib import Path
 from itertools import product
-import random
 
 CONFIG_DIR = Path(".")
 CONFIG_DIR.mkdir(parents=True, exist_ok=True)
