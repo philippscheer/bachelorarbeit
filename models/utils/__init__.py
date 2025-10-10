@@ -1,11 +1,9 @@
-import signal
-import platform
 from loguru import logger
 from typing import TypeVar
 from itertools import combinations
 from collections import defaultdict
 from datetime import datetime, time
-from functools import lru_cache, wraps
+from functools import lru_cache
 
 from bachelorarbeit.dtypes import Offering
 import bachelorarbeit.constraints as C

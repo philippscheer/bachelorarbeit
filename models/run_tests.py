@@ -12,7 +12,7 @@ from bachelorarbeit.config import RAW_DATA_DIR
 from bachelorarbeit.dtypes import Offering
 import bachelorarbeit.constraints as C
 
-from utils import get_schedule_mark, is_valid_schedule, preprocess, timeout
+from utils import get_schedule_mark, is_valid_schedule, preprocess
 
 from hill_climbing_v1 import build_schedule as test_hill_climbing_v1
 from hill_climbing_v3 import build_schedule as test_hill_climbing_v3
@@ -22,14 +22,6 @@ from offering_order import solve_offering_order as test_offering_order
 from utils.profile import ProfileResult, profile
 from utils.benchmark import write_benchmarks
 from utils.load_constraints import load_constraints_from_file
-
-
-# when the constrained min number of curses is larger than the number of courses solvable by ILP,
-# offering order behaves like a brute force, backtracing and trying again all possible combinations.
-# that's why we use a safety switch and timeout the offering order algo after 30 seconds
-@timeout(30)
-def test_offering_order_wrapped(offerings: list[Offering]):
-    return test_offering_order(offerings)
 
 
 if __name__ == "__main__":
@@ -44,7 +36,7 @@ if __name__ == "__main__":
 
     tests = {
         "ilp": test_ilp,
-        "offering_order": test_offering_order_wrapped,
+        "offering_order": test_offering_order,
         "hill_climbing_v1": test_hill_climbing_v1,
         "hill_climbing_v3": test_hill_climbing_v3,
     }
