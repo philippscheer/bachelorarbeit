@@ -10,6 +10,7 @@ from utils import (
     is_valid_schedule,
     rebuild_available_offerings,
     preprocess,
+    get_must_schedule_courses,
 )
 
 
@@ -70,8 +71,8 @@ def schedule_course(schedule: list[Offering], available: list[Offering]) -> Offe
 def build_schedule(offerings: list[Offering]) -> list[Offering] | None:
     offerings = list(reversed(offerings))
 
-    schedule = []
-    available_offerings = [*offerings]
+    schedule = get_must_schedule_courses(offerings)
+    available_offerings = [o for o in offerings if o.courseId not in [s.courseId for s in schedule]]
 
     while True:
         available_offerings = rebuild_available_offerings(schedule, available_offerings, v3=True)

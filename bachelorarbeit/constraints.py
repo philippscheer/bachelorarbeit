@@ -29,5 +29,8 @@ COURSE_COUNT_CONSTRAINT = (1, 13)
 
 
 HOURS_MUST_NOT_SCHEDULE = [hour for hour, priority in FIXED_TIME_CONSTRAINTS.items() if priority == -100]
-COURSE_MUST_NOT_SCHEDULE = [courseId for courseId, priority in COURSE_PRIORITY_CONSTRAINTS.items() if priority == -100]
+COURSE_MUST_NOT_SCHEDULE = [
+    int(courseId) for courseId, priority in COURSE_PRIORITY_CONSTRAINTS.items() if priority == -100
+]
+COURSE_MUST_SCHEDULE = [int(courseId) for courseId, priority in COURSE_PRIORITY_CONSTRAINTS.items() if priority == 100]
 HOURS_FLEXIBLE = {hour: priority for hour, priority in FIXED_TIME_CONSTRAINTS.items() if abs(priority) < 100}

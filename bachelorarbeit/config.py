@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -7,7 +8,7 @@ from loguru import logger
 load_dotenv()
 
 # Paths
-PROJ_ROOT = "/root/bachelorarbeit" # Path(__file__).resolve().parents[1]
+PROJ_ROOT = Path(os.environ.get("ROOT_PATH", Path(__file__).resolve().parents[1]))
 logger.info(f"PROJ_ROOT path is: {PROJ_ROOT}")
 
 DATA_DIR = PROJ_ROOT / "data"

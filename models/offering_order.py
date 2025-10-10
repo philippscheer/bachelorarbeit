@@ -1,6 +1,7 @@
 import json
+import time
 import pickle
-from typing import List, Dict
+from typing import List
 from loguru import logger
 
 from bachelorarbeit.config import RAW_DATA_DIR
@@ -15,7 +16,12 @@ from utils import (
 )
 
 
-def offering_order_algorithm(groups: dict[str, List[Offering]], update_marks: bool = False) -> List[Offering]:
+OFF_ORDER_TIMEOUT = 10
+
+
+def offering_order_algorithm(
+    groups: dict[str, List[Offering]], update_marks: bool = False, starting_schedule: list[Offering] | None = None
+) -> List[Offering]:
     """
     Implementation of the offering ordering algorithm.
 
@@ -27,6 +33,8 @@ def offering_order_algorithm(groups: dict[str, List[Offering]], update_marks: bo
     C1(Offering1, Offering2, Offering3)
     C2(Offering4, Offering5)
     """
+    start = time.time()
+
     # Step 1: preprocess all offerings with evaluation f(offering)
     for g, offerings in groups.items():
         for o in offerings:
@@ -34,6 +42,9 @@ def offering_order_algorithm(groups: dict[str, List[Offering]], update_marks: bo
 
     # Step 2: order offerings in each course/group
     for g, offerings in groups.items():
+        # if the group is already covered by the fixed course number constraint, do not include this group
+        if starting_schedule is not None and g in [o.groupId for o in starting_schedule]:
+            continue
         offerings.sort(key=lambda o: (-o.mark, len(offerings)))
 
     # Step 3: order groups themselves by first offering value
@@ -54,6 +65,9 @@ def offering_order_algorithm(groups: dict[str, List[Offering]], update_marks: bo
         min_courses: minimum number of courses required
         max_courses: maximum number of courses allowed
         """
+        if (start + OFF_ORDER_TIMEOUT) > time.time():
+            raise TimeoutError()
+
         if schedule is None:
             schedule = []
 
@@ -87,7 +101,10 @@ def offering_order_algorithm(groups: dict[str, List[Offering]], update_marks: bo
         return None
 
     return forward_check_backtrack(
-        group_order, min_courses=C.COURSE_COUNT_CONSTRAINT[0], max_courses=C.COURSE_COUNT_CONSTRAINT[1]
+        group_order,
+        schedule=starting_schedule,
+        min_courses=C.COURSE_COUNT_CONSTRAINT[0],
+        max_courses=C.COURSE_COUNT_CONSTRAINT[1],
     )
 
 
@@ -95,7 +112,10 @@ def solve_offering_order(offerings):
     groups = {}
     for offering in offerings:
         groups[offering.groupId] = [*groups.get(offering.groupId, []), offering]
-    return offering_order_algorithm(groups, update_marks=False)
+    try:
+        return offering_order_algorithm(groups, update_marks=False)
+    except TimeoutError:
+        return None
 
 
 if __name__ == "__main__":

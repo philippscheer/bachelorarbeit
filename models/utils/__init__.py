@@ -1,20 +1,14 @@
+import signal
+import platform
 from loguru import logger
 from typing import TypeVar
 from itertools import combinations
 from collections import defaultdict
 from datetime import datetime, time
-from functools import lru_cache
+from functools import lru_cache, wraps
 
 from bachelorarbeit.dtypes import Offering
-from bachelorarbeit.constraints import (
-    COURSE_PRIORITY_CONSTRAINTS,
-    HOUR_LOAD_CONSTRAINT,
-    COURSE_COUNT_CONSTRAINT,
-    HOURS_MUST_NOT_SCHEDULE,
-    COURSE_MUST_NOT_SCHEDULE,
-    HOURS_FLEXIBLE,
-)
-
+import bachelorarbeit.constraints as C
 
 T = TypeVar("T")
 
@@ -23,19 +17,29 @@ T = TypeVar("T")
 
 
 def is_valid_schedule(schedule: list[Offering], ignore_length: bool = False, verbose=False):
+    if schedule is None:
+        return False
+
     if schedule_overlaps(schedule):
         if verbose:
             logger.debug("schedule overlaps")
         return False
 
-    if not ignore_length and (len(schedule) < COURSE_COUNT_CONSTRAINT[0] or len(schedule) > COURSE_COUNT_CONSTRAINT[1]):
+    if not ignore_length and (
+        len(schedule) < C.COURSE_COUNT_CONSTRAINT[0] or len(schedule) > C.COURSE_COUNT_CONSTRAINT[1]
+    ):
         if verbose:
             logger.debug("schedule does not satisfy course count constraint")
         return False
 
+    if not all([cId in [o.courseId for o in schedule] for cId in C.COURSE_MUST_SCHEDULE]):
+        if verbose:
+            logger.debug("mandatory course not scheduled")
+        return False
+
     if not ignore_length:
         min_hrs, max_hrs = weekly_schedule_hours(schedule)
-        if min_hrs < HOUR_LOAD_CONSTRAINT[0] or max_hrs > HOUR_LOAD_CONSTRAINT[1]:
+        if min_hrs < C.HOUR_LOAD_CONSTRAINT[0] or max_hrs > C.HOUR_LOAD_CONSTRAINT[1]:
             if verbose:
                 logger.debug("schedule does not satisfy hour load constraint")
             return False
@@ -79,15 +83,19 @@ def times_overlap(start1: datetime, end1: datetime, start2: int, end2: int):
 
 
 def violates_fixed_time(start: datetime, end: datetime):
-    for hour in HOURS_MUST_NOT_SCHEDULE:
+    for hour in C.HOURS_MUST_NOT_SCHEDULE:
         if times_overlap(start, end, hour, hour + 1):
             return True
     return False
 
 
 @lru_cache(maxsize=500)
-def violates_hard_constraints(offering: Offering, verbose: bool = False):
-    if offering.courseId in COURSE_MUST_NOT_SCHEDULE:
+def violates_hard_constraints(offering: Offering, verbose: bool = False, ignore_must_schedule: bool = True):
+    if not ignore_must_schedule and offering.courseId not in C.COURSE_MUST_SCHEDULE:
+        logger.debug("mandatory course id not scheduled")
+        return True
+
+    if offering.courseId in C.COURSE_MUST_NOT_SCHEDULE:
         logger.debug("course id not allowed")
         return True
 
@@ -157,15 +165,18 @@ def merge_intervals(intervals: list[tuple[datetime, datetime]]) -> list[tuple[da
 @lru_cache(maxsize=500)
 def get_offering_mark(offering: Offering):
     mark = 0
-    mark += COURSE_PRIORITY_CONSTRAINTS.get(offering.groupId, 0)
+    mark += C.COURSE_PRIORITY_CONSTRAINTS.get(offering.groupId, 0)
     for date in offering.dates:
-        for hour, mark_change in HOURS_FLEXIBLE.items():
+        for hour, mark_change in C.HOURS_FLEXIBLE.items():
             if times_overlap(date["start"], date["end"], hour, hour + 1):
                 mark += mark_change
     return mark
 
 
 def get_schedule_mark(schedule: list[Offering]):
+    if schedule is None:
+        return None
+
     mark = 0
     for offering in schedule:
         if violates_hard_constraints(offering):
@@ -209,5 +220,21 @@ def preprocess(offerings: list[Offering]) -> list[Offering]:
     for i, offering in enumerate(keep_offerings):
         keep_offerings[i].mark = get_offering_mark(offering)
 
+    must_schedule = get_must_schedule_courses(keep_offerings)
+    if schedule_overlaps(must_schedule):
+        logger.error(f"sanitfy check failed: must schedule courses {[o.courseId for o in must_schedule]} overlap")
+        raise Exception("insane")
+
     logger.success(f"preprocessed offerings, keep {len(keep_offerings)}")
     return sorted(keep_offerings, key=lambda o: -o.mark)
+
+
+def get_must_schedule_courses(offerings: list[Offering]) -> list[Offering]:
+    must_schedule: list[Offering] = []
+    for offerId in C.COURSE_MUST_SCHEDULE:
+        offers = [o for o in offerings if o.courseId == offerId]
+        if len(offers) < 1:
+            logger.error(f"sanitfy check failed: must schedule course {offerId} violates hard constraints")
+            raise Exception("insane")
+        must_schedule.append(offers[0])
+    return must_schedule

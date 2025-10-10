@@ -13,11 +13,18 @@ def load_constraints_from_file(path: Path):
     C.NON_FIXED_TIME_CONSTRAINTS = cfg.get("NON_FIXED_TIME_CONSTRAINTS", [])
     C.COURSE_PRIORITY_CONSTRAINTS = cfg.get("COURSE_PRIORITY_CONSTRAINTS", {})
     C.HOUR_LOAD_CONSTRAINT = tuple(cfg.get("HOUR_LOAD_CONSTRAINT", (0, 999)))
-    C.COURSE_COUNT_CONSTRAINT = tuple(cfg.get("COURSE_COUNT_CONSTRAINT", (1, 999)))
+    C.COURSE_COUNT_CONSTRAINT = (
+        tuple(cfg.get("COURSE_COUNT_CONSTRAINT"))
+        if cfg.get("COURSE_COUNT_CONSTRAINT")
+        else cfg.get("COURSE_COUNT_CONSTRAINT")
+    )
 
     # convenience Variablen neu setzen
     C.HOURS_MUST_NOT_SCHEDULE = [hour for hour, priority in C.FIXED_TIME_CONSTRAINTS.items() if priority == -100]
-    C.COURSE_MUST_NOT_SCHEDULE = [cid for cid, priority in C.COURSE_PRIORITY_CONSTRAINTS.items() if priority == -100]
+    C.COURSE_MUST_SCHEDULE = [int(cid) for cid, priority in C.COURSE_PRIORITY_CONSTRAINTS.items() if priority == 100]
+    C.COURSE_MUST_NOT_SCHEDULE = [
+        int(cid) for cid, priority in C.COURSE_PRIORITY_CONSTRAINTS.items() if priority == -100
+    ]
     C.HOURS_FLEXIBLE = {hour: priority for hour, priority in C.FIXED_TIME_CONSTRAINTS.items() if abs(priority) < 100}
 
     return cfg

@@ -22,6 +22,12 @@ def solve_ilp(offerings: list[Offering]) -> list[Offering]:
     # decision vars (0 or 1 for each possible course. 1 means picked, 0 means not picked)
     y = {c.courseId: pulp.LpVariable(f"y_{c.courseId}", cat="Binary") for c in offerings}
 
+    for must_schedule_course_id in C.COURSE_MUST_SCHEDULE:
+        model += y[must_schedule_course_id] == 1
+
+    for must_schedule_course_id in C.COURSE_MUST_NOT_SCHEDULE:
+        model += y[must_schedule_course_id] == 0
+
     # maximizing total mark
     model += pulp.lpSum(get_offering_mark(c) * y[c.courseId] for c in offerings)
 
