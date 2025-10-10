@@ -42,7 +42,7 @@ if __name__ == "__main__":
         "hill_climbing_v3": test_hill_climbing_v3,
     }
 
-    loops = int(os.environ("LOOPS", 50))
+    loops = int(os.environ.get("LOOPS", 50))
     logger.info(f"running {loops} loops")
 
     config_files = glob.glob("models/config/constraint*.json")
