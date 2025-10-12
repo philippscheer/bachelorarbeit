@@ -54,14 +54,17 @@ Constraints are encoded in the following way:
 """
 
 
-def schedule_course(schedule: list[Offering], available: list[Offering]) -> Offering | None:
+def schedule_course(schedule: list[Offering], available: list[Offering], v3: bool = False) -> Offering | None:
     """
     Picks one offering that fits best into the schedule and returns this offering
     """
-    if len(schedule) == 0:
+    if len(schedule) == 0:  # schedule is empty, remove offering with highest score
         return sorted(available, key=lambda item: -item.mark)[0]
 
-    schedule_marks: list[Offering, int] = [[a, get_schedule_mark([*schedule, a])] for a in available]
+    schedule_marks: list[Offering, int] = [
+        [a, get_schedule_mark([*schedule, a])]
+        for a in (available if not v3 else available[(len(available) - 1) // 2 :])
+    ]
     try:
         return sorted(schedule_marks, key=lambda item: -item[1])[0][0]
     except Exception:
@@ -75,8 +78,12 @@ def build_schedule(offerings: list[Offering]) -> list[Offering] | None:
     available_offerings = [o for o in offerings if o.courseId not in [s.courseId for s in schedule]]
 
     while True:
-        available_offerings = rebuild_available_offerings(schedule, available_offerings, v3=True)
-        next_valid_course = schedule_course(schedule, available_offerings)
+        available_offerings = rebuild_available_offerings(
+            schedule, available_offerings, v3=False
+        )  # do not cut entire offering list in half
+        next_valid_course = schedule_course(
+            schedule, available_offerings, v3=True
+        )  # only pick from halved offering list here
 
         if is_valid_schedule(schedule, verbose=True) and len(schedule) == C.COURSE_COUNT_CONSTRAINT[1]:
             break

@@ -115,6 +115,7 @@ def solve_offering_order(offerings):
     try:
         return offering_order_algorithm(groups, update_marks=False)
     except TimeoutError:
+        logger.warning("timeout error")
         return None
 
 

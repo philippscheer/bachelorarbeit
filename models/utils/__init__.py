@@ -211,6 +211,13 @@ def preprocess(offerings: list[Offering]) -> list[Offering]:
     Return offerings sorted by mark (highest first)
     """
     logger.info(f"preprocessing {len(offerings)} offerings")
+    logger.info(f"{C.COURSE_COUNT_CONSTRAINT=}")
+    logger.info(f"{C.COURSE_PRIORITY_CONSTRAINTS=}")
+    logger.info(f"{C.COURSE_MUST_SCHEDULE=}")
+    logger.info(f"{C.COURSE_MUST_NOT_SCHEDULE=}")
+    logger.info(f"{C.FIXED_TIME_CONSTRAINTS=}")
+    logger.info(f"{C.HOUR_LOAD_CONSTRAINT=}")
+
     keep_offerings = [
         offering for offering in offerings if offering.groupId is not None and not violates_hard_constraints(offering)
     ]
