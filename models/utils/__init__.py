@@ -163,7 +163,7 @@ def merge_intervals(intervals: list[tuple[datetime, datetime]]) -> list[tuple[da
 @lru_cache(maxsize=500)
 def get_offering_mark(offering: Offering):
     mark = 0
-    mark += C.COURSE_PRIORITY_CONSTRAINTS.get(offering.groupId, 0)
+    mark += C.COURSE_PRIORITY_CONSTRAINTS.get(offering.courseId, 0)
     for date in offering.dates:
         for hour, mark_change in C.HOURS_FLEXIBLE.items():
             if times_overlap(date["start"], date["end"], hour, hour + 1):
