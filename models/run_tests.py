@@ -2,6 +2,7 @@ import os
 import sys
 import glob
 import pickle
+import argparse
 import statistics
 import pandas as pd
 
@@ -26,6 +27,18 @@ from utils.load_constraints import load_constraints_from_file
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Run scheduling algorithm tests.")
+    parser.add_argument("--no-ilp", action="store_true", help="Disable ILP test")
+    parser.add_argument("--no-hc", action="store_true", help="Disable Hill Climbing tests (v1 and v3)")
+    parser.add_argument("--no-offorder", action="store_true", help="Disable Offering Order test")
+    parser.add_argument(
+        "--cc",
+        type=int,
+        help="Set COURSE_COUNT_CONSTRAINT to (n, n)",
+    )
+
+    args = parser.parse_args()
+
     with open(RAW_DATA_DIR / "offerings.pkl", "rb") as f:
         offerings: list[Offering] = pickle.load(f)
 
@@ -42,6 +55,14 @@ if __name__ == "__main__":
         "hill_climbing_v3": test_hill_climbing_v3,
     }
 
+    if args.no_ilp:
+        tests.pop("ilp", None)
+    if args.no_offorder:
+        tests.pop("offering_order", None)
+    if args.no_hc:
+        tests.pop("hill_climbing_v1", None)
+        tests.pop("hill_climbing_v3", None)
+
     loops = int(os.environ.get("LOOPS", 50))
     logger.info(f"running {loops} loops")
 
@@ -54,7 +75,11 @@ if __name__ == "__main__":
 
             cfg = load_constraints_from_file(cfg_path)
 
-            if cfg.get("COURSE_COUNT_CONSTRAINT") is None:
+            if args.cc:
+                C.COURSE_COUNT_CONSTRAINT = (args.cc, args.cc)
+                logger.info(f"Set COURSE_COUNT_CONSTRAINT to {C.COURSE_COUNT_CONSTRAINT}")
+
+            elif cfg.get("COURSE_COUNT_CONSTRAINT") is None:
                 logger.warning("no course count constraint specified, testing max course count using ilp")
                 C.COURSE_COUNT_CONSTRAINT = (1, 999)
                 logger.info(f"trying count {C.COURSE_COUNT_CONSTRAINT}")

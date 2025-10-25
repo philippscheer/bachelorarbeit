@@ -91,4 +91,5 @@ def write_benchmarks(df, cfg, cfg_name, cfg_title):
 def export_csv(df, columns, newColumnNames, file):
     df_stat = df[columns].copy()
     df_stat.columns = newColumnNames
+    df_stat = df_stat.fillna("nan")  # Replace None/NaN with "nan"
     df_stat.to_csv(file, index=False, sep=",")

@@ -65,7 +65,7 @@ def offering_order_algorithm(
         min_courses: minimum number of courses required
         max_courses: maximum number of courses allowed
         """
-        if (start + OFF_ORDER_TIMEOUT) > time.time():
+        if (start + OFF_ORDER_TIMEOUT) < time.time():
             raise TimeoutError()
 
         if schedule is None:
