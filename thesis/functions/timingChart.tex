@@ -1,0 +1,130 @@
+\newcommand{\timingChart}[2][]{%
+    % #1 = optional max difficulty (empty -> show all)
+    % #2 = CSV file path
+
+    % Load the CSV data
+    \pgfplotstableread[col sep=comma]{#2}\loadedMemoryData
+
+    % Store the max difficulty in a new macro
+    \ifx\relax#1\relax
+        \def\maxDifficulty{0}% Use 0 or some other indicator for no max
+        \def\hasMax{0}%
+    \else
+        \edef\maxDifficulty{#1}% <--- *** Crucial change: Store #1's content ***
+        \def\hasMax{1}%
+    \fi
+
+    \ifnum\hasMax=1
+        % If max is set, \currentXmax is the number
+        \edef\currentXmax{\maxDifficulty}
+    \else
+        % If no max is set, \currentXmax is the pgfplots 'no value' token
+        \let\currentXmax\pgfkeysnovalue
+    \fi
+
+    \begin{tikzpicture}
+
+        % --- Left axis (ILP memory) ---
+        \begin{axis}[
+                title={Laufzeit (Sekunden)},
+                name=ilpaxis,
+                axis y line*=left,
+                xlabel={Difficulty},
+                ylabel={ILP Laufzeit (Sekunden)},
+                ymin=0,
+                xmax=\currentXmax,
+                ymajorgrids=true,
+                width=0.95\textwidth,
+                height=7cm,
+                grid=major,
+                legend style={at={(0.5,-0.2)}, anchor=north, legend columns=-1},
+                table/x=difficulty,
+            ]
+
+            % --- ILP Memory Usage ---
+            \addplot[
+                mark=*,
+                color=blue,
+                line width=1pt,
+                smooth,
+                error bars/.cd,
+                y dir=both,
+                y explicit,
+                /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
+            ] table [
+                    x=difficulty,
+                    y=ILP,
+                    y error expr=\thisrow{ILP stdev},
+                ] {\loadedMemoryData};
+            \addlegendentry{ILP}
+        \end{axis}
+
+        % --- Right axis (Hill Climbing & Offering Order) ---
+        \begin{axis}[
+                axis y line*=right,
+                axis x line=none,
+                ylabel={Algorithmus Laufzeit (Sekunden)},
+                ymin=0,
+                xmax=\currentXmax,
+                ymajorgrids=false,
+                width=0.95\textwidth,
+                height=7cm,
+                legend style={at={(0.5,-0.35)}, anchor=north, legend columns=-1},
+                table/x=difficulty,
+            ]
+
+            % --- Hill Climbing v1 ---
+            \addplot[
+                mark=square*,
+                color=red,
+                line width=1pt,
+                smooth,
+                error bars/.cd,
+                y dir=both,
+                y explicit,
+                /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
+            ] table [
+                    x=difficulty,
+                    y={Hill Climbing v1},
+                    y error expr=\thisrow{Hill Climbing v1 stdev},
+                ] {\loadedMemoryData};
+            \addlegendentry{Hill Climbing v1}
+
+            % --- Hill Climbing v3 ---
+            \addplot[
+                mark=triangle*,
+                color=green!60!black,
+                line width=1pt,
+                smooth,
+                error bars/.cd,
+                y dir=both,
+                y explicit,
+                /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
+            ] table [
+                    x=difficulty,
+                    y={Hill Climbing v3},
+                    y error expr=\thisrow{Hill Climbing v3 stdev},
+                ] {\loadedMemoryData};
+            \addlegendentry{Hill Climbing v3}
+
+            % --- Offering Order ---
+            \addplot[
+                mark=diamond*,
+                color=orange,
+                line width=1pt,
+                dashed,
+                smooth,
+                error bars/.cd,
+                y dir=both,
+                y explicit,
+                /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
+            ] table [
+                    x=difficulty,
+                    y={Offering Order},
+                    y error expr=\thisrow{Offering Order stdev},
+                ] {\loadedMemoryData};
+            \addlegendentry{Offering Order}
+
+        \end{axis}
+    \end{tikzpicture}
+}

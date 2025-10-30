@@ -1,0 +1,25 @@
+\subsection{Implementierung des Offering-Order Algorithmus}
+
+Basierend auf der Methodik von Feldman und Golumbic \cite{feldmangolumbic} wurde der Optimierungsalgorithmus \textit{Offering Order} implementiert, der auf einer heuristischen Sortierung basiert.
+
+
+\subsubsection{Sortierung\label{offordersorting}}
+
+Der Algorithmus nutzt die berechneten \textit{Marks}, um eine Suchreihenfolge festzulegen:
+
+\begin{enumerate}
+    \item Alle \textit{Offerings} innerhalb des selben Planpunkts werden absteigend nach \textit{Mark} sortiert. Innerhalb eines Planpunkts wird somit das Offering mit dem höchsten \textit{Mark} zuerst in Betracht gezogen.
+    \item Die Planpunkte selbst werden nach dem \textit{Mark} des besten \textit{Offering} innerhalb des Planpunkts sortiert.
+\end{enumerate}
+
+
+\subsubsection{Suchstrategie}
+
+Der optimale Stundenplan wird durch eine \textit{Forward-Checking Backtracking} Strategie gesucht. Es wird folgendermaßen vorgegangen:
+
+\begin{enumerate}
+    \item Die Planpunkte werden iterativ durchlaufen. Gestartet wird mit dem Planpunkt, der das \textit{Offering} mit der höchsten \textit{Mark} beinhaltet (siehe \ref{offordersorting}).
+    \item Für jeden Planpunkt wird versucht, das \textit{Offering} mit der höchsten \textit{Mark} auszuwählen. Bevor die Auswahl getroffen wird, wird geprüft, ob das Hinzufügen des \textit{Offerings} zu dem aktuellen Teilstundenplan zu einer zeitlichen Überschneidung führt oder andere Constraints verletzt (\textbf{Forward-Checking})
+    \item Führt das Hinzufügen eines \textit{Offerings} zu keinem gültigen Endergebnis in den nachfolgenden Planpunkten, wird die Auswahl rückgängig gemacht und das nächstbeste \textit{Offering} der aktuellen Gruppe wird getestet (\textbf{Backtracking})
+\end{enumerate}
+

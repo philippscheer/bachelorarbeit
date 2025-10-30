@@ -1,0 +1,91 @@
+\section{Datenbereitstellung}
+
+\subsection{Erhebung der Vorlesungsdaten}
+
+Die Datenextraktion der Vorlesungsdaten erfolgte über einen automatisierten Web-Scraping-Prozess, implementiert in Python 3.11 unter Verwendung der Bibliotheken \verb|requests| (HTTP-Requests), \verb|BeautifulSoup| (HTML-Parsing) und \verb|pandas| (Datenstrukturierung). Der Prozess umfasste folgende, drei Phasen:
+
+\begin{enumerate}
+    \item Extraktion relevanter Datenpunkte für alle Vorlesungen der Wirtschaftsuniversität Wien, 
+    \item Identifikation relevanter Lehrveranstaltungen (Planpunkte) und 
+    \item ECTS-Credits-Zuordnung gemäß Studien-Planpunkt.
+\end{enumerate}
+
+
+\subsubsection{Web-Scraping von Vorlesungsdaten}
+
+Jede Lehrveranstaltung an der Wirtschaftsuniversität Wien wird durch eine eindeutige LV-ID identifiziert. LV-IDs werden durch eine Zahl von 0 bis 9999 dargestellt. Jede Lehrveranstaltung kann unter folgender URL mit Angabe des Semesters (Sommersemester 25 = \verb|"S25"|) abgerufen werden:
+
+\begin{verbatim}
+https://vvz.wu.ac.at/cgi-bin/vvz.pl?C=S&LANG=DE\
+  &U=H&S=25S&LV=3&L2=S&L3=S&T=&L=&I=1337&JOIN=AND
+\end{verbatim}
+
+\hint{Beispiel: Abfrage der Lehrveranstaltung mit ID 1337 im Semester "25S".}
+
+
+Aus der HTTP-Antwort jeder Anfrage wurden mit \verb|BeautifulSoup4| folgende Eigenschaften ausgelesen:
+
+\begin{itemize}
+    \item Zeitliche Parameter: Termine, Dauer
+    \item Räumliche Parameter: Raumzuweisungen (regex-bereinigt)
+    \item Personelle Zuordnung: LV-Leiter:innen
+    \item Curriculare Verknüpfungen: Planpunkte-ID via RegEx \verb|r"P=([0-9]+);"| aus URL extrahiert
+\end{itemize}
+
+Für jede Planpunkt-ID erfolgte ein zweiter Scraping-Durchlauf, um die Zahl der ECTS Credits zu ermitteln.
+Die finalen Daten wurden als pandas-DataFrame mit folgenden Spalten strukturiert:
+
+\begin{itemize}
+    \item \verb|id|: Eindeutige LV-Kennung
+    \item \verb|dates|: Liste von Dicts mit Start/End-Zeitstempeln
+    \item \verb|lvLeiter|: Verantwortliche Lehrperson
+    \item \verb|planpunkte_ids|: Planpunkt-IDs
+    \item \verb|ects|: Vom Planpunkt abgeleitete ECTS-Punkte
+\end{itemize}
+
+
+\subsubsection{Datenbereinigung}
+
+Das Ergebnis sieht wie folgt aus:
+
+\clearpage
+
+\begin{sidewaystable}
+{\fontsize{8}{10}\selectfont
+    \begin{tabular}{lllll}
+        \toprule
+        \textbf{courseId} & \textbf{dates} & \textbf{lvLeiter} & \textbf{planpunkte\_ids} & \textbf{ects} \\
+        \midrule
+        5877 & \verb|[{"start": "2025-03-11 09:00", "end": "2025-03-11 11:00"}, ...]| & Assoz.Prof PD Dr. Sabrina Kirrane & ["6590", "9485"] & 5 \\
+        6427 & \verb|[{"start": "2025-03-13 16:30", "end": "2025-03-13 20:30"}, ...]| & Dr. Robert Kosik & ['5160'] & 6 \\
+        4676 & \verb|[{"start": "2025-05-06 14:30", "end": "2025-05-06 17:00"}, ...]| & Dr. Stefan Treitl & ['6012'] & 4 \\
+        6295 & \verb|[{"start": "2025-03-06 08:00", "end": "2025-03-06 12:00"}, ...]| & Anna-Lena Klug, MSc. MSc. & ['5155'] & 8 \\
+        5745 & \verb|[{"start": "2025-03-10 18:00", "end": "2025-03-10 20:00"}, ...]| & Dr. Reinhard Zuba & ['5108'] & 4 \\
+        6258 & \verb|[{"start": "2025-04-01 14:00", "end": "2025-04-01 19:00"}, ...]| & Dr. Nikolaus Obwegeser & ['5162'] & 3 \\
+        5944 & \verb|[{"start": "2025-05-08 09:30", "end": "2025-05-08 12:00"}, ...]| & Univ.Prof. Dr. Jonas Puck & ['5107'] & 4 \\
+        5724 & \verb|[{"start": "2025-03-10 16:00", "end": "2025-03-10 20:00"}, ...]| & Alexander Oberreiter, M.Sc. & ['5105'] & 8 \\
+        5752 & \verb|[{"start": "2025-05-06 12:00", "end": "2025-05-06 14:30"}, ...]| & Univ.Prof. Dipl.Wirtsch.-Math.Dr. Birgit Rudloff & ['6023'] & 4 \\
+        6354 & \verb|[{"start": "2025-05-06 15:30", "end": "2025-05-06 18:00"}, ...]| & Zhenyi Wang, M.Sc. & ['5059', '6059'] & 4 \\
+        6447 & \verb|[{"start": "2025-03-13 12:30", "end": "2025-03-13 16:30"}, ...]| & Anita Neumannova, PhD, MSc (WU), MIM (CEMS) & ['5161'] & 4 \\
+        5329 & \verb|[{"start": "2025-09-01 14:00", "end": "2025-09-01 17:00"}, ...]| & Dr. Tingmingke Lu & ['5056', '6056'] & 4 \\
+        6317 & \verb|[{"start": "2025-03-05 14:00", "end": "2025-03-05 18:00"}, ...]| & Dipl.-Wirt.-Ing.(FH) Mark Nicolas Grünsteidl & ['5158'] & 8 \\
+        6130 & \verb|[{"start": "2025-05-06 09:30", "end": "2025-05-06 12:00"}, ...]| & Jana Hlavinova, Ph.D. & ['6024'] & 4 \\
+        6182 & \verb|[{"start": "2025-03-11 10:00", "end": "2025-03-11 12:00"}, ...]| & Dr. Sonja Sperber & ['5136', '6911'] & 3 \\
+        6089 & \verb|[{"start": "2025-09-10 09:00", "end": "2025-09-10 13:00"}, ...]| & Dr. Nikolai Neumayer & ['5106'] & 4 \\
+        4086 & \verb|[{"start": "2025-05-06 14:30", "end": "2025-05-06 17:00"}, ...]| & Vanessa Kofler, LL.M. (WU) & ['5109', '6021'] & 4 \\
+        5762 & \verb|[{"start": "2025-03-10 16:30", "end": "2025-03-10 18:00"}, ...]| & Univ.Prof. Jonas Bunte, Ph.D. & ['5117'] & 4 \\
+        \bottomrule
+    \end{tabular}
+}
+    \caption{Auszug des Pandas DataFrame der VVZ-Struktur}
+    \label{tab:placeholder}
+\end{sidewaystable}
+
+\clearpage
+
+
+\subsection{Studienstruktur und Herausforderungen bei der Stundenplanerstellung}
+
+\paragraph{TODO}
+
+\newpage

@@ -1,0 +1,68 @@
+\section{Einleitung}
+
+\subsection{Problemstellung}
+
+Das Student Scheduling Problem (SSP), also die Erstellung eines optimalen Semesterplans, ist eine zentrale Herausforderung für Studierende. Sie sehen sich im Hauptstudium mit einem umfangreichen Kursangebot konfrontiert, dessen Veranstaltungen sich in zahlreichen Terminkonstellationen überlappen können. Die Herausforderung besteht darin, aus diesem Pool an Lehrveranstaltungen eine zulässige und optimale Kombination zu wählen.
+
+Die Problemstellung ist komplex: Einerseits müssen Hard Constraints wie Überlappungsfreiheit und Erfüllung einer Mindestanzahl von ECTS pro Semester erfüllt sein. Andererseits gilt es, Präferenzen, die als Soft Constraints ausgedrückt werden, zu maximieren, die die Lebensrealität der Studierenden widerspiegeln. Dazu zählen etwa die Berücksichtigung von Arbeitstätigkeiten, die durch Blockieren oder Priorisieren von gewissen Stunden in der Woche ausgedrückt werden, sowie die Favorisierung von Kursen, die durch eine Priorität ausgedrückt wird.
+
+In dieser Arbeit wird das SSP für einene einzelnen Studierenden des Hauptstudiums Wirtschaftsinformatik (inklusive CBK) betrachet und als ein Constaint-Satisfaction Problem (CSP) formuliert. Ziel ist eine möglichst akkurate Implementierung der Algorithmen, die Feldman \& Golumbic im Paper "Optimization Algorithms for Student Scheduling via Constraint Satisfiability" \cite{feldmangolumbic} beschreiben, um diese im Anschluss zu vergleichen.
+
+
+\subsection{Zielsetzung der Arbeit}
+
+Die vorliegende Bachelorarbeit verfolgt das Ziel, die beschriebenen Optimierungsalgorithmen unter aktuellen Bedingungen und mit einem aktuellen Datensatz zu validieren und einen Leistungsvergleich anzustellen.
+
+\begin{enumerate}
+    \item Validierung: Zentral ist die exakte Nachprogrammierung der Algorithmen von Feldman \& Golumbic \cite{feldmangolumbic}. Es soll überprüft werden, ob diese Algorithmen auch unter modernen Rechenbedingungen und mit realen Daten aus dem Vorlesungsverzeichnis der Wirtschaftsuniversität Wien einen optimalen Semesterplan erstellen können.
+    \item Vergleichende Leistungsanalyse: Die implementierten Algorithmen werden hinsichtlicher der Qualität ("Score") der gefundenen Lösung, Geschwindigkeit und Speichernutzung verglichen.
+\end{enumerate}
+
+
+\subsubsection{Bestehende Lösungen}
+TODO: Vergleich mit ÖH LV-Planer notwendig?
+
+
+
+\subsection{Abgrenzung}
+Folgende Aspekte sind explizit vom Forschungsumfang ausgeschlossen:
+
+\begin{enumerate}
+    \item Das Problem wird ausschließlich als SSP für einen einzelnen Studierenden gelöst. Es wird keine Rücksicht auf andere Studierende, die maximale Kapazität von Räumen, die Verfügbarkeit von Professoren oder die allgemeine universitäre Ressourcenplanung genommen.
+    \item Die Planung beschränkt sich auf ein einzelnes Semester des Hauptstudium Wirtschaftsinformatik.
+    \item Die Entwicklung einer voll funktionsfähigen Applikation zur Dateneingabe, Speicherung von Planungen, oder komplexer Visualisierung wird ausgeschlossen. Das Ergebnis des Programms wird durch ein computerlesbares Format (JSON) ausgegeben.
+\end{enumerate}
+
+
+\subsection{Aufbau der Arbeit}
+
+Die vorliegende Arbeit gliedert sich in vier Hauptkapitel:
+
+Nach dieser Einleitung, welche Problemstellung, Zielsetzung und Abgrenzung erklärt, folgt das Kapitel Hintergrund und theoretische Grundlagen. Hier werden die Struktur des Studiums an der WU und die daraus resultierenden Herausforderungen bei der Stundenplanerstellung erläutert. Weiters werden die Grundlagen der Optimierung und Constraint-Satisfaction Probleme als theoretische Basis erklärt.
+
+Das zentrale Kapitel Implementierung beschreibt die notwendige Datenbeschaffung aus dem Vorlesungsverzeichnis. Anschließend wird die technische Implementierung der Algorithmen in Python detailliert erklärt.
+
+Das Kapitel Zusammenfassung und Arbeit zeigt die Ergebnisse der vergleichenden Analyse der implementierten Algorithmen hinsichtlich der Lösungsqualität, Geschwindigkeit und Speichernutzung. Die Ergebnisse der Analyse werden mit den Ergebnissen im Paper verglichen. Die Arbeit schließt mit dem Fazit und der Skizzierung möglicher Weiterentwicklungen und Anwendungsfälle.
+
+
+\newpage
+
+% \begin{verbatim}
+% Text enclosed inside \texttt{verbatim} environment 
+% is printed directly 
+% and all \LaTeX{} commands are ignored.
+% \end{verbatim}
+
+% \begin{lstlisting}
+% // Hello.java
+% import javax.swing.JApplet;
+% import java.awt.Graphics;
+
+% public class Hello extends JApplet {
+%     public void paintComponent(Graphics g) {
+%         g.drawString("Hello, world!", 65, 95);
+%     }    
+% }
+% \end{lstlisting}
+
+% \newpage

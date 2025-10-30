@@ -1,0 +1,83 @@
+\newcommand{\markChart}[2][]{%
+    % #1 = optional max difficulty
+    % #2 = CSV file path
+
+    % Load CSV
+    \pgfplotstableread[col sep=comma]{#2}\loadedData
+
+    % Store the max difficulty in a new macro
+    \ifx\relax#1\relax
+        \def\maxDifficulty{0}% Use 0 or some other indicator for no max
+        \def\hasMax{0}%
+    \else
+        \edef\maxDifficulty{#1}% <--- *** Crucial change: Store #1's content ***
+        \def\hasMax{1}%
+    \fi
+
+    \ifnum\hasMax=1
+        % If max is set, \currentXmax is the number
+        \edef\currentXmax{\maxDifficulty}
+    \else
+        % If no max is set, \currentXmax is the pgfplots 'no value' token
+        \let\currentXmax\pgfkeysnovalue
+    \fi
+
+    \begin{tikzpicture}
+        \begin{axis}[
+                title={\textit{Mark} relativ zu ILP Baseline},
+                xlabel={Difficulty},
+                ylabel={\textit{Mark} relativ zu ILP Baseline},
+                xmin=0,
+                ymax=1.1,
+                grid=major,
+                width=0.95\textwidth,
+                height=7cm,
+                legend style={at={(0.5,-0.2)}, anchor=north, legend columns=-1},
+                table/x=difficulty,
+                % Set xmax using the new macro
+                xmax=\currentXmax,            ]
+
+            % --- Hill Climbing v1 relative to ILP ---
+            \addplot[
+                mark=*,
+                line width=1pt,
+                color=red,
+                smooth,
+                % x filter using the new macro
+                /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
+            ] table [
+                    x=difficulty,
+                    y expr=(\thisrow{Hill Climbing v1} / \thisrow{ILP})
+                ] {\loadedData};
+            \addlegendentry{Hill Climbing v1}
+
+            % --- Hill Climbing v3 relative to ILP ---
+            \addplot[
+                mark=square*,
+                line width=1pt,
+                color=green!60!black,
+                smooth,
+                /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
+            ] table [
+                    x=difficulty,
+                    y expr=(\thisrow{Hill Climbing v3} / \thisrow{ILP})
+                ] {\loadedData};
+            \addlegendentry{Hill Climbing v3}
+
+            % --- Offering Order relative to ILP ---
+            \addplot[
+                mark=triangle*,
+                line width=1pt,
+                color=orange,
+                dashed,
+                smooth,
+                /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
+            ] table [
+                    x=difficulty,
+                    y expr=(\thisrow{Offering Order} / \thisrow{ILP})
+                ] {\loadedData};
+            \addlegendentry{Offering Order}
+
+        \end{axis}
+    \end{tikzpicture}
+}
