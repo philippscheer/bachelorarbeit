@@ -1,0 +1,21 @@
+{
+    "title": "Evening Avoider",
+    "description": "Student avoids late classes due to work or family obligations.",
+    "FIXED_TIME_CONSTRAINTS": {
+        "17": -100,
+        "18": -100,
+        "19": -100,
+        "20": -100
+    },
+    "COURSE_PRIORITY_CONSTRAINTS": {
+        "4010": 20
+    },
+    "HOUR_LOAD_CONSTRAINT": [
+        25,
+        40
+    ],
+    "COURSE_COUNT_CONSTRAINT": [
+        4,
+        10
+    ]
+}

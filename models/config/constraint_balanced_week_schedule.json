@@ -1,0 +1,21 @@
+{
+    "title": "Balanced Week Schedule",
+    "description": "Student prefers balanced days and avoids having more than 3 consecutive hours of class.",
+    "FIXED_TIME_CONSTRAINTS": {
+        "11": -50,
+        "12": -50,
+        "13": -50
+    },
+    "COURSE_PRIORITY_CONSTRAINTS": {
+        "4130": 25,
+        "4131": 25
+    },
+    "HOUR_LOAD_CONSTRAINT": [
+        25,
+        40
+    ],
+    "COURSE_COUNT_CONSTRAINT": [
+        5,
+        10
+    ]
+}
