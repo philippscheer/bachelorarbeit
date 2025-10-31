@@ -72,7 +72,7 @@ if __name__ == "__main__":
             cfg_name = cfg_path.stem  # e.g. constraint1
 
             cfg = load_constraints_from_file(cfg_path)
-            offerings = preprocess(offerings)
+            offerings = preprocess(all_offerings)
 
             if args.cc:
                 C.COURSE_COUNT_CONSTRAINT = (args.cc, args.cc)
