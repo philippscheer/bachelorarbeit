@@ -24,6 +24,5 @@ def load_constraints_from_file(path: Path):
     C.COURSE_MUST_NOT_SCHEDULE = [
         int(cid) for cid, priority in C.COURSE_PRIORITY_CONSTRAINTS.items() if priority == -100
     ]
-    C.HOURS_FLEXIBLE = {hour: priority for hour, priority in C.FIXED_TIME_CONSTRAINTS.items() if abs(priority) < 100}
 
     return cfg

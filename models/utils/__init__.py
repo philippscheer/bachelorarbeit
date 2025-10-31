@@ -82,7 +82,11 @@ def times_overlap(start1: datetime, end1: datetime, start2: int, end2: int):
 
 def violates_fixed_time(start: datetime, end: datetime):
     for dayHourCombo in C.FIXED_TIME_CONSTRAINTS:
-        if is_on_day(start, dayHourCombo[0]) and times_overlap(start, end, dayHourCombo[1], dayHourCombo[2]):
+        if (
+            abs(dayHourCombo[3]) == C.P
+            and is_on_day(start, dayHourCombo[0])
+            and times_overlap(start, end, dayHourCombo[1], dayHourCombo[2])
+        ):
             return True
     return False
 
@@ -171,7 +175,7 @@ def get_offering_mark(offering: Offering):
     mark = 0
     mark += C.COURSE_PRIORITY_CONSTRAINTS.get(offering.courseId, 0)
     for date in offering.dates:
-        for hour, mark_change in C.HOURS_FLEXIBLE.items():
+        for hour, mark_change in [c for c in C.FIXED_TIME_CONSTRAINTS if abs(c[3]) != C.P]:
             if times_overlap(date["start"], date["end"], hour, hour + 1):
                 mark += mark_change
     return mark
