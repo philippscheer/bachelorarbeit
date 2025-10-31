@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rm -rf .venv/src/bachelorarbeit/* ; source .venv/bin/activate ; pip install -r requirements.txt
