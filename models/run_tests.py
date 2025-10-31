@@ -103,6 +103,8 @@ if __name__ == "__main__":
 
             cfg_title = cfg.get("title", cfg_name)
 
+            logger.info(f'running benchmark "{cfg_title}"')
+
             pbar.set_postfix_str(f"Benchmarking {cfg_title}")
 
             test_results = {"ilp": [], "offering_order": [], "hill_climbing_v1": [], "hill_climbing_v3": []}
