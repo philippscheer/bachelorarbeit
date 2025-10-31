@@ -1,0 +1,19 @@
+{
+    "title": "Compact Schedule Lover",
+    "description": "Student prefers tightly packed classes with minimal breaks.",
+    "FIXED_TIME_CONSTRAINTS": {
+        "11": -25,
+        "14": -25
+    },
+    "COURSE_PRIORITY_CONSTRAINTS": {
+        "4060": 25
+    },
+    "HOUR_LOAD_CONSTRAINT": [
+        25,
+        40
+    ],
+    "COURSE_COUNT_CONSTRAINT": [
+        4,
+        10
+    ]
+}

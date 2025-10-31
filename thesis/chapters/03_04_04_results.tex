@@ -5,7 +5,16 @@
 
 \paragraph{Szenario 1: Freie Kurswahl}
 
-Das ist ein Test
+Der Algorithmus kann aus allen Kursen des Hauptstudiums wählen. Keine Constraints hinsichtlich Kursanzahl, Wochenstunden oder Priorität wurden gesetzt.
+
+\begin{verbatim}
+    {
+        "FIXED_TIME_CONSTRAINTS": null,
+        "COURSE_PRIORITY_CONSTRAINTS": null,
+        "HOUR_LOAD_CONSTRAINT": null,
+        "COURSE_COUNT_CONSTRAINT": null
+    }
+\end{verbatim}
 
 
 \vspace{1cm}
@@ -19,9 +28,25 @@ Das ist ein Test
 
 
 
-\paragraph{Szenario 2: 1 Kurs gesetzt}
 
-Das ist ein Test
+
+\paragraph{Szenario 2: 3 Kurse gesetzt}
+
+Der Studierende muss eine bestimmte Anzahl von Kursen wiederholen. Diese sind mit einer Priorität von 100 markiert und verletzen keine Hard Constraints. Abgesehen davon wurden keine Constraints gesetzt.
+
+\begin{verbatim}
+    {
+        "FIXED_TIME_CONSTRAINTS": null,
+        "COURSE_PRIORITY_CONSTRAINTS": {
+            "5576": 100, # ADP
+            "5033": 100, # Makro
+            "4010": 100, # Statistik
+        },
+        "HOUR_LOAD_CONSTRAINT": null,
+        "COURSE_COUNT_CONSTRAINT": null
+    }
+\end{verbatim}
+
 
 
 \vspace{1cm}
@@ -32,3 +57,28 @@ Das ist ein Test
 \memoryChart[12]{data/memory_diff__constraint_must_schedule_1.csv}
 \vspace{1cm}
 \newpage
+
+
+
+
+
+\paragraph{Szenario 3: 20\% der Kurse blockiert}
+
+60 Kurse sind blockiert (entspricht 20\% der Kurse). Diese sind mit einer Priorität von -100 markiert. Abgesehen davon wurden keine Constraints gesetzt.
+
+\begin{verbatim}
+    {
+        "FIXED_TIME_CONSTRAINTS": null,
+        "COURSE_PRIORITY_CONSTRAINTS": {
+            "6480": -100,
+            "6353": -100,
+            "6275": -100,
+            ...
+            "5722": -100,
+            "6345": -100,
+            "6232": -100
+        },
+        "HOUR_LOAD_CONSTRAINT": null,
+        "COURSE_COUNT_CONSTRAINT": null
+    }
+\end{verbatim}

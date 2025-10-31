@@ -1,0 +1,27 @@
+{
+    "title": "Four-Day Week Preference",
+    "description": "Student prefers to keep Fridays free for personal or work reasons.",
+    "FIXED_TIME_CONSTRAINTS": {
+        "7": -100,
+        "8": -100,
+        "9": -100,
+        "10": -100,
+        "11": -100,
+        "12": -100,
+        "13": -100,
+        "14": -100,
+        "15": -100,
+        "16": -100
+    },
+    "COURSE_PRIORITY_CONSTRAINTS": {
+        "4070": 50
+    },
+    "HOUR_LOAD_CONSTRAINT": [
+        25,
+        40
+    ],
+    "COURSE_COUNT_CONSTRAINT": [
+        4,
+        10
+    ]
+}

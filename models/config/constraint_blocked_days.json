@@ -1,0 +1,14 @@
+{
+  "title": "Days and hours blocked",
+
+  "FIXED_TIME_CONSTRAINTS": [
+    ["monday", 1, 23],
+    ["tuesday", 1, 23],
+    ["wednesday", 19, 23],
+    ["thursday", 19, 23],
+    ["friday", 19, 23]
+  ],
+  "COURSE_PRIORITY_CONSTRAINTS": {},
+  "HOUR_LOAD_CONSTRAINT": [0, 999],
+  "COURSE_COUNT_CONSTRAINT": null
+}

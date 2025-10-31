@@ -1,0 +1,17 @@
+{
+    "title": "Heavy Course Load",
+    "description": "Student wants a dense schedule to graduate faster.",
+    "FIXED_TIME_CONSTRAINTS": {},
+    "COURSE_PRIORITY_CONSTRAINTS": {
+        "4020": 50,
+        "4021": 25
+    },
+    "HOUR_LOAD_CONSTRAINT": [
+        35,
+        60
+    ],
+    "COURSE_COUNT_CONSTRAINT": [
+        8,
+        15
+    ]
+}

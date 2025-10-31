@@ -1,0 +1,12 @@
+{
+  "title": "Must schedule 3 courses",
+
+  "FIXED_TIME_CONSTRAINTS": [],
+  "COURSE_PRIORITY_CONSTRAINTS": {
+    "5576": 100,
+    "5033": 100,
+    "4010": 100
+  },
+  "HOUR_LOAD_CONSTRAINT": [0, 999],
+  "COURSE_COUNT_CONSTRAINT": null
+}

@@ -1,5 +1,5 @@
 from loguru import logger
-from typing import TypeVar
+from typing import TypeVar, Literal
 from itertools import combinations
 from collections import defaultdict
 from datetime import datetime, time
@@ -81,10 +81,16 @@ def times_overlap(start1: datetime, end1: datetime, start2: int, end2: int):
 
 
 def violates_fixed_time(start: datetime, end: datetime):
-    for hour in C.HOURS_MUST_NOT_SCHEDULE:
-        if times_overlap(start, end, hour, hour + 1):
+    for dayHourCombo in C.FIXED_TIME_CONSTRAINTS:
+        if is_on_day(start, dayHourCombo[0]) and times_overlap(start, end, dayHourCombo[1], dayHourCombo[2]):
             return True
     return False
+
+
+def is_on_day(
+    dt: datetime, day: Literal["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+) -> bool:
+    return dt.strftime("%A").lower() == day.lower()
 
 
 @lru_cache(maxsize=500)

@@ -1,0 +1,24 @@
+{
+    "title": "Overloaded and Relaxed Variant",
+    "description": "Initially infeasible constraints; algorithm must relax low-priority time blocks to find a near-optimal solution.",
+    "FIXED_TIME_CONSTRAINTS": {
+        "8": -100,
+        "9": -100,
+        "10": -100,
+        "17": -100,
+        "18": -100
+    },
+    "COURSE_PRIORITY_CONSTRAINTS": {
+        "4140": 100,
+        "4141": 75,
+        "4142": -25
+    },
+    "HOUR_LOAD_CONSTRAINT": [
+        30,
+        50
+    ],
+    "COURSE_COUNT_CONSTRAINT": [
+        10,
+        15
+    ]
+}

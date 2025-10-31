@@ -1,16 +1,22 @@
-FIXED_TIME_CONSTRAINTS = {
-    7: -100,  # fully block hour 7:00-8:00
-    8: -100,  # fully block hour 8:00-9:00
-    # 9: -100,  # fully block hour 9:00-10:00
-    # 10: -100,  # fully block hour 9:00-10:00
-    # 11: -100,  # fully block hour 9:00-10:00
-    9: 50,
-    10: 75,
-    11: 75,
-    18: -50,
-    19: -50,
-    20: -75,
-}
+from typing import Literal
+
+
+FIXED_TIME_CONSTRAINTS: list[
+    tuple[Literal["monday", "tuesday", "wednesday", "thursday", "saturday", "sunday"], int, int]
+] = [
+    ["monday", 7, 10]
+    # 7: -100,  # fully block hour 7:00-8:00
+    # 8: -100,  # fully block hour 8:00-9:00
+    # # 9: -100,  # fully block hour 9:00-10:00
+    # # 10: -100,  # fully block hour 9:00-10:00
+    # # 11: -100,  # fully block hour 9:00-10:00
+    # 9: 50,
+    # 10: 75,
+    # 11: 75,
+    # 18: -50,
+    # 19: -50,
+    # 20: -75,
+]
 
 NON_FIXED_TIME_CONSTRAINTS = [
     # {
@@ -28,7 +34,6 @@ HOUR_LOAD_CONSTRAINT = (0, 45)
 COURSE_COUNT_CONSTRAINT = (2, 13)
 
 
-HOURS_MUST_NOT_SCHEDULE = [hour for hour, priority in FIXED_TIME_CONSTRAINTS.items() if priority == -100]
 COURSE_MUST_NOT_SCHEDULE = [
     int(courseId) for courseId, priority in COURSE_PRIORITY_CONSTRAINTS.items() if priority == -100
 ]

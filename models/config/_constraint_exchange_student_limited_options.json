@@ -1,0 +1,19 @@
+{
+    "title": "Exchange Student (Limited Options)",
+    "description": "Exchange student can only take a few specific courses, all others are blocked.",
+    "FIXED_TIME_CONSTRAINTS": {},
+    "COURSE_PRIORITY_CONSTRAINTS": {
+        "4120": 100,
+        "4121": 100,
+        "4122": -100,
+        "4123": -100
+    },
+    "HOUR_LOAD_CONSTRAINT": [
+        10,
+        20
+    ],
+    "COURSE_COUNT_CONSTRAINT": [
+        2,
+        4
+    ]
+}
