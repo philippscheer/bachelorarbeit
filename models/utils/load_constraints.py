@@ -6,7 +6,7 @@ import bachelorarbeit.constraints as C
 
 
 def load_constraints_from_file(path: Path):
-    logger.debug(f"load constraints from {path}")
+    logger.info(f"load constraints from {path}")
 
     with open(path, "r") as f:
         cfg = json.load(f)

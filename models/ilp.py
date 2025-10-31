@@ -25,8 +25,9 @@ def solve_ilp(offerings: list[Offering]) -> list[Offering]:
     for must_schedule_course_id in C.COURSE_MUST_SCHEDULE:
         model += y[must_schedule_course_id] == 1
 
-    for must_schedule_course_id in C.COURSE_MUST_NOT_SCHEDULE:
-        model += y[must_schedule_course_id] == 0
+    # must not schedules should be excluded from preprocessing
+    # for must_schedule_course_id in C.COURSE_MUST_NOT_SCHEDULE:
+    #     model += y[must_schedule_course_id] == 0
 
     # maximizing total mark
     model += pulp.lpSum(get_offering_mark(c) * y[c.courseId] for c in offerings)
