@@ -40,9 +40,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     with open(RAW_DATA_DIR / "offerings.pkl", "rb") as f:
-        offerings: list[Offering] = pickle.load(f)
-
-    offerings = preprocess(offerings)
+        all_offerings: list[Offering] = pickle.load(f)
 
     logger.remove()
     logger.add(sys.stderr, level="INFO")
@@ -74,6 +72,7 @@ if __name__ == "__main__":
             cfg_name = cfg_path.stem  # e.g. constraint1
 
             cfg = load_constraints_from_file(cfg_path)
+            offerings = preprocess(offerings)
 
             if args.cc:
                 C.COURSE_COUNT_CONSTRAINT = (args.cc, args.cc)
