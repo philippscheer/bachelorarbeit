@@ -3,3 +3,5 @@
 *.lof
 *.lot
 *.synctex.gz
+*.bbl
+*.blg

@@ -1,6 +1,6 @@
 \subsection{Implementierung des ILP Baseline Ansatzes}
 
-Feldman \& Golumbic \cite{feldmangolumbic} vergleichen in Ihrem Paper die Outputs der Algorithmen "Hill Climbing" und "Offering Order" mit dem optimalen Stundenplan, der mittels Brute-Force ermittelt wurde. Da ein Brute-Force Algorithmus bei der großen Anzahl der Vorlesungen im VVZ der WU eine zu lange Laufzeit hätte, wurde eine Integer Linear Programming (ILP) Lösung als Benchmark gewählt, die ebenfalls unter Berücksichtigung aller Nebenbedingungen den optimalen Stundenplan erzeugt.
+Feldman und Golumbic vergleichen in Ihrem Paper \cite{feldmangolumbic} die Outputs der Algorithmen "Hill Climbing" und "Offering Order" mit dem optimalen Stundenplan, der mittels Brute-Force ermittelt wurde. Da ein Brute-Force Algorithmus bei der großen Anzahl der Vorlesungen im VVZ der WU eine zu lange Laufzeit hätte, wurde eine Integer Linear Programming (ILP) Lösung als Benchmark gewählt, die ebenfalls unter Berücksichtigung aller Nebenbedingungen den optimalen Stundenplan erzeugt.
 
 Die Implementierung des ILP-Modells basiert auf der \texttt{PuLP}-Bibliothek in Python und dient der Maximierung des Gesamtnutzens (Mark) eines Stundenplans. Im Folgenden wird das mathematische Modell des ILP präsentiert.
 

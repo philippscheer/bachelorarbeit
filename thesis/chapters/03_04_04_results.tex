@@ -82,3 +82,57 @@ Der Studierende muss eine bestimmte Anzahl von Kursen wiederholen. Diese sind mi
         "COURSE_COUNT_CONSTRAINT": null
     }
 \end{verbatim}
+
+
+
+\vspace{1cm}
+\markChart[14]{data/score_diff__constraint_must_not_schedule_20_pct.csv}
+\vspace{1cm}
+\timingChart[12]{data/timing_diff__constraint_must_not_schedule_20_pct.csv}
+\vspace{1cm}
+\memoryChart[12]{data/memory_diff__constraint_must_not_schedule_20_pct.csv}
+\vspace{1cm}
+\newpage
+
+
+
+
+
+\paragraph{Szenario 4: Tage blockiert}
+
+Montage und Dienstage sind blockiert. Der Student möchte Vormittags und Samstags lernen.
+
+
+\begin{verbatim}
+    {
+        "FIXED_TIME_CONSTRAINTS": [
+            ["monday", 1, 23],
+            ["tuesday", 1, 23],
+            ["wednesday", 19, 23],
+            ["thursday", 19, 23],
+            ["friday", 19, 23]
+        ],
+        "COURSE_PRIORITY_CONSTRAINTS": null,
+        "HOUR_LOAD_CONSTRAINT": null,
+        "COURSE_COUNT_CONSTRAINT": null
+    }
+\end{verbatim}
+
+
+
+\vspace{1cm}
+\markChart[14]{data/score_diff__constraint_blocked_days.csv}
+\vspace{1cm}
+\timingChart[12]{data/timing_diff__constraint_blocked_days.csv}
+\vspace{1cm}
+\memoryChart[12]{data/memory_diff__constraint_blocked_days.csv}
+\vspace{1cm}
+\newpage
+
+
+
+
+Todo: Szenario 3 und 4 Score Chart nicht korrekt. Weitere Szenarien (10-15 gesamt), Diskussion mit Ergebnissen aus dem Paper \cite{feldmangolumbic}
+
+
+\newpage

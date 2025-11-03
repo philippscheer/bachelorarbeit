@@ -2,7 +2,7 @@
 
 \subsubsection{Versuchsaufbau}
 
-Das Paper von Feldman \& Golumbic \cite{feldmangolumbic} wählte einen Brute-Force-Algorithmus als Baseline für Performance-Vergleiche. 
+Das Paper von Feldman und Golumbic \cite{feldmangolumbic} wählte einen Brute-Force-Algorithmus als Baseline für Performance-Vergleiche.
 Da ein Brute-Force Algorithmus bei der großen Anzahl der Vorlesungen im VVZ der WU eine zu lange Laufzeit hätte, wurde eine Integer Linear Programming (ILP) Lösung als neue Baseline gewählt. Diese gewährleistet, ebenso wie der Brute-Force-Ansatz für kleine Instanzen, die Ermittlung des optimalen Stundenplans (mit der höchsten \textit{Mark}). Die Ergebnisse der heuristischen Algorithmen (Hill Climbing, Offering Order) werden folglich relativ zur optimalen Lösung des ILP-Ansatzes bewertet.
 
 Die folgenden Algorithmen wurden im Rahmen dieser Arbeit verglichen:
@@ -25,15 +25,15 @@ Die Algorithmen wurden anhand der folgenden Leistungskennzahlen evaluiert:
 
 \subsubsection{Berechnung der Mark}
 
-Die \textit{Mark} dient als Bewertungsfunktion für die Qualität eines erstellten Stundenplans und entspricht der im Paper von Feldman \& Golumbic \cite{feldmangolumbic} definierten Zielfunktion. Sie quantifiziert, wie gut ein Stundenplan die Präferenzen und Constraints der Studierenden erfüllt. Die Berechnung erfolgt ausschließlich für \textit{gültige} Stundenpläne, d.\,h. solche, die keine restriktiven Constraints (\(|p| = P\)) verletzen.
+Die \textit{Mark} dient als Bewertungsfunktion für die Qualität eines erstellten Stundenplans und entspricht der im Paper von Feldman und Golumbic \cite{feldmangolumbic} definierten Zielfunktion. Sie quantifiziert, wie gut ein Stundenplan die Präferenzen und Constraints der Studierenden erfüllt. Die Berechnung erfolgt ausschließlich für \textit{gültige} Stundenpläne, d.\,h. solche, die keine restriktiven Constraints (\(|p| = P\)) verletzen.
 
 Jede Präferenz oder Restriktion ist im Modell durch eine \textit{Priorität} \(p\) im Wertebereich \([-P, P]\) definiert. Positive Prioritäten kennzeichnen wünschenswerte Eigenschaften (z.\,B. bevorzugte Lehrveranstaltungen oder Zeitfenster), negative Prioritäten hingegen unerwünschte. Die Stärke des Präferenzwerts ist proportional zum Absolutwert der Priorität.
 
 Die \textit{Mark} eines gültigen Stundenplans \(S\) ergibt sich aus der Summe der positiven Beiträge durch gewählte Kurse und den Abzügen für Verletzungen sogenannter \textit{fixed} und \textit{non-fixed} Constraints:
 
 \begin{equation}
-    Mark(S) = 
-    \underbrace{\sum_{c \in C_S} q_c}_{\text{Kursprioritäten}} 
+    Mark(S) =
+    \underbrace{\sum_{c \in C_S} q_c}_{\text{Kursprioritäten}}
     - \underbrace{\sum_{h \in H_{\text{violated}}^{(f)}} |p_h^{(f)}|}_{\text{Strafen für fixed-Constraints}}
     - \underbrace{\sum_{t \in T_{\text{violated}}^{(n)}} v_t \cdot |p_t^{(n)}|}_{\text{Strafen für non-fixed-Constraints}},
     \label{eq:mark}
@@ -46,10 +46,10 @@ wobei gilt:
     \item \(q_c\): Priorität des Kurses \(c\).
     \item \(H_{\text{violated}}^{(f)}\): Menge aller Stunden, in denen ein \textit{fixed}-Constraint verletzt wurde.
     \item \(p_h^{(f)}\): Priorität der Stunde \(h\). Eine Verletzung liegt vor, wenn
-    \begin{itemize}
-        \item \(p_h^{(f)} < 0\) und die Stunde aktiv ist (der Studierende hat in einer ungewünschten Stunde Unterricht), oder
-        \item \(p_h^{(f)} > 0\) und die Stunde inaktiv ist (der Studierende hat in einer gewünschten Stunde keinen Unterricht).
-    \end{itemize}
+          \begin{itemize}
+              \item \(p_h^{(f)} < 0\) und die Stunde aktiv ist (der Studierende hat in einer ungewünschten Stunde Unterricht), oder
+              \item \(p_h^{(f)} > 0\) und die Stunde inaktiv ist (der Studierende hat in einer gewünschten Stunde keinen Unterricht).
+          \end{itemize}
     \item \(T_{\text{violated}}^{(n)}\): Menge der verletzten \textit{non-fixed}-Constraints.
     \item \(p_t^{(n)}\): Priorität des Constraints \(t\).
     \item \(v_t\): Anzahl der verletzten Stunden (bzw. des Zeitumfangs), der durch Constraint \(t\) betroffen ist.
@@ -76,19 +76,19 @@ Für jeden Algorithmus ($A \in \{\text{ILP, Offering Order, Hill Climbing V1, Hi
     \item Jeder Algorithmus wurde für eine feste Kursanzahl $N$ 50 Mal unabhängig voneinander ausgeführt.
     \item Die 50 Messungen pro Algorithmus und Schwierigkeitsgrad wurden sequenziell durchgeführt, um sicherzustellen, dass die Messergebnisse für die Laufzeit und den Speicherbedarf unabhängig sind.
     \item Es wurden folgende Metriken für jede der 50 Ausführungen erfasst:
-    \begin{itemize}
-        \item Laufzeit ($\mathit{t}$): Die zur Lösungsfindung benötigte Zeit (in Sekunden).
-        \item Hauptspeicher ($\mathit{M}$): Der während der Ausführung belegte Hauptspeicher (in Megabyte).
-        \item Qualität ($\mathit{Mark}$)
-    \end{itemize}
+          \begin{itemize}
+              \item Laufzeit ($\mathit{t}$): Die zur Lösungsfindung benötigte Zeit (in Sekunden).
+              \item Hauptspeicher ($\mathit{M}$): Der während der Ausführung belegte Hauptspeicher (in Megabyte).
+              \item Qualität ($\mathit{Mark}$)
+          \end{itemize}
     \item Für die 50 Messwerte der Laufzeit und des Hauptspeichers wurden folgende statistische Kennzahlen berechnet:
-    \begin{itemize}
-        \item Median ($t_{\text{median}}, M_{\text{median}}$)
-        \item Mittelwert ($t_{\text{mean}}, M_{\text{mean}}$)
-        \item Minimalwert ($t_{\text{min}}, M_{\text{min}}$)
-        \item Maximalwert ($t_{\text{max}}, M_{\text{max}}$)
-        \item Standardabweichung ($t_{\text{stdev}}, M_{\text{stdev}}$)
-    \end{itemize}
+          \begin{itemize}
+              \item Median ($t_{\text{median}}, M_{\text{median}}$)
+              \item Mittelwert ($t_{\text{mean}}, M_{\text{mean}}$)
+              \item Minimalwert ($t_{\text{min}}, M_{\text{min}}$)
+              \item Maximalwert ($t_{\text{max}}, M_{\text{max}}$)
+              \item Standardabweichung ($t_{\text{stdev}}, M_{\text{stdev}}$)
+          \end{itemize}
 \end{enumerate}
 
 % \paragraph{Abgrenzung der Messung}
@@ -102,3 +102,5 @@ Um die Algorithmen vergleichbar zu halten, wurde der gemessene Zeit- und Speiche
 \input{chapters/03_04_04_results}
 
 \subsubsection{Diskussion}
+
+Todo: Diskussion, Fazit, Potenzielle Weiterentwicklung und Anwendungsfälle
