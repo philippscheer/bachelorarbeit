@@ -19,6 +19,7 @@ from utils import get_schedule_mark, is_valid_schedule, preprocess
 from hill_climbing_v1 import build_schedule as test_hill_climbing_v1
 from hill_climbing_v3 import build_schedule as test_hill_climbing_v3
 from ilp import solve_ilp as test_ilp
+from ilp_gpu import solve_ilp as test_ilp_gpu
 from offering_order import solve_offering_order as test_offering_order
 
 from utils.profile import ProfileResult, profile
@@ -29,6 +30,7 @@ from utils.load_constraints import load_constraints_from_file
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run scheduling algorithm tests.")
     parser.add_argument("--no-ilp", action="store_true", help="Disable ILP test")
+    parser.add_argument("--no-ilp-gpu", action="store_true", help="Disable ILP GPU test")
     parser.add_argument("--no-hc", action="store_true", help="Disable Hill Climbing tests (v1 and v3)")
     parser.add_argument("--no-offorder", action="store_true", help="Disable Offering Order test")
     parser.add_argument(
@@ -48,12 +50,15 @@ if __name__ == "__main__":
 
     tests = {
         "ilp": test_ilp,
+        "ilp_gpu": test_ilp_gpu,
         "offering_order": test_offering_order,
         "hill_climbing_v1": test_hill_climbing_v1,
         "hill_climbing_v3": test_hill_climbing_v3,
     }
 
     if args.no_ilp:
+        tests.pop("ilp", None)
+    if args.no_ilp_gpu:
         tests.pop("ilp", None)
     if args.no_offorder:
         tests.pop("offering_order", None)
