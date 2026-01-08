@@ -1,0 +1,22 @@
+\subsection{Struktur des Datensatzes}
+
+Der Datensatz des Vorlesungsverzeichnisses der Wirtschaftsuniversität Wien für das Sommersemester 2025 bildet die Grundlage für die vorliegende Arbeit. Die Daten wurden automatisiert unter Verwendung des beschriebenen Prozesses \ref{alg:datenextraktion} extrahiert.
+
+Die Modellierung des Studiums an der WU basiert auf zwei zentralen Entitäten, die für das Verständnis der Optimierungsalgorithmen wichtig sind:
+
+\begin{itemize}
+    \item \textbf{Course (Planpunkt):} Ein \textit{Course} repräsentiert ein zu absolvierendes Modul, das mit einer festen ECTS-Anzahl assoziiert ist. Die Nebenbedingung \ref{eq:conflict_planpunkt}  sorgt dafür, dass aus den verfügbaren Lehrveranstaltungen eines Planpunkts genau eines ausgeählt wird, um das Modul abzuschließen.
+    \item \textbf{Offering (Lehrveranstaltung): } Ein \textit{Offering} ist eine Lehrveranstaltung, die einem Planpunkt angehört. Jedes Offering besitzt eine eindeutige ID (von $1 - 9999$) und ist mit konkreten Termin- und Zeitangaben hinterlegt, die für die Prüfung von zeitlichen Konflikten verwendet wird.
+\end{itemize}
+
+
+
+Der extrahierte Datensaz umfasst für jedes \textit{Offering} die folgenden relevanten Attribute:
+
+% todo table:
+% Attribut,Beschreibung
+% Offering ID,Eindeutige Kennung der Lehrveranstaltung.
+% Planpunkt ID,Zugehöriges Modul und Grundlage für die Auswahl-Constraints.
+% ECTS-Wert,Zugehörige Credit-Points (vom Planpunkt übernommen).
+% Start/End-Zeit,Datum und Uhrzeit des Beginns und Endes des Termins.
+% Wochentag,Wochentag der Durchführung.

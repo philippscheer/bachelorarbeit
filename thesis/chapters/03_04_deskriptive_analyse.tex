@@ -1,0 +1,123 @@
+\subsection{Deskriptive Analyse}
+
+Um die Komplexität des Datensatzes und des Optimierungsproblems zu quantifizieren, wurde eine deskriptive Analyse durchgeführt.
+
+Der vollständige Datensatz besteht aus insgesamt 381 \textit{Offerings} ($|\mathcal{O}|$) und 28 Planpunkten, woraus sich eine durchschnittliche Anzahl von 13.6 \textit{Offerings} pro Planpunkt ergibt.
+
+% Feldman und Golumbic erzeugten für ihre Experimente zufällige Ausgangsdaten mit 10-20 Planpunkten, die durchschnittlich 2.5 \textit{Offerings} pro Planpunkt hatten \cite{feldmangolumbic}.
+
+
+Ein wesentlicher Faktor für die Schwierigkeit der Stundenplanerstellung ist die zeitliche Dichte der angebotenen Kurse. Tabelle \ref{descriptive_analysis_offering_weekday} zeigt die Verteilung der Lehrveranstaltungen über die Wochentage.
+
+
+\begin{table}[h]
+    \begin{tabular}{l|r}
+        \hline
+        \textbf{Wochentag} & \textbf{Anteil (\%)} \\ \hline
+        Montag             & 21.1\%               \\
+        Dienstag           & 25.4\%               \\
+        Mittwoche          & 21.8\%               \\
+        Donnerstag         & 19.7\%               \\
+        Freitag            & 11.3\%               \\
+        Samstag            & 0.7\%                \\
+        Sonntag            & 0\%                  \\ \hline
+        \textbf{Total}     & \textbf{100.0\%}     \\ \hline
+    \end{tabular}
+    \caption{Prozentuale Verteilung der Kurse auf Wochentage}
+    \label{descriptive_analysis_offering_weekday}
+\end{table}
+
+Wie aus den Daten ersichtlich wird, konzentriert sich der Großteil des Lehrangebots (ca. 88 \%) auf die Kernzeit von Montag bis Donnerstag, während der Freitag mit 11.3 \% bereits deutlich seltener belegt ist. Samstage spielen im regulären Lehrbetrieb nahezu keine Rolle. Diese ungleiche Verteilung verschärft die Problematik zeitlicher Überschneidungen ($\mathcal{F}_{Zeit}$) an Tagen mit besonders vielen Kursen.
+
+
+
+\newpage
+
+
+
+Zusätzlich zur Verteilung auf die Tage ist die zeitliche Platzierung innerhalb eines Tages entscheidend für die Modellierung von Präferenzen. Tabelle \ref{descriptive_analysis_start_hour_of_offerings} schlüsselt die Startzeiten der einzelnen Kurseinheiten auf.
+
+\begin{table}[h]
+    \begin{tabular}{l|r}
+        \hline
+        \textbf{Stunde} & \textbf{Anteil (\%)} \\ \hline
+        7:00            & 0.6\%                \\
+        8:00            & 16.9\%               \\
+        9:00            & 8.3\%                \\
+        10:00           & 10.1\%               \\
+        11:00           & 6.1\%                \\
+        12:00           & 8.0\%                \\
+        13:00           & 11.4\%               \\
+        14:00           & 8.1\%                \\
+        15:00           & 5.9\%                \\
+        16:00           & 10.3\%               \\
+        17:00           & 5.6\%                \\
+        18:00           & 8.8\%                \\
+        19:00           & 0.0\%                \\ \hline
+    \end{tabular}
+    \caption{Prozentuale Verteilung der Start-Uhrzeit der Kurse}
+    \label{descriptive_analysis_start_hour_of_offerings}
+\end{table}
+
+Die Analyse der Startzeiten verdeutlicht, dass die WU Wien ein sehr breites Zeitfenster nutzt. Ein signifikanter Anteil der Kurse beginnt bereits um 08:00 Uhr (16,9 \%), was für Studierende mit Präferenzen für einen späteren Vorlesungsbeginn (vgl. Szenario \ref{scenario_free_day}) eine hohe Anzahl an potenziell zu vermeidenden Einheiten bedeutet.
+
+
+
+\newpage
+
+
+
+Neben dem Beginn der Einheiten variiert auch die Dauer der einzelnen Termine, was die Berechnung von Überschneidungsfreiheiten komplexer gestaltet als bei starren Zeitslots. Tabelle \ref{descriptive_analysis_offering_duration} stellt die Dauer der Einheiten dar.
+
+
+\begin{table}[h]
+    \begin{tabular}{l|r}
+        \hline
+        \textbf{Stunden} & \textbf{Anteil (\%)} \\ \hline
+        1                & 0.7\%                \\
+        2                & 27.1\%               \\
+        3                & 41.9\%               \\
+        4                & 27.2\%               \\
+        5                & 1.8\%                \\
+        6                & 0.8\%                \\
+        7                & 0.1\%                \\
+        8                & 0.3\%                \\ \hline
+    \end{tabular}
+    \caption{Prozentuale Verteilung der Dauer der Kurse}
+    \label{descriptive_analysis_offering_duration}
+\end{table}
+
+
+Die überwiegende Mehrheit der Veranstaltungen (über 96 \%) dauert zwischen zwei und vier Stunden. Da die Termine jedoch individuell als Zeitstempel (Start/Ende) vorliegen und nicht in ein fixes Raster gepresst sind, muss der Algorithmus präzise Zeitintervall-Prüfungen durchführen, anstatt lediglich Slots zu vergleichen.
+
+
+
+% \begin{figure}[h]
+%     \centering
+%     \begin{tikzpicture}
+%         \begin{axis}[
+%                 ybar,                          % Specifies a bar chart
+%                 ymin=0, ymax=20,               % Y-axis range
+%                 width=\textwidth,              % Adjust width to fit page
+%                 height=7cm,
+%                 bar width=0.6cm,               % Width of the individual bars
+%                 ylabel={Anteil (\%)},          % Y-axis label
+%                 xlabel={Stunde},               % X-axis label
+%                 symbolic x coords={7:00, 8:00, 9:00, 10:00, 11:00, 12:00, 13:00, 14:00, 15:00, 16:00, 17:00, 18:00, 19:00},
+%                 xtick=data,                    % Use the labels provided in coordinates
+%                 nodes near coords,             % Displays the value above the bar
+%                 nodes near coords style={font=\tiny, /pgf/number format/fixed},
+%                 every node near coord/.append style={rotate=90, anchor=west}, % Rotates labels if they overlap
+%                 axis x line*=bottom,
+%                 axis y line*=left,
+%                 enlarge x limits=0.05,
+%             ]
+%             \addplot[fill=blue!40, draw=blue] coordinates {
+%                     (7:00, 0.6) (8:00, 16.9) (9:00, 8.3) (10:00, 10.1)
+%                     (11:00, 6.1) (12:00, 8.0) (13:00, 11.4) (14:00, 8.1)
+%                     (15:00, 5.9) (16:00, 10.3) (17:00, 5.6) (18:00, 8.8) (19:00, 0.0)
+%                 };
+%         \end{axis}
+%     \end{tikzpicture}
+%     \caption{Histogramm der prozentualen Verteilung der Kurse nach Uhrzeit}
+% \end{figure}

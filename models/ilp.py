@@ -1,5 +1,6 @@
 import pulp
 import pickle
+from collections import defaultdict
 from loguru import logger
 from itertools import combinations
 
@@ -16,7 +17,7 @@ from utils import (
 )
 
 
-def solve_ilp(offerings: list[Offering]) -> list[Offering]:
+def create_model(offerings: list[Offering]) -> tuple[pulp.LpProblem, dict[int, pulp.LpVariable]]:
     model = pulp.LpProblem("CourseSelection", pulp.LpMaximize)
 
     # decision vars (0 or 1 for each possible course. 1 means picked, 0 means not picked)
@@ -25,24 +26,40 @@ def solve_ilp(offerings: list[Offering]) -> list[Offering]:
     for must_schedule_course_id in C.COURSE_MUST_SCHEDULE:
         model += y[must_schedule_course_id] == 1
 
-    # must not schedules should be excluded from preprocessing
-    # for must_schedule_course_id in C.COURSE_MUST_NOT_SCHEDULE:
-    #     model += y[must_schedule_course_id] == 0
-
     # maximizing total mark
     model += pulp.lpSum(get_offering_mark(c) * y[c.courseId] for c in offerings)
 
-    model += pulp.lpSum(y[c.courseId] for c in offerings) >= C.COURSE_COUNT_CONSTRAINT[0]
-    model += pulp.lpSum(y[c.courseId] for c in offerings) <= C.COURSE_COUNT_CONSTRAINT[1]
+    # 1. constraint: respect total course count constraint
+    model += pulp.lpSum(y[c.courseId] for c in offerings) >= C.TOTAL_COURSE_COUNT_CONSTRAINT.min
+    model += pulp.lpSum(y[c.courseId] for c in offerings) <= C.TOTAL_COURSE_COUNT_CONSTRAINT.max
 
-    # implicit constraint: forbidden pairs - planpunkt
-    # a user cannot take two of the same courses from planpunkt
-    forbidden_pairs_planpunkt = [
-        (c1.courseId, c2.courseId) for c1, c2 in combinations(offerings, 2) if c1.groupId == c2.groupId
-    ]
-    logger.debug(f"found {len(forbidden_pairs_planpunkt)} pairs forbidden by planpunkt")
-    for i, j in forbidden_pairs_planpunkt:
-        model += y[i] + y[j] <= 1
+    # 2. constraint: may only select one course per group
+    group_map = defaultdict(list)
+    for i, off in enumerate(offerings):
+        group_map[off.groupId].append(off.courseId)
+
+    for gid, gIds in group_map.items():
+        # Sum of selected courses in this group must be <= 1
+        model += pulp.lpSum(y[gId] for gId in gIds) <= 1
+
+    # 3. constraint: daily courses constraint (0 or >= N)
+    if C.DAILY_COURSE_COUNT_CONSTRAINT.min is not None or C.DAILY_COURSE_COUNT_CONSTRAINT.max is not None:
+        days_map = defaultdict(list)
+        for i, off in enumerate(offerings):
+            for date in off.dates:
+                days_map[date["start"].date()].append(off.courseId)
+
+        for day, cIds in days_map.items():
+            u_d = pulp.LpVariable(f"used_{day}", cat="Binary")
+
+            day_sum = pulp.lpSum(y[cId] for cId in cIds)
+
+            if C.DAILY_COURSE_COUNT_CONSTRAINT.min:
+                model += day_sum >= C.DAILY_COURSE_COUNT_CONSTRAINT.min * u_d
+                model += day_sum <= 100 * u_d
+
+            if C.DAILY_COURSE_COUNT_CONSTRAINT.max:
+                model += day_sum <= C.DAILY_COURSE_COUNT_CONSTRAINT.max * u_d
 
     # implicit constraint: forbidden pairs - overlaps
     forbidden_pairs_overlaps = [
@@ -52,6 +69,11 @@ def solve_ilp(offerings: list[Offering]) -> list[Offering]:
     for i, j in forbidden_pairs_overlaps:
         model += y[i] + y[j] <= 1
 
+    return model, y
+
+
+def solve_ilp(offerings: list[Offering]) -> list[Offering]:
+    model, y = create_model(offerings)
     model.solve()
     if pulp.LpStatus[model.status] != "Optimal":
         logger.warning("model status is not optimal!")
@@ -68,6 +90,6 @@ if __name__ == "__main__":
     best_solution = solve_ilp(offerings)
     logger.success("found solution")
     logger.success(f"{best_solution=}")
-    logger.success(f"{is_valid_schedule(best_solution)=}")
+    logger.success(f"{is_valid_schedule(best_solution, schedule_complete=True)=}")
     logger.success(f"{len(best_solution)=}")
     logger.success(f"{get_schedule_mark(best_solution)=}")

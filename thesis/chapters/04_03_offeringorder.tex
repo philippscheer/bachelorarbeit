@@ -23,3 +23,36 @@ Der optimale Stundenplan wird durch eine \textit{Forward-Checking Backtracking} 
     \item Führt das Hinzufügen eines \textit{Offerings} zu keinem gültigen Endergebnis in den nachfolgenden Planpunkten, wird die Auswahl rückgängig gemacht und das nächstbeste \textit{Offering} der aktuellen Gruppe wird getestet (\textbf{Backtracking})
 \end{enumerate}
 
+
+\begin{algorithm}[H]
+    \caption{Offering Order Algorithm}
+    \begin{algorithmic}[1]
+
+        \State $schedule \gets \emptyset$
+        \State $i \gets 0$
+
+        \Loop
+        \State \textit{select} an offering $o \in groups_i$
+
+        \If{there is no $o$}
+        \State \textit{backtrack} to preceding state
+        \Else
+        \State $schedule \gets schedule \cup \{o\}$
+        \ForAll{$groups_j (i < j \le n)$}
+        \State \textit{remove} from $groups_j$ all violating offers
+        \EndFor
+
+        \If{any $groups_j$ becomes empty}
+        \State \textit{backtrack} to preceding state
+        \Else
+        \State $i \gets i + 1$
+
+        \If{$i = n$}
+        \State \Return $schedule$
+        \EndIf
+
+        \EndIf
+        \EndIf
+        \EndLoop
+    \end{algorithmic}
+\end{algorithm}

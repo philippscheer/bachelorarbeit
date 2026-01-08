@@ -52,6 +52,17 @@ WINF_HAUPTSTUDIUM = [
     ("bis", ("5160",)),  # Design von betrieblichen Informationssystemen
     ("mgm", ("5161",)),  # Governance und Management von IT-Projekten
     ("fm", ("5162",)),  # Forschungsmethoden der Wirtschaftsinformatik
+    ("bis2", ("6043",)),  # Betriebliche Informationssysteme II
+    ("marketing", ("6014",)),  # Marketing
+    ("pfo", ("9226",)),  # Personal, Führung, Organisation
+    ("fin", ("5118", "9225")),  # Finanzierung
+    ("dis", ("9486",)),  # Design von Informationssystemen
+    ("formal", ("9487",)),  # Formale Grundlagen der Wirtschaftsinformatik
+    ("dkrn", ("9488",)),  # Datenkommunikation und Rechnernetze
+    ("dns", ("9489",)),  # Data and Network Security
+    ("dke", ("9490",)),  # Data and Knowledge Engineering
+    ("ispgm", ("9491",)),  # Information Systems Project and Governance
+    ("gpm", ("9492",)),  # Geschäftsprozessmanagement
 ]
 
 

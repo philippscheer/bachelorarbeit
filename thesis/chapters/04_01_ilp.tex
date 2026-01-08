@@ -2,59 +2,61 @@
 
 Feldman und Golumbic vergleichen in Ihrem Paper \cite{feldmangolumbic} die Outputs der Algorithmen "Hill Climbing" und "Offering Order" mit dem optimalen Stundenplan, der mittels Brute-Force ermittelt wurde. Da ein Brute-Force Algorithmus bei der großen Anzahl der Vorlesungen im VVZ der WU eine zu lange Laufzeit hätte, wurde eine Integer Linear Programming (ILP) Lösung als Benchmark gewählt, die ebenfalls unter Berücksichtigung aller Nebenbedingungen den optimalen Stundenplan erzeugt.
 
-Die Implementierung des ILP-Modells basiert auf der \texttt{PuLP}-Bibliothek in Python und dient der Maximierung des Gesamtnutzens (Mark) eines Stundenplans. Im Folgenden wird das mathematische Modell des ILP präsentiert.
+Die Implementierung des ILP-Modells basiert auf der \texttt{PuLP}-Bibliothek in Python und dient der Maximierung des Gesamtnutzens (\textit{Mark}) eines Stundenplans. Das mathematische ILP-Modell sieht wie folgt aus:
 
 \begin{figure*}[!ht]
-  \centering
-  \begin{minipage}{.95\linewidth}
     \centering
-    \textbf{Modell des Integer Linear Programming (ILP)}
-    \vspace{0.5em}
-    \hrule
-    \begin{align}
-      \text{maximiere: }           & \sum_{i \in \mathcal{O}} \text{Mark}(i) \cdot y_i \label{eq:objective}                       \\
-      \text{unter den Nebenbedingungen:} \nonumber                                                                                \\
-      \sum_{i \in \mathcal{O}} y_i & \geq C_{\min} \label{eq:count_min}                                                           \\
-      \sum_{i \in \mathcal{O}} y_i & \leq C_{\max} \label{eq:count_max}                                                           \\
-      y_i + y_j                    & \leq 1 \quad \forall (i, j) \in \mathcal{F}_{\text{Planpunkt}} \label{eq:conflict_planpunkt} \\
-      y_i + y_j                    & \leq 1 \quad \forall (i, j) \in \mathcal{F}_{\text{Zeit}} \label{eq:conflict_overlap}        \\
-      y_i                          & = 1 \quad \forall i \in \mathcal{M}_{\text{Muss}} \label{eq:must_schedule}                   \\
-      y_i                          & = 0 \quad \forall i \in \mathcal{M}_{\text{Blockiert}} \label{eq:must_not_schedule}          \\
-      y_i                          & \in \{0, 1\} \quad \forall i \in \mathcal{O} \label{eq:binary}
-    \end{align}
-    \hrule
-  \end{minipage}
-  \caption{Mathematische Formulierung des ILP-Modells zur Stundenplanoptimierung.}
-  \label{fig:ilp_model}
+    \begin{minipage}{.95\linewidth}
+        \centering
+        \textbf{Mathematische Formulierung des ILP-Modells}
+        \vspace{0.5em}
+        \hrule
+        \begin{align}
+            \text{maximiere: }           & \sum_{i \in \mathcal{O}} \text{Mark}(i) \cdot y_i \label{eq:objective}                       \\
+            \text{unter den Nebenbedingungen:} \nonumber                                                                                \\
+            \sum_{i \in \mathcal{O}} y_i & \geq C_{\min} \label{eq:count_min}                                                           \\
+            \sum_{i \in \mathcal{O}} y_i & \leq C_{\max} \label{eq:count_max}                                                           \\
+            y_i + y_j                    & \leq 1 \quad \forall (i, j) \in \mathcal{F}_{\text{Planpunkt}} \label{eq:conflict_planpunkt} \\
+            y_i + y_j                    & \leq 1 \quad \forall (i, j) \in \mathcal{F}_{\text{Zeit}} \label{eq:conflict_overlap}        \\
+            y_i                          & = 1 \quad \forall i \in \mathcal{M}_{\text{Muss}} \label{eq:must_schedule}                   \\
+            y_i                          & = 0 \quad \forall i \in \mathcal{M}_{\text{Blockiert}} \label{eq:must_not_schedule}          \\
+            y_i                          & \in \{0, 1\} \quad \forall i \in \mathcal{O} \label{eq:binary}
+        \end{align}
+        \hrule
+    \end{minipage}
+    \caption{Mathematische Formulierung des ILP-Modells zur Stundenplanoptimierung.}
+    \label{fig:ilp_model}
 \end{figure*}
 
 \subsubsection{Variablen, Parameter und Zielfunktion}
 
 Die Kernkomponente des Modells sind die binären Entscheidungsvariablen $y_i$, definiert für jede mögliche Lehrveranstaltung $i$. Eine Lehrveranstaltung ist ausgewählt, wenn $y_i=1$, während $y_i=0$ bedeutet, dass die Lehrveranstaltung nicht gewählt wird. Die Menge aller zur Auswahl stehenden Lehrveranstaltungen wird durch $\mathcal{O}$ repräsentiert (vgl. \ref{eq:binary}).
 
-Die Zielfunktion (\ref{eq:objective}) maximiert den Gesamtnutzen (engl. \textit{Mark}) des erstellten Stundenplans. Der Nutzen $\text{Mark}(i)$ wird hierbei als folgende Funktion definiert: TODO (Berechnung von Mark aus dem Paper übernehmen)
+Die Zielfunktion (\ref{eq:objective}) maximiert den Gesamtnutzen (engl. \textit{Mark}) des erstellten Stundenplans.
+
+% Der Nutzen $\text{Mark}(i)$ wird hierbei als folgende Funktion definiert: TODO (Berechnung von Mark aus dem Paper übernehmen)
 
 \subsubsection{Nebenbedingungen (Constraints)}
 
 \begin{itemize}
-  \item \textbf{Anzahl der Lehrveranstaltungen} (Gleichungen \ref{eq:count_min} und \ref{eq:count_max}): Begrenzen die Gesamtzahl der gewählten Lehrveranstaltungen, wobei $C_{\min}$ und $C_{\max}$ die definierten Mindest- bzw. Maximalanzahlen darstellen.
+    \item \textbf{Anzahl der Lehrveranstaltungen} (Gleichungen \ref{eq:count_min} und \ref{eq:count_max}): Begrenzen die Gesamtzahl der gewählten Lehrveranstaltungen, wobei $C_{\min}$ und $C_{\max}$ die definierten Mindest- bzw. Maximalanzahlen darstellen.
 
-  \item \textbf{Ausschlusskriterien (\textit{Forbidden Pairs})} (Gleichungen \ref{eq:conflict_planpunkt} und \ref{eq:conflict_overlap}): Verhindern die Auswahl von sich gegenseitig ausschließenden Angeboten.
-        \begin{enumerate}
-          \item $\mathcal{F}_{\text{Planpunkt}}$ (\ref{eq:conflict_planpunkt}): Enthält alle Paare $(i, j)$, die dem selben Planpunkt angehören. Es darf maximal eine Lehrveranstaltung aus dem Planpunkt gewählt werden.
-          \item $\mathcal{F}_{\text{Zeit}}$ (\ref{eq:conflict_overlap}): Enthält alle Paare $(i, j)$, deren Termine sich zeitlich überlappen. Es darf auch hier maximal eine Lehrveranstaltung aus dem Paar gewählt werden.
-        \end{enumerate}
+    \item \textbf{Ausschlusskriterien (\textit{Forbidden Pairs})} (Gleichungen \ref{eq:conflict_planpunkt} und \ref{eq:conflict_overlap}): Verhindern die Auswahl von sich gegenseitig ausschließenden Angeboten.
+          \begin{enumerate}
+              \item $\mathcal{F}_{\text{Planpunkt}}$ (\ref{eq:conflict_planpunkt}): Enthält alle Paare $(i, j)$, die dem selben Planpunkt angehören. Es darf maximal eine Lehrveranstaltung aus dem Planpunkt gewählt werden.
+              \item $\mathcal{F}_{\text{Zeit}}$ (\ref{eq:conflict_overlap}): Enthält alle Paare $(i, j)$, deren Termine sich zeitlich überlappen. Es darf auch hier maximal eine Lehrveranstaltung aus dem Paar gewählt werden.
+          \end{enumerate}
 
-  \item \textbf{Feste Zuordnungen} (Gleichungen \ref{eq:must_schedule} und \ref{eq:must_not_schedule}):
-        \begin{enumerate}
-          \item $\mathcal{M}_{\text{Muss}}$ (\ref{eq:must_schedule}): Erzwingt die Auswahl von Lehrveranstaltungen, die als zwingend notwendig (Priorität = 100) definiert sind.
-          \item $\mathcal{M}_{\text{Blockiert}}$ (\ref{eq:must_not_schedule}): Verbietet die Auswahl von Lehrveranstaltungen, die nicht gewählt werden dürfen (Priorität = -100).
-        \end{enumerate}
+    \item \textbf{Feste Zuordnungen} (Gleichungen \ref{eq:must_schedule} und \ref{eq:must_not_schedule}):
+          \begin{enumerate}
+              \item $\mathcal{M}_{\text{Muss}}$ (\ref{eq:must_schedule}): Erzwingt die Auswahl von Lehrveranstaltungen, die als zwingend notwendig (Priorität = 100) definiert sind.
+              \item $\mathcal{M}_{\text{Blockiert}}$ (\ref{eq:must_not_schedule}): Verbietet die Auswahl von Lehrveranstaltungen, die nicht gewählt werden dürfen (Priorität = -100).
+          \end{enumerate}
 \end{itemize}
 
 Durch das Lösen dieses Modells wird ein optimaler Satz an Entscheidungsvariablen $y_i$ (Stundenplan) bestimmt, der die Zielfunktion (\textit{Mark}) maximiert, während alle Nebenbedingungen erfüllt werden. Das Ergebnis ist der optimal mögliche Stundenplan gemäß der definierten Constraints.
 
 
+\subsubsection{CPU vs. GPU}
 
-
-
+Zwar läuft \texttt{PuLP} standardmäßig auf der CPU, jedoch ermöglicht eine einfache Anpassung die Nutzung einer NVIDIA-GPU über CUDA. Daher wurde das ILP-Modell sowohl auf der CPU als auch auf einer modernen GPU gelöst, um eine realistische Bewertung unter aktuellen technischen Voraussetzungen zu ermöglichen.

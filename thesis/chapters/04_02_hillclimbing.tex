@@ -8,7 +8,16 @@ Basierend auf der Methodik von Feldman und Golumbic \cite{feldmangolumbic} wurde
 
 \subsubsection{Hill Climbing v1}
 
-Der \textit{Hill Climbing v1}-Algorithmus wählt bei jedem Schritt das beste verfügbare \textit{Offering} aus \textbf{allen verfügbaren Offerings} gemessen am \textit{Mark} des Stundenplans inklusive des gewählten \textit{Offering}.
+Der \textit{Hill Climbing v1}-Algorithmus wählt bei jedem Schritt das beste verfügbare \textit{Offering} aus \textbf{allen verfügbaren Offerings} gemessen am \textit{Mark} des Stundenplans inklusive des gewählten \textit{Offering} \cite{gh-hc1}.
+
+
+
+
+
+\subsubsection{Hill Climbing v3}
+
+Der \textit{Hill Climbing v3}-Algorithmus unterscheidet sich vom \textit{v1}-Ansatz dadurch, dass der Suchraum für einen neuen Kurs reduziert wird. Anstatt alle verfügbaren \textit{Offerings} zu evaluieren, beschränkt \textit{v3} die Auswahl auf eine Teilmenge der nach \textit{Mark} sortierten Liste.
+Konkret wird in der Implementierung nur die zweite Hälfte --- die Offerings mit der individuell besten \textit{Mark} --- der verfügbaren \textit{Offerings} betrachtet \cite{gh-hc3}.
 
 
 
@@ -16,14 +25,15 @@ Der \textit{Hill Climbing v1}-Algorithmus wählt bei jedem Schritt das beste ver
 
 \subsubsection{Suchstrategie}
 
-Kernkomponente des Algorithmus ist die Funktion \texttt{schedule\_course}. Diese Funktion berechnet die \textit{Mark} jedes möglichen nächsten Zustandes, indem sie die \textit{Mark} des aktuellen Stundenplans, ergänzt um ein verfügbares \textit{Offering} ($\text{schedule} \cup \{a\}$), berechnet. Das \textit{Offering}, das den Stundenplan mit der höchsten \textit{Mark} erzeugt, wird gewählt und zum Stundenplan hinzugefügt.
+Ausgehend vom aktuellen Stundenplan wird für jeden möglichen nächsten Zustand die \textit{Mark} berechnet, indem der Stundenplan ergänzt um ein weiteres \textit{Offering} durch die Evaluationsfunktion bewertet wird. Anschließend wird jenes Lehrangebot ausgewählt, das zu der höchsten Bewertung führt, und in den Stundenplan übernommen.
 
 \begin{equation}
-\label{eq:v1_selection}
-a^* = \arg\max_{a \in \text{available\_offerings}} \left( \text{get\_schedule\_mark}(\text{schedule} \cup \{a\}) \right)
+    \label{eq:v1_selection}
+    a^* = \arg\max_{a \in \text{available\_offerings}} \left( \text{get\_schedule\_mark}(\text{schedule} \cup \{a\}) \right)
 \end{equation}
 
-Dabei werden vorab nur jene \textit{Offerings} in die Auswahl (\texttt{available\_offerings}) aufgenommen, welche die Nebenbedingungen nicht verletzen (zeitliche Überschneidung, Planpunkt bereits erfüllt, \textit{Offering} bereits gewählt, \textit{Offering} in Liste verbotener Kurse). Die Schleife wird fortgesetzt, solange ein gültiges \textit{Offering} gefunden wird, das zu einer Verbesserung oder Erweiterung des Stundenplans führt.
+
+Nur jene \textit{Offerings} werden in die Auswahl aufgenommen, die keine Nebenbedingungen verletzen (zeitliche Überschneidung, Planpunkt bereits erfüllt, \textit{Offering} bereits gewählt, \textit{Offering} in Liste verbotener Kurse). Die Schleife wird fortgesetzt, solange ein gültiges \textit{Offering} gefunden wird, das zu einer Verbesserung oder Erweiterung des Stundenplans führt.
 
 
 
@@ -38,13 +48,33 @@ Der Algorithmus bricht ab, wenn einer der folgenden Zustände eintritt:
 \end{enumerate}
 
 
+\begin{algorithm}[H]
+    \caption{Hill Climbing}
+    \begin{algorithmic}[1]
 
+        \State $\mathit{schedule} \gets \emptyset$
+        \State $\mathit{availableOfferings} \gets \textsc{FilterConflicts}(\mathit{offerings})$
 
+        \While{$\mathit{availableOfferings} \neq \emptyset$}
 
-\subsubsection{Hill Climbing v3}
+        \State $\mathit{nextOffering} \gets \arg\max_{o \in \mathit{availableOfferings}} \, \textsc{Mark}(\mathit{schedule} \cup \{o\})$
 
-Der \textit{Hill Climbing v3}-Algorithmus unterscheidet sich vom v1-Ansatz dadurch, dass der Suchraum für einen neuen Kurs reduziert wird. Anstatt alle verfügbaren \textit{Offerings} zu evaluieren, beschränkt v3 die Auswahl auf eine Teilmenge der nach \textit{Mark} sortierten Liste.
-Konkret wird in der Implementierung nur die zweite Hälfte - die Offerings mit der individuell besten \textit{Mark} - der verfügbaren \textit{Offerings} betrachtet.
+        \If{\textsc{IsValid}$(\mathit{schedule} \cup \{\mathit{nextOffering}\})$}
+        \State $\mathit{schedule} \gets \mathit{schedule} \cup \{\mathit{nextOffering}\}$
+        \EndIf
+
+        \If{$|\mathit{schedule}| = \textsc{MaxScheduleLength}$}
+        \State \Return $\mathit{schedule}$
+        \EndIf
+
+        \State $\mathit{availableOfferings} \gets \textsc{FilterConflicts}(\mathit{offerings})$
+
+        \EndWhile
+
+        \State \Return $\mathit{schedule}$
+
+    \end{algorithmic}
+\end{algorithm}
 
 
 
@@ -52,5 +82,5 @@ Konkret wird in der Implementierung nur die zweite Hälfte - die Offerings mit d
 
 \subsubsection{Zur Nicht-Implementierung von Hill Climbing v2}
 
-Der von Feldman und Golumbic vorgeschlagene \textit{Hill Climbing v2}-Algorithmus priorisiert zusätzlich auf der Ebene von \textit{Gruppen} (\textit{Groups}). Im Originalkontext des Papers beziehen sich Gruppen auf die Unterscheidung zwischen Pflichtveranstaltungen (\textit{Mandatory}) und Wahlveranstaltungen (\textit{Elective}), wobei die Priorität der Gruppen die Auswahl von Pflichtveranstaltungen vor Wahlveranstaltungen erzwingt.
+Der von Feldman und Golumbic vorgeschlagene \textit{Hill Climbing v2}-Algorithmus priorisiert zusätzlich auf der Ebene von \textit{Gruppen} (\textit{Groups}). Im Originalkontext des Papers beziehen sich Gruppen auf die Unterscheidung zwischen Pflichtveranstaltungen (\textit{Mandatory}) und Wahlveranstaltungen (\textit{Elective}), wobei die Priorität der Gruppen die Auswahl von Pflichtveranstaltungen vor Wahlveranstaltungen erzwingt \cite{feldmangolumbic}.
 Da es im Hauptstudium Wirtschaftsinformatik keine Unterscheidung zwischen Pflicht- und Wahlveranstaltungen gibt, wäre die Implementierung funktional identisch mit \textit{v1}.

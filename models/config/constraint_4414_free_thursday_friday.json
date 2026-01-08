@@ -1,0 +1,13 @@
+{
+  "title": "Keine Kurse an Donnerstagen und Freitagen",
+
+  "FIXED_TIME_CONSTRAINTS": [
+    ["thursday", 1, 23, -100],
+    ["friday", 1, 23, -100],
+
+    ["monday", 1, 23, 7],
+    ["tuesday", 1, 23, 15],
+    ["wednesday", 1, 23, 15],
+    ["saturday", 1, 23, -7]
+  ]
+}

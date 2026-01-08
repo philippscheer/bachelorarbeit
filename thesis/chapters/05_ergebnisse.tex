@@ -1,1 +1,142 @@
 \section{Ergebnisse}
+
+
+
+\input{functions/markChart}
+\input{functions/memoryChart}
+\input{functions/timingChart}
+
+
+\paragraph{Szenario 1: Freie Kurswahl}
+
+Der Algorithmus kann aus allen Kursen des Hauptstudiums wählen. Keine Constraints hinsichtlich Kursanzahl, Wochenstunden oder Priorität wurden gesetzt.
+
+\begin{verbatim}
+    {
+        "FIXED_TIME_CONSTRAINTS": null,
+        "COURSE_PRIORITY_CONSTRAINTS": null,
+        "HOUR_LOAD_CONSTRAINT": null,
+        "TOTAL_COURSE_COUNT_CONSTRAINT": null
+    }
+\end{verbatim}
+
+
+\vspace{1cm}
+\markChart[14]{data/score_diff__constraint_unlimited.csv}
+\vspace{1cm}
+\timingChart[12]{data/timing_diff__constraint_unlimited.csv}
+\vspace{1cm}
+\memoryChart[12]{data/memory_diff__constraint_unlimited.csv}
+\vspace{1cm}
+\newpage
+
+
+
+
+
+\paragraph{Szenario 2: 3 Kurse gesetzt}
+
+Der Studierende muss eine bestimmte Anzahl von Kursen wiederholen. Diese sind mit einer Priorität von 100 markiert und verletzen keine Hard Constraints. Abgesehen davon wurden keine Constraints gesetzt.
+
+\begin{verbatim}
+    {
+        "FIXED_TIME_CONSTRAINTS": null,
+        "COURSE_PRIORITY_CONSTRAINTS": {
+            "5576": 100, # ADP
+            "5033": 100, # Makro
+            "4010": 100, # Statistik
+        },
+        "HOUR_LOAD_CONSTRAINT": null,
+        "TOTAL_COURSE_COUNT_CONSTRAINT": null
+    }
+\end{verbatim}
+
+
+
+\vspace{1cm}
+\markChart[14]{data/score_diff__constraint_must_schedule_1.csv}
+\vspace{1cm}
+\timingChart[12]{data/timing_diff__constraint_must_schedule_1.csv}
+\vspace{1cm}
+\memoryChart[12]{data/memory_diff__constraint_must_schedule_1.csv}
+\vspace{1cm}
+\newpage
+
+
+
+
+
+\paragraph{Szenario 3: 20\% der Kurse blockiert}
+
+60 Kurse sind blockiert (entspricht 20\% der Kurse). Diese sind mit einer Priorität von -100 markiert. Abgesehen davon wurden keine Constraints gesetzt.
+
+\begin{verbatim}
+    {
+        "FIXED_TIME_CONSTRAINTS": null,
+        "COURSE_PRIORITY_CONSTRAINTS": {
+            "6480": -100,
+            "6353": -100,
+            "6275": -100,
+            ...
+            "5722": -100,
+            "6345": -100,
+            "6232": -100
+        },
+        "HOUR_LOAD_CONSTRAINT": null,
+        "TOTAL_COURSE_COUNT_CONSTRAINT": null
+    }
+\end{verbatim}
+
+
+
+\vspace{1cm}
+\markChart[14]{data/score_diff__constraint_must_not_schedule_20_pct.csv}
+\vspace{1cm}
+\timingChart[12]{data/timing_diff__constraint_must_not_schedule_20_pct.csv}
+\vspace{1cm}
+\memoryChart[12]{data/memory_diff__constraint_must_not_schedule_20_pct.csv}
+\vspace{1cm}
+\newpage
+
+
+
+
+
+\paragraph{Szenario 4: Tage blockiert}
+
+Montage und Dienstage sind blockiert. Der Student möchte Vormittags und Samstags lernen.
+
+
+\begin{verbatim}
+    {
+        "FIXED_TIME_CONSTRAINTS": [
+            ["monday", 1, 23],
+            ["tuesday", 1, 23],
+            ["wednesday", 19, 23],
+            ["thursday", 19, 23],
+            ["friday", 19, 23]
+        ],
+        "COURSE_PRIORITY_CONSTRAINTS": null,
+        "HOUR_LOAD_CONSTRAINT": null,
+        "TOTAL_COURSE_COUNT_CONSTRAINT": null
+    }
+\end{verbatim}
+
+
+
+\vspace{1cm}
+\markChart[14]{data/score_diff__constraint_blocked_days.csv}
+\vspace{1cm}
+\timingChart[12]{data/timing_diff__constraint_blocked_days.csv}
+\vspace{1cm}
+\memoryChart[12]{data/memory_diff__constraint_blocked_days.csv}
+\vspace{1cm}
+\newpage
+
+
+
+
+Todo: Szenario 3 und 4 Score Chart nicht korrekt. Weitere Szenarien (10-15 gesamt), Diskussion mit Ergebnissen aus dem Paper \cite{feldmangolumbic}
+
+
+\newpage

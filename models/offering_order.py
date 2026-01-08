@@ -73,7 +73,7 @@ def offering_order_algorithm(
 
         # If we've scheduled all groups, check if the final schedule is valid and course count is within limits
         if group_index >= len(groups):
-            if min_courses <= len(schedule) <= max_courses and is_valid_schedule(schedule):
+            if min_courses <= len(schedule) <= max_courses and is_valid_schedule(schedule, schedule_complete=True):
                 return schedule
             else:
                 return None
@@ -82,7 +82,7 @@ def offering_order_algorithm(
 
         for offering in offerings:
             # Forward checking: check compatibility with the current (partial) schedule
-            if is_valid_schedule(schedule + [offering], ignore_length=True):
+            if is_valid_schedule(schedule + [offering], schedule_complete=False):
                 if len(schedule) + 1 > max_courses:
                     continue
                 schedule.append(offering)
@@ -103,8 +103,8 @@ def offering_order_algorithm(
     return forward_check_backtrack(
         group_order,
         schedule=starting_schedule,
-        min_courses=C.COURSE_COUNT_CONSTRAINT[0],
-        max_courses=C.COURSE_COUNT_CONSTRAINT[1],
+        min_courses=C.TOTAL_COURSE_COUNT_CONSTRAINT.min,
+        max_courses=C.TOTAL_COURSE_COUNT_CONSTRAINT.max,
     )
 
 
@@ -130,5 +130,5 @@ if __name__ == "__main__":
     logger.success("found schedule")
     logger.success(f"{schedule=}")
     logger.success(f"{len(schedule)=}")
-    logger.success(f"{is_valid_schedule(schedule, verbose=True)=}")
+    logger.success(f"{is_valid_schedule(schedule, schedule_complete=True, verbose=True)=}")
     logger.success(f"{get_schedule_mark(schedule)=}")

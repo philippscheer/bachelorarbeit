@@ -1,0 +1,26 @@
+{
+  "title": "Erhöhte Priorität (+70) für Vormittag, neutrale Priorität (0) für Nachmittag, negative Priorität (-80) für Abend",
+
+  "FIXED_TIME_CONSTRAINTS": [
+    ["monday", 1, 11, 70],
+    ["tuesday", 1, 11, 70],
+    ["wednesday", 1, 11, 70],
+    ["thursday", 1, 11, 70],
+    ["friday", 1, 11, 70],
+    ["saturday", 1, 11, 70],
+
+    ["monday", 12, 17, 0],
+    ["tuesday", 12, 17, 0],
+    ["wednesday", 12, 17, 0],
+    ["thursday", 12, 17, 0],
+    ["friday", 12, 17, 0],
+    ["saturday", 12, 17, 0],
+
+    ["monday", 18, 23, -80],
+    ["tuesday", 18, 23, -80],
+    ["wednesday", 18, 23, -80],
+    ["thursday", 18, 23, -80],
+    ["friday", 18, 23, -80],
+    ["saturday", 18, 23, -80]
+  ]
+}

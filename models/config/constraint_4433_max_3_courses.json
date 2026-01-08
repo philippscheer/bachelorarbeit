@@ -1,0 +1,17 @@
+{
+  "title": "Studierende dürfen nicht mehr als drei Kurse pro Tag besuchen",
+
+  "COURSE_COUNT": {
+    "min": 3,
+    "max": 8
+  },
+
+  "FIXED_TIME_CONSTRAINTS": [
+    ["monday", 1, 23, 7],
+    ["tuesday", 1, 23, 15],
+    ["wednesday", 1, 23, 15],
+    ["thursday", 1, 23, 7],
+    ["friday", 1, 23, 7],
+    ["saturday", 1, 23, -7]
+  ]
+}

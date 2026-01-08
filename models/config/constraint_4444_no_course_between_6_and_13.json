@@ -1,0 +1,20 @@
+{
+  "title": "Keine Kurse zwischem 6:00 morgens und 13:00.",
+
+  "FIXED_TIME_CONSTRAINTS": [
+    ["monday", 6, 13, -100],
+    ["tuesday", 6, 13, -100],
+    ["wednesday", 6, 13, -100],
+    ["thursday", 6, 13, -100],
+    ["friday", 6, 13, -100],
+    ["saturday", 6, 13, -100],
+    ["sunday", 6, 13, -100],
+
+    ["monday", 14, 23, 7],
+    ["tuesday", 14, 23, 15],
+    ["wednesday", 14, 23, 15],
+    ["thursday", 14, 23, 7],
+    ["friday", 14, 23, 7],
+    ["saturday", 14, 23, -7]
+  ]
+}

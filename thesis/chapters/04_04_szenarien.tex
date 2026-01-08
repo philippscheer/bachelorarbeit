@@ -1,0 +1,65 @@
+\subsection{Szenariendefinition}
+
+Um die beschriebenen Algorithmen unter realistischen Bedingungen zu testen, wurden folgende Szenarien definiert:
+
+
+
+
+
+\subsubsection{Freier Tag}\label{scenario_free_day}
+
+Laut einer Umfrage an der Hochschule Trier gaben 81\% der Studierenden an, gerne einen komplett freien Tag zu haben, um einem Nebenjob nachzugehen. 13\% der Studierenden gaben an, jeden Tag erst um 9:45 Uhr beginnen zu wollen, und 6\% möchten einen oder mehrere freie Vormittage haben. Dabei wurde am häufigsten der Freitag (31\%) vor dem Montag (6\%) gewünscht. 64\% der Studierenden wäre es egal, welchen Tag sie freibekommen \cite{trier-2024}. Aus diesen Ergebnissen wurden folgende Szenarien abgeleitet:
+
+
+\begin{itemize}
+    \item Keine Kurse an Montagen
+    \item Keine Kurse an Freitagen
+    \item Jeder Tag der Woche bis 9:45 frei
+    \item Keine Kurse an Donnerstagen und Freitagen
+\end{itemize}
+
+
+
+
+
+\subsubsection{Bliebte Zeiten}
+
+Laut einer weiteren Umfrage \cite{cowling-2002} bevorzugen 74\% der Studierenden Prüfungen und Kurse, die über das Semester verteilt stattfinden. Teilt man den Tag in die drei Zeitslots Vormittag, Nachmittag und Abend ein, so war der Nachmittag der beliebteste Zeitslot, gefolgt vom Vormittag und dem Abend. Aus diesen Ergebnissen wurden folgende Szenarien abgeleitet:
+
+
+\begin{itemize}
+    \item Erhöhte Priorität ($+90$) für Nachmittags, negative Priorität ($-90$) für Abend
+    \item Erhöhte Priorität ($+70$) für Vormittag, neutrale Priorität ($0$) für Nachmittag, negative Priorität ($-80$) für Abend
+\end{itemize}
+
+
+
+
+
+\subsubsection{Ähnlicher Problemstellungen}
+
+Hinzu kommen klassische Constraints, die in University-Course-Timetabling-Problemen häufig vorkommen \cite{chen-2021}. Diese Constraints betreffen meist die universitäre Planung des Curriculums und die Zuteilung von Kursen zu Räumen, es gibt jedoch auch Constraints, die die Erstellung individueller Stundenpläne der Studierenden betreffen:
+
+
+\begin{itemize}
+    \item Studierende müssen von 12:00 bis 13:00 Zeit für ein Mittagessen haben
+    \item Studierende müssen mehr als einen Kurs pro Tag besuchen
+    \item Studierende dürfen nicht mehr als drei Kurse pro Tag besuchen
+\end{itemize}
+
+
+
+
+
+\subsubsection{Vergleichbarkeit}
+
+Zusätzlich zu den oben genannten Constraints sollen die Algorithmen auch in Extremfällen hinsichtlich ihrer Performance getestet werden. Daher werden ergänzend folgende Szenarien definiert, die in verwandten Arbeiten nicht explizit untersucht wurden, jedoch zur Vergleichbarkeit zwischen den Algorithmen sinnvoll sind:
+
+
+\begin{itemize}
+    \item Alle Kurse können frei von Constraints gewählt werden.
+    \item 50\% aller Kurse können nicht mehr belegt werden.
+    \item 7 Kurse sind bereits vorgegeben
+    \item Keine Kurse zwischem 6:00 morgens und 13:00.
+    \item Keine Kurse Montags, Dienstags und Mittwochs
+\end{itemize}

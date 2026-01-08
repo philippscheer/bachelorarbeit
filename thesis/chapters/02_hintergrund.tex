@@ -3,7 +3,7 @@
 
 \subsection{Problemstellung}
 
-Das Student Scheduling Problem (SSP), also die Erstellung eines optimalen Semesterplans, ist eine zentrale Herausforderung für Studierende. Sie sehen sich im Hauptstudium mit einem umfangreichen Kursangebot konfrontiert, dessen Veranstaltungen sich in zahlreichen Terminkonstellationen überlappen können. Die Herausforderung besteht darin, aus diesem Pool an Lehrveranstaltungen eine zulässige und optimale Kombination zu wählen.
+Die Erstellung eines optimalen Semesterplans ist eine zentrale Herausforderung für Studierende. Sie sehen sich im Hauptstudium mit einem umfangreichen Kursangebot konfrontiert, dessen Veranstaltungen sich in zahlreichen Terminkonstellationen überlappen können. Die Herausforderung besteht darin, aus diesem Pool an Lehrveranstaltungen eine zulässige und optimale Kombination zu wählen. Solche Zeittafelprobleme werden Student Scheduling Problems (SSP) genannt.
 
 Die Problemstellung ist komplex: Einerseits müssen Hard Constraints wie Überlappungsfreiheit und Erfüllung einer Mindestanzahl von ECTS pro Semester erfüllt sein. Andererseits gilt es, Präferenzen, die als Soft Constraints ausgedrückt werden, zu maximieren, die die Lebensrealität der Studierenden widerspiegeln. Dazu zählen etwa die Berücksichtigung von Arbeitstätigkeiten, die durch Blockieren oder Priorisieren von gewissen Stunden in der Woche ausgedrückt werden, sowie die Favorisierung von Kursen, die durch eine Priorität ausgedrückt wird.
 
@@ -11,20 +11,29 @@ In dieser Arbeit wird das SSP für einen einzelnen Studierenden des Hauptstudium
 
 
 
+
+
 \subsection{Motivation}
 
-% TODO: Vergleich mit ÖH LV-Planer
+Studierende berichten häufig von Schwierigkeiten bei der Erstellung ihrer Semesterpläne \cite{chen-2021, muklason-2017, trier-2024}. Zu den zentralen Ursachen zählt insbesondere die Vereinbarkeit mit einem Nebenjob; so bevorzugen 81\% der Befragten mindestens einen vollständig freien Wochentag \cite{trier-2024}. Zudem geben 74\% der Studierenden an, dass eine gleichmäßige Verteilung von Lehrveranstaltungen und Prüfungen für sie das wichtigste Kriterium bei der Stundenplanerstellung darstellt \cite{cowling-2002}. Weiterhin möchten 82\% vermeiden, mehr als eine Prüfung pro Tag zu absolvieren \cite{cowling-2002}.
+Bezüglich der zeitlichen Präferenzen werden Mittagsstunden am häufigsten gewählt, gefolgt von frühen und späten Zeitslots. Rund 31\% der Studierenden bevorzugen es, an bestimmten Tagen keine Prüfungen zu haben; besonders unpopulär sind Samstag, Sonntag, Freitag und Montag \cite{cowling-2002}.
+
+Obwohl sich diese Präferenzen grundsätzlich leicht modellieren lassen, stehen derzeit keine Programme zur Verfügung, die eine automatisierte Erstellung entsprechender Stundenpläne an der WU ermöglichen. Lediglich der Studienplaner der Österreichischen Hochschüler*innenschaft der WU \cite{studienplaner-oeh} erlaubt die manuelle Kombination von Lehrveranstaltungen und Prüfungen im Hinblick auf Überschneidungsfreiheit, bietet jedoch keine Möglichkeit zur Optimierung nach individuellen Präferenzen.
+
+
 
 
 
 \subsection{Zielsetzung}
 
-Die vorliegende Bachelorarbeit verfolgt das Ziel, die beschriebenen Optimierungsalgorithmen unter aktuellen Bedingungen und mit einem aktuellen Datensatz zu validieren und einen Leistungsvergleich anzustellen.
+Die vorliegende Bachelorarbeit hat zum Ziel, die beschriebene Problemstellung unter den aktuellen technischen Rahmenbedingungen mithilfe verschiedener Lösungsansätze zu untersuchen, diese anhand eines aktuellen Datensatzes zu validieren und anschließend einem Leistungsvergleich zu unterziehen.
 
 \begin{enumerate}
-    \item Validierung: Zentral ist die exakte Nachprogrammierung der Algorithmen von Feldman und Golumbic \cite{feldmangolumbic}. Es soll überprüft werden, ob diese Algorithmen auch unter modernen Rechenbedingungen und mit realen Daten aus dem Vorlesungsverzeichnis der Wirtschaftsuniversität Wien einen optimalen Semesterplan erstellen können.
-    \item Vergleichende Leistungsanalyse: Die implementierten Algorithmen werden hinsichtlicher der Qualität ("Score") der gefundenen Lösung, Geschwindigkeit und Speichernutzung verglichen.
+    \item \textbf{Validierung:} Im Mittelpunkt steht die exakte Nachprogrammierung der Algorithmen von Feldman und Golumbic \cite{feldmangolumbic}. Es soll überprüft werden, ob diese Verfahren unter modernen Rechenbedingungen und anhand realer Daten aus dem Vorlesungsverzeichnis der Wirtschaftsuniversität Wien in der Lage sind, einen optimalen Semesterplan zu erstellen.
+    \item \textbf{Vergleichende Leistungsanalyse:} Die implementierten Algorithmen werden hinsichtlich der Qualität der erreichten Lösungen (\textit{Score}), ihrer Geschwindigkeit sowie ihres Speicherbedarfs systematisch miteinander verglichen.
 \end{enumerate}
+
+
 
 
 
@@ -33,37 +42,33 @@ Die vorliegende Bachelorarbeit verfolgt das Ziel, die beschriebenen Optimierungs
 % TODO paper
 
 
-\subsubsection{Hill-Climbing Algorithmen}
+Für die Beschriebenen Zeittafelprobleme gibt es verschiedene Algorithmen/Lösungsansätze:
 
-Hill-Climbing Algorithmen gehören zur Klasse der lokalen Such- und Optimierungsverfahren. Sie finden gute oder nahezu optimale Lösungen für schwierige (\textit{NP-hard}) Optimierungsprobleme, ohne den gesamten Lösungsraum zu durchsuchen. Der Algorithmus versucht von einem Zustand in einen benachbarten Zustand mit besserem Zielfunktionswert überzugehen --- ähnlich wie das Erklimmen eines Hügels, auf einer Landschaft, wobei die "Höhe" des Hügels die Qualität der Lösung darstellt.
+\begin{enumerate}
+    \item \textbf{Hill-Climbing Algorithmen:} Hill-Climbing Algorithmen gehören zur Klasse der lokalen Such- und Optimierungsverfahren. Sie finden gute oder nahezu optimale Lösungen für schwierige (\textit{NP-hard}) Optimierungsprobleme, ohne den gesamten Lösungsraum zu durchsuchen. Der Algorithmus versucht von einem Zustand in einen benachbarten Zustand mit besserem Zielfunktionswert überzugehen --- ähnlich wie das Erklimmen eines Hügels, auf einer Landschaft, wobei die "Höhe" des Hügels die Qualität der Lösung darstellt.
 
-Diese Vorgehensweise macht sie besonder effizient für große, aber gut strukturierte Optimierungsprobleme, da in kurzer Zeit eine gute Lösung gefunden werden kann. Die Implementierung ist unkompliziert, was Hill-Climbing Algorithmen in vielen Anwendungsbereichen zu einem beliebten heuristischen Ansatz macht. Ein wesentlicher Nachteil liegt in der Tendenz, in lokalen Optima zu verharren. Da der Algorithmus in seiner Grundform nur Verbesserungen akzeptiert, werden lokale Minima nicht durchschritten, selbst wenn sich dahinter ein höheres Maxima befindet \cite{jacobson-2004}.
+          Diese Vorgehensweise macht sie besonder effizient für große, aber gut strukturierte Optimierungsprobleme, da in kurzer Zeit eine gute Lösung gefunden werden kann. Die Implementierung ist unkompliziert, was Hill-Climbing Algorithmen in vielen Anwendungsbereichen zu einem beliebten heuristischen Ansatz macht. Ein wesentlicher Nachteil liegt in der Tendenz, in lokalen Optima zu verharren. Da der Algorithmus in seiner Grundform nur Verbesserungen akzeptiert, werden lokale Minima nicht durchschritten, selbst wenn sich dahinter ein höheres Maxima befindet \cite{jacobson-2004}.
 
+    \item \textbf{Offering-Order Algorithmus:} Der Offering-Order Algorithmus, welcher von Feldman und Golumbic \cite{feldmangolumbic} beschrieben wird, kombiniert ein heuristisches Ordnungsverfahren mit einer \textit{Tree Search}. Der Kern des Ansatzes besteht darin, eine heuristisch bestimmte Reihenfolge für die Instanziierung der Variablen (Kurse) festzulegen --- die sogenannte "\textit{offering order}". Innerhalb ihrer Planpunkte werden somit alle Kurse vorsortiert. Mittels einer Vorwärts-Suche wird der vorsortierte Suchbaum durchsucht, um dem aktuellen Zustand einen weiteren Kurs hinzuzufügen. Führt der neue Zustand zu einem ungültigen Ergebnis, wird der letzte gültige Zustand wiederhergestellt ("\textit{back-tracking}").
 
-% TODO pseudo code (adp)
+          Durch die Wahl einer sinnvollen Reihenfolge lassen sich ineffiziente Suchpfade vermeiden. Auf diese Weise wird der Suchraum stark reduziert und es kann eine Lösung gefunden werden, ohne den gesamten Lösungsraum zu besuchen.
 
-
-\subsubsection{Offering-Order Algorithmus}
-
-Der Offering-Order Algorithmus, welcher von Feldman und Golumbic \cite{feldmangolumbic} beschrieben wird, kombiniert ein heuristisches Ordnungsverfahren mit einer \textit{Tree Search}. Der Kern des Ansatzes besteht darin, eine heuristisch bestimmte Reihenfolge für die Instanziierung der Variablen (Kurse) festzulegen --- die sogenannte "\textit{offering order}". Innerhalb ihrer Planpunkte werden somit alle Kurse vorsortiert. Mittels einer Vorwärts-Suche wird der vorsortierte Suchbaum durchsucht, um dem aktuellen Zustand einen weiteren Kurs hinzuzufügen. Führt der neue Zustand zu einem ungültigen Ergebnis, wird der letzte gültige Zustand wiederhergestellt ("\textit{back-tracking}").
-
-Durch die Wahl einer sinnvollen Reihenfolge lassen sich ineffiziente Suchpfade vermeiden. Auf diese Weise wird der Suchraum stark reduziert und es kann eine Lösung gefunden werden, ohne den gesamten Lösungsraum zu besuchen.
-
-% TODO: nachteile + pseudo code
-
-
-
-\subsubsection{Integer Linear Programming (ILP)}
+    \item \textbf{Integer Linear Programming (ILP):}
+\end{enumerate}
 
 
 
 
 \subsection{Replikationsarbeit}
 
+% todo what does a replication study do?
+
+
 
 
 
 \subsection{Abgrenzung}
+
 Folgende Aspekte sind explizit vom Forschungsumfang ausgeschlossen:
 
 \begin{enumerate}
@@ -71,16 +76,4 @@ Folgende Aspekte sind explizit vom Forschungsumfang ausgeschlossen:
     \item Die Planung beschränkt sich auf ein einzelnes Semester des Hauptstudium Wirtschaftsinformatik.
     \item Die Entwicklung einer voll funktionsfähigen Applikation zur Dateneingabe, Speicherung von Planungen, oder komplexer Visualisierung wird ausgeschlossen. Das Ergebnis des Programms wird durch ein computerlesbares Format (JSON) ausgegeben.
 \end{enumerate}
-
-
-\subsection{Aufbau}
-
-Die vorliegende Arbeit gliedert sich in vier Hauptkapitel:
-
-Nach dieser Einleitung, welche Problemstellung, Zielsetzung und Abgrenzung erklärt, folgt das Kapitel Hintergrund und theoretische Grundlagen. Hier werden die Struktur des Studiums an der WU und die daraus resultierenden Herausforderungen bei der Stundenplanerstellung erläutert. Weiters werden die Grundlagen der Optimierung und Constraint-Satisfaction Probleme als theoretische Basis erklärt.
-
-Das zentrale Kapitel Implementierung beschreibt die notwendige Datenbeschaffung aus dem Vorlesungsverzeichnis. Anschließend wird die technische Implementierung der Algorithmen in Python detailliert erklärt.
-
-Das Kapitel Zusammenfassung und Arbeit zeigt die Ergebnisse der vergleichenden Analyse der implementierten Algorithmen hinsichtlich der Lösungsqualität, Geschwindigkeit und Speichernutzung. Die Ergebnisse der Analyse werden mit den Ergebnissen im Paper verglichen. Die Arbeit schließt mit dem Fazit und der Skizzierung möglicher Weiterentwicklungen und Anwendungsfälle.
-
 

@@ -1,0 +1,33 @@
+\subsection{Extraktionsprozess}
+
+
+Der Prozess der automatisierten Extraktion wurde folgendermaßen realisiert:
+
+
+\begin{algorithm}[H]
+    \caption{Datenextraktion aus Vorlesungsverzeichnis}
+    \label{alg:datenextraktion}
+    \begin{algorithmic}[1]
+        \State $\mathit{offerings} \gets \emptyset$
+        \State $\mathit{modules} \gets \emptyset$
+
+        \For{$id \gets 1, 9999$}
+        \State $url \gets \textsc{CraftCourseURL}(id)$
+        \State $page \gets \textsc{HttpGet}(url)$
+
+        \If{$\textsc{Contains}(page\, "Keine~Lehrveranstaltung~gefunden")$}
+        \State \textbf{continue}
+        \EndIf
+
+        \State $(module, dates) \gets \textsc{ExtractDates}(page)$
+
+        \If{$module \notin \text{dom}(modules)$}
+        \State $ects \gets \textsc{ExtractECTSFromModule}(module)$
+        \State $modules \gets modules \cup \{(module, ects)\}$
+        \EndIf
+
+        \State $\mathit{offerings} \gets \mathit{offerings} \cup \{(id, dates, modules_{module})\}$
+        \EndFor
+
+    \end{algorithmic}
+\end{algorithm}

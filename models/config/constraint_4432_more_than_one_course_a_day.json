@@ -1,0 +1,17 @@
+{
+  "title": "Studierende müssen mehr als einen Kurs pro Tag besuchen",
+
+  "HOUR_LOAD_CONSTRAINT": {
+    "min": 3,
+    "max": null
+  },
+
+  "FIXED_TIME_CONSTRAINTS": [
+    ["monday", 1, 23, 7],
+    ["tuesday", 1, 23, 15],
+    ["wednesday", 1, 23, 15],
+    ["thursday", 1, 23, 7],
+    ["friday", 1, 23, 7],
+    ["saturday", 1, 23, -7]
+  ]
+}

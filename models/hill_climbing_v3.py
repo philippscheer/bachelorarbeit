@@ -54,16 +54,22 @@ Constraints are encoded in the following way:
 """
 
 
-def schedule_course(schedule: list[Offering], available: list[Offering], v3: bool = False) -> Offering | None:
+def schedule_course(
+    schedule: list[Offering], available: list[Offering], v3: bool = False
+) -> Offering | None:
     """
     Picks one offering that fits best into the schedule and returns this offering
     """
-    if len(schedule) == 0:  # schedule is empty, remove offering with highest score
+    if (
+        len(schedule) == 0
+    ):  # schedule is empty, remove offering with highest score
         return sorted(available, key=lambda item: -item.mark)[0]
 
     schedule_marks: list[Offering, int] = [
         [a, get_schedule_mark([*schedule, a])]
-        for a in (available if not v3 else available[(len(available) - 1) // 2 :])
+        for a in (
+            available if not v3 else available[(len(available) - 1) // 2 :]
+        )
     ]
     try:
         return sorted(schedule_marks, key=lambda item: -item[1])[0][0]
@@ -75,7 +81,9 @@ def build_schedule(offerings: list[Offering]) -> list[Offering] | None:
     offerings = list(reversed(offerings))
 
     schedule = get_must_schedule_courses(offerings)
-    available_offerings = [o for o in offerings if o.courseId not in [s.courseId for s in schedule]]
+    available_offerings = [
+        o for o in offerings if o.courseId not in [s.courseId for s in schedule]
+    ]
 
     while True:
         available_offerings = rebuild_available_offerings(
@@ -85,16 +93,26 @@ def build_schedule(offerings: list[Offering]) -> list[Offering] | None:
             schedule, available_offerings, v3=True
         )  # only pick from halved offering list here
 
-        if is_valid_schedule(schedule, verbose=True) and len(schedule) == C.COURSE_COUNT_CONSTRAINT[1]:
+        if (
+            is_valid_schedule(schedule, schedule_complete=False, verbose=True)
+            and len(schedule) == C.TOTAL_COURSE_COUNT_CONSTRAINT.max
+        ):
             break
 
-        if is_valid_schedule(schedule) and not next_valid_course:
+        if (
+            is_valid_schedule(schedule, schedule_complete=False)
+            and not next_valid_course
+        ):
             break
 
         if next_valid_course is None:
             return None
 
-        logger.debug(f"{is_valid_schedule(schedule)=}, {len(available_offerings)} offerings remaining")
+        logger.debug(
+            f"picked {next_valid_course.courseId}, "
+            f"valid={is_valid_schedule(schedule, schedule_complete=False)}, "
+            f"{len(available_offerings)} offerings remaining"
+        )
         schedule.append(next_valid_course)
         logger.debug(f"{schedule=}")
 
@@ -111,5 +129,5 @@ if __name__ == "__main__":
     logger.success("found schedule")
     logger.success(f"{schedule=}")
     logger.success(f"{len(schedule)=}")
-    logger.success(f"{is_valid_schedule(schedule)=}")
+    logger.success(f"{is_valid_schedule(schedule, schedule_complete=True)=}")
     logger.success(f"{get_schedule_mark(schedule)=}")

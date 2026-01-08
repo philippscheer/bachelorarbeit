@@ -7,7 +7,7 @@ from collections import defaultdict
 
 from bachelorarbeit.config import RAW_DATA_DIR
 from bachelorarbeit.dtypes import Offering
-from bachelorarbeit.constraints import COURSE_COUNT_CONSTRAINT
+from bachelorarbeit.constraints import TOTAL_COURSE_COUNT_CONSTRAINT
 
 from utils import (
     get_schedule_mark,
@@ -36,9 +36,9 @@ def get_total_combinations(offering_sets: list[list[Offering]]) -> int:
     Calculate how many possible schedules there are given a number of sets of offerings
     """
     sizes = list(map(lambda l: len(l), offering_sets))
-    combs = count_exact_k(sizes, COURSE_COUNT_CONSTRAINT[1])
+    combs = count_exact_k(sizes, TOTAL_COURSE_COUNT_CONSTRAINT.max)
     total_offerings = 0
-    for r in range(COURSE_COUNT_CONSTRAINT[0], COURSE_COUNT_CONSTRAINT[1] + 1):
+    for r in range(TOTAL_COURSE_COUNT_CONSTRAINT.min, TOTAL_COURSE_COUNT_CONSTRAINT.max + 1):
         total_offerings += combs[r]
     return total_offerings
 
@@ -70,7 +70,7 @@ def bruteforce_schedules(offering_sets: list[list[Offering]]) -> Generator[list[
 
     pbar = tqdm(total=total_combos, desc="Generating schedules", unit_scale=True)
 
-    for r in range(COURSE_COUNT_CONSTRAINT[0], COURSE_COUNT_CONSTRAINT[1] + 1):
+    for r in range(TOTAL_COURSE_COUNT_CONSTRAINT.min, TOTAL_COURSE_COUNT_CONSTRAINT.max + 1):
         for subset in combinations(offering_sets, r):
             for schedule in product(*subset):
                 yield schedule
