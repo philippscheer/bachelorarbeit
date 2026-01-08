@@ -11,6 +11,13 @@ class ProfileResult:
         self.mem_peak = 0
         self.mem_measurements = []
 
+    def __str__(self):
+        return (
+            f"ProfileResult(time_elapsed={self.time_elapsed}, "
+            f"mem_peak={self.mem_peak}, "
+            f"mem_measurements={self.mem_measurements})"
+        )
+
 
 @contextmanager
 def profile(sampling_interval=0.01):
