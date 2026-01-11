@@ -1,0 +1,20 @@
+{
+  "title": "Zahl der fix gesetzten Kurse: 1 (Zuf\u00e4llige Auswahl).",
+  "COURSE_PRIORITY_CONSTRAINTS": {
+    "4001": 100,
+    "5663": 100,
+    "6084": 100,
+    "4262": 100,
+    "6258": 100,
+    "4016": 100,
+    "4417": 100
+  },
+  "FIXED_TIME_CONSTRAINTS": [
+    ["monday", 1, 23, 7],
+    ["tuesday", 1, 23, 15],
+    ["wednesday", 1, 23, 15],
+    ["thursday", 1, 23, 7],
+    ["friday", 1, 23, 7],
+    ["saturday", 1, 23, -7]
+  ]
+}
