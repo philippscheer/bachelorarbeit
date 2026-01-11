@@ -11,11 +11,18 @@ def write_benchmarks(df, cfg, cfg_name, cfg_title):
         [
             ("ilp", "courses"),
             ("ilp", "score"),
+            ("ilp_gpu", "score"),
             ("hill_climbing_v1", "score"),
             ("hill_climbing_v3", "score"),
             ("offering_order", "score"),
         ],
-        ["difficulty", "ILP", "Hill Climbing v1", "Hill Climbing v3", "Offering Order"],
+        [
+            "difficulty",
+            "ILP",
+            "ILP GPU" "Hill Climbing v1",
+            "Hill Climbing v3",
+            "Offering Order",
+        ],
         REPORTS_DIR / f"csv/score_diff__{cfg_name}.csv",
     )
 
@@ -26,6 +33,8 @@ def write_benchmarks(df, cfg, cfg_name, cfg_title):
             ("ilp", "courses"),
             ("ilp", "timings_mean"),
             ("ilp", "timings_stdev"),
+            ("ilp_gpu", "timings_mean"),
+            ("ilp_gpu", "timings_stdev"),
             ("hill_climbing_v1", "timings_mean"),
             ("hill_climbing_v1", "timings_stdev"),
             ("hill_climbing_v3", "timings_mean"),
@@ -37,6 +46,8 @@ def write_benchmarks(df, cfg, cfg_name, cfg_title):
             "difficulty",
             "ILP",
             "ILP stdev",
+            "ILP GPU",
+            "ILP GPU stdev",
             "Hill Climbing v1",
             "Hill Climbing v1 stdev",
             "Hill Climbing v3",
@@ -54,6 +65,8 @@ def write_benchmarks(df, cfg, cfg_name, cfg_title):
             ("ilp", "courses"),
             ("ilp", "memory_mean"),
             ("ilp", "memory_stdev"),
+            ("ilp_gpu", "memory_mean"),
+            ("ilp_gpu", "memory_stdev"),
             ("hill_climbing_v1", "memory_mean"),
             ("hill_climbing_v1", "memory_stdev"),
             ("hill_climbing_v3", "memory_mean"),
@@ -65,6 +78,8 @@ def write_benchmarks(df, cfg, cfg_name, cfg_title):
             "difficulty",
             "ILP",
             "ILP stdev",
+            "ILP GPU",
+            "ILP GPU stdev",
             "Hill Climbing v1",
             "Hill Climbing v1 stdev",
             "Hill Climbing v3",
@@ -82,7 +97,9 @@ def write_benchmarks(df, cfg, cfg_name, cfg_title):
         for k, v in cfg.items():
             header_lines.append(f"{k}: {v}")
         header_df = pd.DataFrame(header_lines, columns=["info"])
-        header_df.to_excel(writer, sheet_name="results", index=False, header=False)
+        header_df.to_excel(
+            writer, sheet_name="results", index=False, header=False
+        )
 
         startrow = len(header_lines) + 2
         df.to_excel(writer, sheet_name="results", startrow=startrow)

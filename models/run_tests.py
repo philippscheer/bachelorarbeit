@@ -258,18 +258,20 @@ if __name__ == "__main__":
                 frames[method] = pd.DataFrame(records)
             df = pd.concat(frames, axis=1)
 
-            # try:
-            #     df[("score_percent", "hill_climbing_v1_vs_ilp")] = (
-            #         df[("hill_climbing_v1", "score")] / df[("ilp", "score")]
-            #     )
-            #     df[("score_percent", "hill_climbing_v3_vs_ilp")] = (
-            #         df[("hill_climbing_v3", "score")] / df[("ilp", "score")]
-            #     )
-            #     df[("score_percent", "offering_order_vs_ilp")] = df[("offering_order", "score")] / df[("ilp", "score")]
-            # except Exception:
-            #     pass
+            try:
+                df[("score_percent", "hill_climbing_v1_vs_ilp")] = (
+                    df[("hill_climbing_v1", "score")] / df[("ilp", "score")]
+                )
+                df[("score_percent", "hill_climbing_v3_vs_ilp")] = (
+                    df[("hill_climbing_v3", "score")] / df[("ilp", "score")]
+                )
+                df[("score_percent", "offering_order_vs_ilp")] = (
+                    df[("offering_order", "score")] / df[("ilp", "score")]
+                )
+            except Exception:
+                pass
 
-            # write_benchmarks(df, cfg, cfg_name, cfg_title)
-            # logger.success("wrote benchmarks")
+            write_benchmarks(df, cfg, cfg_name, cfg_title)
+            logger.success("wrote benchmarks")
 
     logger.success("done")
