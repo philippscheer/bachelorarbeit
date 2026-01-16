@@ -52,11 +52,15 @@ def is_valid_schedule(
     if schedule_complete:
         # total course count constraint satisfied
         if (
-            len(schedule) < C.TOTAL_COURSE_COUNT_CONSTRAINT.min
-            or len(schedule) > C.TOTAL_COURSE_COUNT_CONSTRAINT.max
+            C.TOTAL_COURSE_COUNT_CONSTRAINT.min is not None
+            and len(schedule) < C.TOTAL_COURSE_COUNT_CONSTRAINT.min
+        ) or (
+            C.TOTAL_COURSE_COUNT_CONSTRAINT.max is not None
+            and len(schedule) > C.TOTAL_COURSE_COUNT_CONSTRAINT.max
         ):
             verbose and logger.debug(
-                "schedule does not satisfy total course count constraint"
+                f"schedule does not satisfy total course count constraint, "
+                f"should be {C.TOTAL_COURSE_COUNT_CONSTRAINT.min}-{C.TOTAL_COURSE_COUNT_CONSTRAINT.max}, is {len(schedule)}"
             )
             return False
 

@@ -16,11 +16,15 @@ from models.ilp import create_model
 def solve_ilp(offerings: list[Offering]) -> list[Offering]:
     model, solver, y = create_model(offerings)
 
-    model.solve(pulp.CUOPT())
+    model.solve(pulp.CUOPT(msg=False))
     if pulp.LpStatus[model.status] != "Optimal":
         logger.warning("model status is not optimal!")
 
-    return [[o for o in offerings if o.courseId == cid][0] for cid, var in y.items() if pulp.value(var) > 0.5]
+    return [
+        [o for o in offerings if o.courseId == cid][0]
+        for cid, var in y.items()
+        if pulp.value(var) > 0.5
+    ]
 
 
 if __name__ == "__main__":

@@ -28,9 +28,6 @@ from utils.benchmark import write_benchmarks
 from utils.load_constraints import load_constraints_from_file
 
 
-logger.remove()
-logger.add(lambda msg: tqdm.write(msg, end=""), colorize=True, level="INFO")
-
 CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 if __name__ == "__main__":
@@ -68,7 +65,15 @@ if __name__ == "__main__":
         type=int,
         help="Maximum amount of courses to be scheduled (if omitted, dynamically calculated using ILP)",
     )
+    parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
+
+    logger.remove()
+    logger.add(
+        lambda msg: tqdm.write(msg, end=""),
+        colorize=True,
+        level="DEBUG" if args.verbose else "INFO",
+    )
 
     with open(RAW_DATA_DIR / "offerings.pkl", "rb") as f:
         all_offerings: list[Offering] = pickle.load(f)
@@ -93,7 +98,7 @@ if __name__ == "__main__":
     config_files = (
         glob.glob(f"{CURRENT_PATH}/config/constraint*.json")
         if args.config is None
-        else glob.glob(f"{CURRENT_PATH}/config/constraint_{args.config}_*.json")
+        else glob.glob(f"{CURRENT_PATH}/config/constraint_{args.config}*.json")
     )
 
     logger.debug(f"found {len(config_files)} config files")
@@ -138,10 +143,13 @@ if __name__ == "__main__":
                 previous_schedule = None
                 args.print_schedule and print_schedule(schedule)
                 args.print_schedule and is_valid_schedule(
-                    schedule, schedule_complete=True, verbose=True
+                    schedule, schedule_complete=True, verbose=args.verbose
                 )
 
-                while is_valid_schedule(schedule, schedule_complete=True):
+                while is_valid_schedule(
+                    schedule, schedule_complete=True, verbose=args.verbose
+                ):
+                    logger.debug(f"trying schedule with len={len(schedule)+1}")
                     previous_schedule = schedule
                     C.TOTAL_COURSE_COUNT_CONSTRAINT = SimpleNamespace(
                         min=len(schedule) + 1, max=999
@@ -149,7 +157,7 @@ if __name__ == "__main__":
                     schedule = test_ilp(offerings)
                     logger.info(
                         f"found schedule with {len(schedule)} offerings, "
-                        f"valid={is_valid_schedule(schedule, schedule_complete=True)}, "
+                        f"valid={is_valid_schedule(schedule, schedule_complete=True, verbose=args.verbose)}, "
                         f"score={get_schedule_mark(schedule)}"
                     )
 
@@ -158,11 +166,13 @@ if __name__ == "__main__":
                 )
                 logger.success(
                     f"found longest ilp schedule with length {len(previous_schedule)}, "
-                    f"valid={is_valid_schedule(previous_schedule, schedule_complete=True)}"
+                    f"valid={is_valid_schedule(previous_schedule, schedule_complete=True, verbose=args.verbose)}"
                 )
                 C.TOTAL_COURSE_COUNT_CONSTRAINT = SimpleNamespace(
-                    min=1, max=len(previous_schedule)
+                    min=len(C.COURSE_MUST_SCHEDULE) or 1,
+                    max=len(previous_schedule),
                 )
+                logger.debug(f"{C.TOTAL_COURSE_COUNT_CONSTRAINT=}")
 
             cfg_title = cfg.get("title", cfg_name)
 
@@ -212,7 +222,7 @@ if __name__ == "__main__":
                     ]
 
                     logger.success(
-                        f"schedule={[str(c.courseId) + ':' + c.groupId for c in (schedule or [])]}, is valid? {is_valid_schedule(schedule, schedule_complete=True)}, mark: {get_schedule_mark(schedule)}"
+                        f"schedule={[str(c.courseId) + ':' + c.groupId for c in (schedule or [])]}, is valid? {is_valid_schedule(schedule, schedule_complete=True, verbose=args.verbose)}, mark: {get_schedule_mark(schedule)}"
                     )
 
                     test_results[alg_name].append(
@@ -220,7 +230,9 @@ if __name__ == "__main__":
                             "courses": i,
                             "score": get_schedule_mark(schedule),
                             "valid": is_valid_schedule(
-                                schedule, schedule_complete=True
+                                schedule,
+                                schedule_complete=True,
+                                verbose=args.verbose,
                             ),
                             # run timings
                             "timings": [p.time_elapsed for p in profiles],
