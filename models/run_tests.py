@@ -118,14 +118,13 @@ if __name__ == "__main__":
         for cfg_path in pbar:
             cfg_path = Path(cfg_path)
             cfg_name = cfg_path.stem  # e.g. constraint1
+            pbar.set_description(cfg_name)
 
             # inefficient but prevents errors when the original offering objects
             # inside change for whatever reason
-            all_offerings = load_offerings()
-
             cfg = load_constraints_from_file(cfg_path)
+            all_offerings = load_offerings()
             offerings = preprocess(all_offerings)
-            pbar.set_description(cfg_name)
 
             if args.course_min and args.course_max:
                 C.TOTAL_COURSE_COUNT_CONSTRAINT = SimpleNamespace(

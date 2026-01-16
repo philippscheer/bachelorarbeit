@@ -3,8 +3,6 @@ from typing import TypeVar, Literal
 from itertools import combinations
 from collections import defaultdict
 from datetime import datetime, time
-from functools import lru_cache
-from collections import Counter
 
 from bachelorarbeit.dtypes import Offering
 import bachelorarbeit.constraints as C
@@ -197,7 +195,6 @@ def is_on_day(dt: datetime, day: Weekday) -> bool:
     return dt.strftime("%A").lower() == day.lower()
 
 
-@lru_cache(maxsize=500)
 def violates_hard_constraints(
     offering: Offering, verbose: bool = False, ignore_must_schedule: bool = True
 ):
@@ -285,7 +282,6 @@ def merge_intervals(
 # === Calculate mark ===
 
 
-# @lru_cache(maxsize=500)
 def get_offering_mark(offering: Offering):
     mark = 0
     mark += C.COURSE_PRIORITY_CONSTRAINTS.get(offering.courseId, 0)
