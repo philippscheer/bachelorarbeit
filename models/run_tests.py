@@ -79,7 +79,7 @@ if __name__ == "__main__":
         k: v
         for k, v in {
             "ilp": test_ilp if args.ilp else None,
-            "ilp_gpu": test_ilp if args.ilp_gpu else None,
+            "ilp_gpu": test_ilp_gpu if args.ilp_gpu else None,
             "offering_order": test_offering_order if args.oo else None,
             "hill_climbing_v1": test_hill_climbing_v1 if args.hc else None,
             "hill_climbing_v3": test_hill_climbing_v3 if args.hc else None,

@@ -14,7 +14,7 @@ from models.ilp import create_model
 
 
 def solve_ilp(offerings: list[Offering]) -> list[Offering]:
-    model, y = create_model(offerings)
+    model, solver, y = create_model(offerings)
 
     model.solve(pulp.CUOPT())
     if pulp.LpStatus[model.status] != "Optimal":
