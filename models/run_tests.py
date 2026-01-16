@@ -29,7 +29,7 @@ from utils.load_constraints import load_constraints_from_file
 
 
 logger.remove()
-logger.add(lambda msg: tqdm.write(msg, end=""), colorize=True, level="DEBUG")
+logger.add(lambda msg: tqdm.write(msg, end=""), colorize=True, level="INFO")
 
 CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
 
