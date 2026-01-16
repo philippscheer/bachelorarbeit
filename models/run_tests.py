@@ -30,6 +30,13 @@ from utils.load_constraints import load_constraints_from_file
 
 CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
 
+
+def load_offerings() -> list[Offering]:
+    logger.debug("loading offerings")
+    with open(RAW_DATA_DIR / "offerings.pkl", "rb") as f:
+        return pickle.load(f)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Run scheduling algorithm tests."
@@ -75,8 +82,7 @@ if __name__ == "__main__":
         level="DEBUG" if args.verbose else "INFO",
     )
 
-    with open(RAW_DATA_DIR / "offerings.pkl", "rb") as f:
-        all_offerings: list[Offering] = pickle.load(f)
+    all_offerings = load_offerings()
 
     logger.info("running tests on algorithms")
 
@@ -109,10 +115,13 @@ if __name__ == "__main__":
         position=1,
         leave=True,
     ) as pbar:
-        pbar.update(1)
         for cfg_path in pbar:
             cfg_path = Path(cfg_path)
             cfg_name = cfg_path.stem  # e.g. constraint1
+
+            # inefficient but prevents errors when the original offering objects
+            # inside change for whatever reason
+            all_offerings = load_offerings()
 
             cfg = load_constraints_from_file(cfg_path)
             offerings = preprocess(all_offerings)

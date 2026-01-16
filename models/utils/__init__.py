@@ -387,7 +387,7 @@ def get_must_schedule_courses(offerings: list[Offering]) -> list[Offering]:
         offers = [o for o in offerings if o.courseId == offerId]
         if len(offers) < 1:
             logger.error(
-                f"sanitfy check failed: must schedule course {offerId} violates hard constraints"
+                f"sanitfy check failed: must schedule course {offerId} violates hard constraints (could not find course with id)"
             )
             raise Exception("insane")
         must_schedule.append(offers[0])

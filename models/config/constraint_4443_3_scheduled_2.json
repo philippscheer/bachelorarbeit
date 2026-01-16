@@ -2,8 +2,8 @@
   "title": "Zahl der fix gesetzten Kurse: 1 (Zuf\u00e4llige Auswahl).",
   "COURSE_PRIORITY_CONSTRAINTS": {
     "4004": 100,
-    "4262": 100,
-    "6258": 100
+    "6499": 100,
+    "6260": 100
   },
   "FIXED_TIME_CONSTRAINTS": [
     ["monday", 1, 23, 7],
