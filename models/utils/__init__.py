@@ -43,7 +43,9 @@ def is_valid_schedule(
             and max_hrs > C.HOUR_LOAD_CONSTRAINT.max
         ):
             verbose and logger.debug(
-                "schedule does not satisfy hour load constraint"
+                f"schedule does not satisfy hour load constraint. "
+                f"should be {C.HOUR_LOAD_CONSTRAINT.min} - {C.HOUR_LOAD_CONSTRAINT.max}, "
+                f"is {min_hrs} - {max_hrs}"
             )
             return False
 
@@ -59,9 +61,6 @@ def is_valid_schedule(
             return False
 
         # zero or at least X courses scheduled per day
-        logger.debug(
-            ("daily course count constraint", C.DAILY_COURSE_COUNT_CONSTRAINT)
-        )
         if (
             C.DAILY_COURSE_COUNT_CONSTRAINT.min is not None
             or C.DAILY_COURSE_COUNT_CONSTRAINT.max is not None

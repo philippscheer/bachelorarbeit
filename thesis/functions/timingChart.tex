@@ -32,7 +32,7 @@
                 xlabel={Difficulty},
                 ylabel={ILP Laufzeit (Sekunden)},
                 ymin=0,
-                xmax=\currentXmax,
+                % xmax=\currentXmax,
                 ymajorgrids=true,
                 width=0.95\textwidth,
                 height=7cm,
@@ -41,7 +41,7 @@
                 table/x=difficulty,
             ]
 
-            % --- ILP Memory Usage ---
+            % --- ILP Timing ---
             \addplot[
                 mark=*,
                 color=blue,
@@ -57,6 +57,24 @@
                     y error expr=\thisrow{ILP stdev},
                 ] {\loadedMemoryData};
             \addlegendentry{ILP}
+
+
+            % --- ILP GPU Timing ---
+            \addplot[
+                mark=*,
+                color=purple,
+                line width=1pt,
+                smooth,
+                error bars/.cd,
+                y dir=both,
+                y explicit,
+                /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
+            ] table [
+                    x=difficulty,
+                    y={ILP GPU},
+                    y error={ILP GPU stdev},
+                ] {\loadedMemoryData};
+            \addlegendentry{ILP GPU}
         \end{axis}
 
         % --- Right axis (Hill Climbing & Offering Order) ---
@@ -65,7 +83,7 @@
                 axis x line=none,
                 ylabel={Algorithmus Laufzeit (Sekunden)},
                 ymin=0,
-                xmax=\currentXmax,
+                % xmax=\currentXmax,
                 ymajorgrids=false,
                 width=0.95\textwidth,
                 height=7cm,

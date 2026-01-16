@@ -19,7 +19,8 @@ def write_benchmarks(df, cfg, cfg_name, cfg_title):
         [
             "difficulty",
             "ILP",
-            "ILP GPU" "Hill Climbing v1",
+            "ILP GPU",
+            "Hill Climbing v1",
             "Hill Climbing v3",
             "Offering Order",
         ],

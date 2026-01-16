@@ -79,7 +79,7 @@ if __name__ == "__main__":
         k: v
         for k, v in {
             "ilp": test_ilp if args.ilp else None,
-            "ilp_gpu": test_ilp_gpu if args.ilp_gpu else None,
+            "ilp_gpu": test_ilp if args.ilp_gpu else None,
             "offering_order": test_offering_order if args.oo else None,
             "hill_climbing_v1": test_hill_climbing_v1 if args.hc else None,
             "hill_climbing_v3": test_hill_climbing_v3 if args.hc else None,
@@ -110,6 +110,7 @@ if __name__ == "__main__":
 
             cfg = load_constraints_from_file(cfg_path)
             offerings = preprocess(all_offerings)
+            pbar.set_description(cfg_name)
 
             if args.course_min and args.course_max:
                 C.TOTAL_COURSE_COUNT_CONSTRAINT = SimpleNamespace(
@@ -135,31 +136,29 @@ if __name__ == "__main__":
                     offerings
                 )  # might be the best schedule, but not the longest
                 previous_schedule = None
+                args.print_schedule and print_schedule(schedule)
+                args.print_schedule and is_valid_schedule(
+                    schedule, schedule_complete=True, verbose=True
+                )
 
                 while is_valid_schedule(schedule, schedule_complete=True):
                     previous_schedule = schedule
                     C.TOTAL_COURSE_COUNT_CONSTRAINT = SimpleNamespace(
                         min=len(schedule) + 1, max=999
                     )
-                    logger.info(
-                        f"trying count {C.TOTAL_COURSE_COUNT_CONSTRAINT}"
-                    )
                     schedule = test_ilp(offerings)
-                    logger.info(f"result {schedule}")
-                    logger.info(f"length {len(schedule)}")
                     logger.info(
-                        f"is valid? {is_valid_schedule(schedule, schedule_complete=True)}"
+                        f"found schedule with {len(schedule)} offerings, "
+                        f"valid={is_valid_schedule(schedule, schedule_complete=True)}, "
+                        f"score={get_schedule_mark(schedule)}"
                     )
-                    logger.info(f"score: {get_schedule_mark(schedule)}")
 
                 C.TOTAL_COURSE_COUNT_CONSTRAINT = SimpleNamespace(
                     min=len(previous_schedule), max=999
                 )
                 logger.success(
-                    f"found longest ilp schedule with length {len(previous_schedule)})"
-                )
-                logger.success(
-                    f"is valid? {is_valid_schedule(previous_schedule, schedule_complete=True)}"
+                    f"found longest ilp schedule with length {len(previous_schedule)}, "
+                    f"valid={is_valid_schedule(previous_schedule, schedule_complete=True)}"
                 )
                 C.TOTAL_COURSE_COUNT_CONSTRAINT = SimpleNamespace(
                     min=1, max=len(previous_schedule)
@@ -173,6 +172,7 @@ if __name__ == "__main__":
 
             test_results = {
                 "ilp": [],
+                "ilp_gpu": [],
                 "offering_order": [],
                 "hill_climbing_v1": [],
                 "hill_climbing_v3": [],

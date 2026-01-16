@@ -9,25 +9,11 @@
     ["friday", 1, 10, -100],
     ["saturday", 1, 10, -100],
 
-    ["monday", 10, 13, 10],
-    ["tuesday", 10, 13, 10],
-    ["wednesday", 10, 13, 10],
-    ["thursday", 10, 13, 10],
-    ["friday", 10, 13, 10],
-    ["saturday", 10, 13, 10],
-
-    ["monday", 14, 17, 0],
-    ["tuesday", 14, 17, 0],
-    ["wednesday", 14, 17, 0],
-    ["thursday", 14, 17, 0],
-    ["friday", 14, 17, 0],
-    ["saturday", 14, 17, 0],
-
-    ["monday", 18, 23, -10],
-    ["tuesday", 18, 23, -10],
-    ["wednesday", 18, 23, -10],
-    ["thursday", 18, 23, -10],
-    ["friday", 18, 23, -10],
-    ["saturday", 18, 23, -10]
+    ["monday", 1, 23, 7],
+    ["tuesday", 1, 23, 15],
+    ["wednesday", 1, 23, 15],
+    ["thursday", 1, 23, 7],
+    ["friday", 1, 23, 7],
+    ["saturday", 1, 23, -7]
   ]
 }

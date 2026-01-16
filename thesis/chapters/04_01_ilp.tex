@@ -1,8 +1,37 @@
 \subsection{Implementierung des ILP Baseline Ansatzes}
 
-Feldman und Golumbic vergleichen in Ihrem Paper \cite{feldmangolumbic} die Outputs der Algorithmen "Hill Climbing" und "Offering Order" mit dem optimalen Stundenplan, der mittels Brute-Force ermittelt wurde. Da ein Brute-Force Algorithmus bei der großen Anzahl der Vorlesungen im VVZ der WU eine zu lange Laufzeit hätte, wurde eine Integer Linear Programming (ILP) Lösung als Benchmark gewählt, die ebenfalls unter Berücksichtigung aller Nebenbedingungen den optimalen Stundenplan erzeugt.
+Feldman und Golumbic vergleichen in Ihrem Paper \cite{feldmangolumbic} die Outputs der Algorithmen "Hill Climbing" und "Offering Order" mit dem optimalen Stundenplan, der mittels Brute-Force ermittelt wurde. Da ein Brute-Force Algorithmus bei der großen Anzahl der Vorlesungen im VVZ der WU eine zu lange Laufzeit hätte, wurde eine Integer Linear Programming (ILP) Lösung als Benchmark gewählt, die ebenfalls unter Berücksichtigung aller Nebenbedingungen den optimalen Stundenplan erzeugt \cite{gh-ilp}.
 
-Die Implementierung des ILP-Modells basiert auf der \texttt{PuLP}-Bibliothek in Python und dient der Maximierung des Gesamtnutzens (\textit{Mark}) eines Stundenplans. Das mathematische ILP-Modell sieht wie folgt aus:
+
+\subsubsection{Variablen, Parameter und Zielfunktion}
+
+Zur formalen Definition des Modells werden die folgenden Mengen, Parameter und Entscheidungsvariablen verwendet:
+
+\begin{itemize}
+    \item \textbf{Mengen:}
+          \begin{itemize}
+              \item $\mathcal{O}$: Menge aller verfügbaren Kursangebote (\textit{Offerings}).
+              \item $\mathcal{D}$: Menge aller Kalendertage, an denen Kurse stattfinden.
+              \item $\mathcal{G}$: Menge der Kursgruppen (z. B. verschiedene Parallelveranstaltungen desselben Kurses).
+              \item $\mathcal{G}_g \subseteq \mathcal{O}$: Teilmenge der Angebote, die zur Gruppe $g \in \mathcal{G}$ gehören.
+              \item $\mathcal{D}_d \subseteq \mathcal{O}$: Teilmenge der Angebote, die Termine am Kalendertag $d \in \mathcal{D}$ haben.
+              \item $\mathcal{F}_{\text{Zeit}}$: Menge aller Paare $(i, j)$ von Angeboten, die eine zeitliche Überschneidung aufweisen.
+              \item $\mathcal{M}_{\text{Muss}}, \mathcal{M}_{\text{Blockiert}} \subseteq \mathcal{O}$: Mengen von Angeboten, die zwingend gewählt bzw. ausgeschlossen werden müssen.
+          \end{itemize}
+    \item \textbf{Parameter:}
+          \begin{itemize}
+              \item $\text{Mark}(i)$: Der berechnete Nutzen (Score) für das Kursangebot $i$.
+              \item $C_{\min}, C_{\max}$: Unter- und Obergrenze für die Gesamtzahl der zu wählenden Kurse.
+              \item $D_{\min}, D_{\max}$: Unter- und Obergrenze für die Anzahl der Kurse an einem belegten Tag.
+          \end{itemize}
+    \item \textbf{Entscheidungsvariablen:}
+          \begin{itemize}
+              \item $y_i \in \{0, 1\}$: Binäre Variable; 1 wenn Kursangebot $i$ gewählt wird, sonst 0.
+              \item $u_d \in \{0, 1\}$: Binäre Hilfsvariable; 1 wenn am Tag $d$ mindestens ein Kurs belegt wird, sonst 0.
+          \end{itemize}
+\end{itemize}
+
+
 
 \begin{figure*}[!ht]
     \centering
@@ -12,40 +41,38 @@ Die Implementierung des ILP-Modells basiert auf der \texttt{PuLP}-Bibliothek in 
         \vspace{0.5em}
         \hrule
         \begin{align}
-            \text{maximiere: }           & \sum_{i \in \mathcal{O}} \text{Mark}(i) \cdot y_i \label{eq:objective}                       \\
-            \text{unter den Nebenbedingungen:} \nonumber                                                                                \\
-            \sum_{i \in \mathcal{O}} y_i & \geq C_{\min} \label{eq:count_min}                                                           \\
-            \sum_{i \in \mathcal{O}} y_i & \leq C_{\max} \label{eq:count_max}                                                           \\
-            y_i + y_j                    & \leq 1 \quad \forall (i, j) \in \mathcal{F}_{\text{Planpunkt}} \label{eq:conflict_planpunkt} \\
-            y_i + y_j                    & \leq 1 \quad \forall (i, j) \in \mathcal{F}_{\text{Zeit}} \label{eq:conflict_overlap}        \\
-            y_i                          & = 1 \quad \forall i \in \mathcal{M}_{\text{Muss}} \label{eq:must_schedule}                   \\
-            y_i                          & = 0 \quad \forall i \in \mathcal{M}_{\text{Blockiert}} \label{eq:must_not_schedule}          \\
-            y_i                          & \in \{0, 1\} \quad \forall i \in \mathcal{O} \label{eq:binary}
+            \text{maximiere: }             & \sum_{i \in \mathcal{O}} \text{Mark}(i) \cdot y_i \label{eq:objective}                    \\
+            \text{unter den Nebenbedingungen:} \nonumber                                                                               \\
+            \sum_{i \in \mathcal{O}} y_i   & \geq C_{\min} \label{eq:count_min}                                                        \\
+            \sum_{i \in \mathcal{O}} y_i   & \leq C_{\max} \label{eq:count_max}                                                        \\
+            \sum_{i \in \mathcal{G}_g} y_i & \leq 1 \quad \forall g \in \mathcal{G} \label{eq:group_constraint}                        \\
+            \sum_{i \in \mathcal{D}_d} y_i & \geq D_{\min} \cdot u_d \quad \forall d \in \mathcal{D} \label{eq:daily_min}              \\
+            \sum_{i \in \mathcal{D}_d} y_i & \leq D_{\max} \cdot u_d \quad \forall d \in \mathcal{D} \label{eq:daily_max}              \\
+            y_i + y_j                      & \leq 1 \quad \forall (i, j) \in \mathcal{F}_{\text{Zeit}} \label{eq:conflict_overlap}     \\
+            y_i                            & = 1 \quad \forall i \in \mathcal{M}_{\text{Muss}} \label{eq:must_schedule}                \\
+            y_i                            & = 0 \quad \forall i \in \mathcal{M}_{\text{Blockiert}} \label{eq:must_not_schedule}       \\
+            y_i, u_d                       & \in \{0, 1\} \quad \forall i \in \mathcal{O}, \forall d \in \mathcal{D} \label{eq:binary}
         \end{align}
         \hrule
     \end{minipage}
-    \caption{Mathematische Formulierung des ILP-Modells zur Stundenplanoptimierung.}
+    \caption{Mathematische Formulierung des ILP-Modells zur Stundenplanoptimierung}
     \label{fig:ilp_model}
 \end{figure*}
 
-\subsubsection{Variablen, Parameter und Zielfunktion}
 
-Die Kernkomponente des Modells sind die binären Entscheidungsvariablen $y_i$, definiert für jede mögliche Lehrveranstaltung $i$. Eine Lehrveranstaltung ist ausgewählt, wenn $y_i=1$, während $y_i=0$ bedeutet, dass die Lehrveranstaltung nicht gewählt wird. Die Menge aller zur Auswahl stehenden Lehrveranstaltungen wird durch $\mathcal{O}$ repräsentiert (vgl. \ref{eq:binary}).
+\newpage
 
-Die Zielfunktion (\ref{eq:objective}) maximiert den Gesamtnutzen (engl. \textit{Mark}) des erstellten Stundenplans.
-
-% Der Nutzen $\text{Mark}(i)$ wird hierbei als folgende Funktion definiert: TODO (Berechnung von Mark aus dem Paper übernehmen)
 
 \subsubsection{Nebenbedingungen (Constraints)}
 
 \begin{itemize}
     \item \textbf{Anzahl der Lehrveranstaltungen} (Gleichungen \ref{eq:count_min} und \ref{eq:count_max}): Begrenzen die Gesamtzahl der gewählten Lehrveranstaltungen, wobei $C_{\min}$ und $C_{\max}$ die definierten Mindest- bzw. Maximalanzahlen darstellen.
 
-    \item \textbf{Ausschlusskriterien (\textit{Forbidden Pairs})} (Gleichungen \ref{eq:conflict_planpunkt} und \ref{eq:conflict_overlap}): Verhindern die Auswahl von sich gegenseitig ausschließenden Angeboten.
-          \begin{enumerate}
-              \item $\mathcal{F}_{\text{Planpunkt}}$ (\ref{eq:conflict_planpunkt}): Enthält alle Paare $(i, j)$, die dem selben Planpunkt angehören. Es darf maximal eine Lehrveranstaltung aus dem Planpunkt gewählt werden.
-              \item $\mathcal{F}_{\text{Zeit}}$ (\ref{eq:conflict_overlap}): Enthält alle Paare $(i, j)$, deren Termine sich zeitlich überlappen. Es darf auch hier maximal eine Lehrveranstaltung aus dem Paar gewählt werden.
-          \end{enumerate}
+    \item \textbf{Gruppen-Beschränkung} (Gleichung \ref{eq:group_constraint}): Stellt sicher, dass aus jeder vordefinierten Gruppe $g \in \mathcal{G}$ (verschiedene \textit{Offerings} desselben Kurses) maximal eine Lehrveranstaltung ausgewählt wird.
+
+    \item \textbf{Tägliche Kursanzahl} (Gleichungen \ref{eq:daily_min} und \ref{eq:daily_max}): Regelt die Anzahl der Kurse pro Kalendertag $d \in \mathcal{D}$. Durch die binäre Hilfsvariable $u_d$ wird sichergestellt, dass an einem Tag entweder gar kein Kurs ($u_d = 0$) oder eine Anzahl zwischen $D_{\min}$ und $D_{\max}$ ($u_d = 1$) belegt wird.
+
+    \item \textbf{Zeitliche Überschneidungen} (Gleichung \ref{eq:conflict_overlap}): Verhindert die gleichzeitige Auswahl von Lehrveranstaltungen, deren Termine sich zeitlich überschneiden. Die Menge $\mathcal{F}_{\text{Zeit}}$ enthält alle Paare $(i, j)$, die einen Konflikt verursachen.
 
     \item \textbf{Feste Zuordnungen} (Gleichungen \ref{eq:must_schedule} und \ref{eq:must_not_schedule}):
           \begin{enumerate}
@@ -59,4 +86,4 @@ Durch das Lösen dieses Modells wird ein optimaler Satz an Entscheidungsvariable
 
 \subsubsection{CPU vs. GPU}
 
-Zwar läuft \texttt{PuLP} standardmäßig auf der CPU, jedoch ermöglicht eine einfache Anpassung die Nutzung einer NVIDIA-GPU über CUDA. Daher wurde das ILP-Modell sowohl auf der CPU als auch auf einer modernen GPU gelöst, um eine realistische Bewertung unter aktuellen technischen Voraussetzungen zu ermöglichen.
+Zwar läuft \texttt{PuLP} standardmäßig auf der CPU, jedoch ermöglicht eine einfache Anpassung die Nutzung einer NVIDIA-GPU über CUDA \cite{gh-ilp-gpu}. Daher wurde das ILP-Modell sowohl auf der CPU als auch auf einer modernen GPU gelöst, um eine realistische Bewertung unter aktuellen technischen Voraussetzungen zu ermöglichen.

@@ -20,7 +20,9 @@ OFF_ORDER_TIMEOUT = 10
 
 
 def offering_order_algorithm(
-    groups: dict[str, List[Offering]], update_marks: bool = False, starting_schedule: list[Offering] | None = None
+    groups: dict[str, List[Offering]],
+    update_marks: bool = False,
+    starting_schedule: list[Offering] | None = None,
 ) -> List[Offering]:
     """
     Implementation of the offering ordering algorithm.
@@ -43,7 +45,9 @@ def offering_order_algorithm(
     # Step 2: order offerings in each course/group
     for g, offerings in groups.items():
         # if the group is already covered by the fixed course number constraint, do not include this group
-        if starting_schedule is not None and g in [o.groupId for o in starting_schedule]:
+        if starting_schedule is not None and g in [
+            o.groupId for o in starting_schedule
+        ]:
             continue
         offerings.sort(key=lambda o: (-o.mark, len(offerings)))
 
@@ -53,9 +57,9 @@ def offering_order_algorithm(
         key=lambda item: (-item[1][0].mark if item[1] else -9999, len(item[1])),
     )
 
-    logger.debug("group_order=" + json.dumps(group_order, default=str, indent=4))
-
-    def forward_check_backtrack(groups, schedule=None, group_index=0, min_courses=1, max_courses=10):
+    def forward_check_backtrack(
+        groups, schedule=None, group_index=0, min_courses=1, max_courses=10
+    ):
         """
         Forward checking backtracking algorithm to create a valid schedule with course count limits.
 
@@ -73,7 +77,11 @@ def offering_order_algorithm(
 
         # If we've scheduled all groups, check if the final schedule is valid and course count is within limits
         if group_index >= len(groups):
-            if min_courses <= len(schedule) <= max_courses and is_valid_schedule(schedule, schedule_complete=True):
+            if min_courses <= len(
+                schedule
+            ) <= max_courses and is_valid_schedule(
+                schedule, schedule_complete=True
+            ):
                 return schedule
             else:
                 return None
@@ -82,18 +90,24 @@ def offering_order_algorithm(
 
         for offering in offerings:
             # Forward checking: check compatibility with the current (partial) schedule
-            if is_valid_schedule(schedule + [offering], schedule_complete=False):
+            if is_valid_schedule(
+                schedule + [offering], schedule_complete=False
+            ):
                 if len(schedule) + 1 > max_courses:
                     continue
                 schedule.append(offering)
-                result = forward_check_backtrack(groups, schedule, group_index + 1, min_courses, max_courses)
+                result = forward_check_backtrack(
+                    groups, schedule, group_index + 1, min_courses, max_courses
+                )
                 if result:  # Found a valid schedule
                     return result
                 # Backtrack
                 schedule.pop()
 
         # No valid offering found in this group, skip to next group
-        result = forward_check_backtrack(groups, schedule, group_index + 1, min_courses, max_courses)
+        result = forward_check_backtrack(
+            groups, schedule, group_index + 1, min_courses, max_courses
+        )
 
         if result and len(result) >= min_courses:
             return result
@@ -130,5 +144,7 @@ if __name__ == "__main__":
     logger.success("found schedule")
     logger.success(f"{schedule=}")
     logger.success(f"{len(schedule)=}")
-    logger.success(f"{is_valid_schedule(schedule, schedule_complete=True, verbose=True)=}")
+    logger.success(
+        f"{is_valid_schedule(schedule, schedule_complete=True, verbose=True)=}"
+    )
     logger.success(f"{get_schedule_mark(schedule)=}")
