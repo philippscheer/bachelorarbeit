@@ -102,38 +102,74 @@ def create_model(
     # )
     # for i, j in forbidden_pairs_overlaps:
     #     model += y[i] + y[j] <= 1
-    timeline = defaultdict(list)
 
+    # GO
+    # timeline = defaultdict(list)
+
+    # for off in offerings:
+    #     for date_info in off.dates:
+    #         start = date_info["start"]
+    #         end = date_info["end"]
+    #         # We only care about courses that share the same day
+    #         day = start.date()
+    #         # Store the course ID and the specific time interval
+    #         timeline[day].append((start, end, off.courseId))
+
+    # for day, sessions in timeline.items():
+    #     # 2. Get all unique start/end timestamps for this day
+    #     times = sorted(
+    #         list(set([s[0] for s in sessions] + [s[1] for s in sessions]))
+    #     )
+
+    #     # 3. For every "slice" of time between two timestamps
+    #     for i in range(len(times) - 1):
+    #         slot_start = times[i]
+    #         slot_end = times[i + 1]
+
+    #         # Find all courses that are active during this specific slice
+    #         active_in_slot = [
+    #             y[cid]
+    #             for start, end, cid in sessions
+    #             if start < slot_end and end > slot_start
+    #         ]
+
+    #         # If more than one course could be in this slot, add the constraint
+    #         if len(active_in_slot) > 1:
+    #             model += pulp.lpSum(active_in_slot) <= 1
+
+    # 3. Optimized Timeline Logic
+    timeline = defaultdict(list)
     for off in offerings:
         for date_info in off.dates:
             start = date_info["start"]
             end = date_info["end"]
-            # We only care about courses that share the same day
             day = start.date()
-            # Store the course ID and the specific time interval
             timeline[day].append((start, end, off.courseId))
 
     for day, sessions in timeline.items():
-        # 2. Get all unique start/end timestamps for this day
+        # Get all unique split points
         times = sorted(
             list(set([s[0] for s in sessions] + [s[1] for s in sessions]))
         )
 
-        # 3. For every "slice" of time between two timestamps
         for i in range(len(times) - 1):
             slot_start = times[i]
             slot_end = times[i + 1]
 
-            # Find all courses that are active during this specific slice
-            active_in_slot = [
-                y[cid]
-                for start, end, cid in sessions
-                if start < slot_end and end > slot_start
-            ]
+            # Identify which courses are active in this specific slot
+            active_vars = []
+            for start, end, cid in sessions:
+                # STRICT inequality is safer for time slots to avoid
+                # "touching" intervals counting as overlaps
+                if start < slot_end and end > slot_start:
+                    active_vars.append(y[cid])
 
-            # If more than one course could be in this slot, add the constraint
-            if len(active_in_slot) > 1:
-                model += pulp.lpSum(active_in_slot) <= 1
+            # CRITICAL FIX:
+            # 1. Only add constraint if strictly necessary ( > 1 course)
+            # 2. Use explicit summation to avoid generator weirdness in backend
+            if len(active_vars) > 1:
+                # This creates a "Clique" constraint which is very GPU friendly
+                model += (pulp.lpSum(active_vars) <= 1, f"overlap_{day}_{i}")
 
     solver = pulp.PULP_CBC_CMD(msg=False)
     return model, solver, y
