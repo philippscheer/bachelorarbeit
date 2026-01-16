@@ -109,6 +109,7 @@ if __name__ == "__main__":
         position=1,
         leave=True,
     ) as pbar:
+        pbar.update(1)
         for cfg_path in pbar:
             cfg_path = Path(cfg_path)
             cfg_name = cfg_path.stem  # e.g. constraint1
