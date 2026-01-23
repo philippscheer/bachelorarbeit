@@ -78,7 +78,9 @@ def schedule_course(
 
 
 def build_schedule(offerings: list[Offering]) -> list[Offering] | None:
+    """offerings[0].mark >= offerings[1].mark"""
     offerings = list(reversed(offerings))
+    """offerings[0].mark <= offerings[1].mark"""
 
     schedule = get_must_schedule_courses(offerings)
     available_offerings = [

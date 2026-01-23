@@ -230,47 +230,86 @@ if __name__ == "__main__":
                         m for p in profiles for m in p.mem_measurements
                     ]
 
+                    is_valid = is_valid_schedule(
+                        schedule, schedule_complete=True, verbose=args.verbose
+                    )
                     logger.success(
-                        f"schedule={[str(c.courseId) + ':' + c.groupId for c in (schedule or [])]}, is valid? {is_valid_schedule(schedule, schedule_complete=True, verbose=args.verbose)}, mark: {get_schedule_mark(schedule)}"
+                        f"schedule={[str(c.courseId) + ':' + c.groupId for c in (schedule or [])]}, "
+                        f"is valid? {is_valid}, "
+                        f"mark: {get_schedule_mark(schedule)}"
                     )
 
                     test_results[alg_name].append(
                         {
                             "courses": i,
-                            "score": get_schedule_mark(schedule),
-                            "valid": is_valid_schedule(
-                                schedule,
-                                schedule_complete=True,
-                                verbose=args.verbose,
+                            "score": (
+                                get_schedule_mark(schedule)
+                                if is_valid
+                                else None
                             ),
+                            "valid": is_valid,
                             # run timings
-                            "timings": [p.time_elapsed for p in profiles],
-                            "timings_mean": statistics.mean(
-                                p.time_elapsed for p in profiles
+                            "timings": (
+                                [p.time_elapsed for p in profiles]
+                                if is_valid
+                                else None
                             ),
-                            "timings_median": statistics.median(
-                                p.time_elapsed for p in profiles
-                            ),
-                            "timings_stdev": (
-                                statistics.stdev(
+                            "timings_mean": (
+                                statistics.mean(
                                     p.time_elapsed for p in profiles
                                 )
-                                if len(profiles) > 1
-                                else 0
+                                if is_valid
+                                else None
+                            ),
+                            "timings_median": (
+                                statistics.median(
+                                    p.time_elapsed for p in profiles
+                                )
+                                if is_valid
+                                else None
+                            ),
+                            "timings_stdev": (
+                                (
+                                    statistics.stdev(
+                                        p.time_elapsed for p in profiles
+                                    )
+                                    if len(profiles) > 1
+                                    else 0
+                                )
+                                if is_valid
+                                else None
                             ),
                             # memory profiling
-                            "memory_mean": statistics.mean(all_measurements),
-                            "memory_median": statistics.median(
-                                all_measurements
+                            "memory_mean": (
+                                statistics.mean(all_measurements)
+                                if is_valid
+                                else None
+                            ),
+                            "memory_median": (
+                                statistics.median(all_measurements)
+                                if is_valid
+                                else None
                             ),
                             "memory_stdev": (
-                                statistics.stdev(all_measurements)
-                                if len(all_measurements) > 1
-                                else 0
+                                (
+                                    statistics.stdev(all_measurements)
+                                    if len(all_measurements) > 1
+                                    else 0
+                                )
+                                if is_valid
+                                else None
                             ),
-                            "memory_min": min(all_measurements),
-                            "memory_max": max(all_measurements),
-                            "memory_peak": max(p.mem_peak for p in profiles),
+                            "memory_min": (
+                                min(all_measurements) if is_valid else None
+                            ),
+                            "memory_max": (
+                                max(all_measurements) if is_valid else None
+                            ),
+                            "memory_peak": (
+                                max(p.mem_peak for p in profiles)
+                                if is_valid
+                                else None
+                            ),
                         }
                     )
 
