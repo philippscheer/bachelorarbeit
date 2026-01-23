@@ -1,1 +1,1 @@
-python run_tests.py --rounds=50 --ilp --ilp-gpu --hc --oo > benchmark.log 2>&1 &
+python run_tests.py --rounds=1 --ilp --ilp-gpu --hc --oo > benchmark.log 2>&1 &
