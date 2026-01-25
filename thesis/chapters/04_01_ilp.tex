@@ -86,4 +86,4 @@ Durch das Lösen dieses Modells wird ein optimaler Satz an Entscheidungsvariable
 
 \subsubsection{CPU vs. GPU}
 
-Zwar läuft \texttt{PuLP} standardmäßig auf der CPU, jedoch ermöglicht eine einfache Anpassung die Nutzung einer NVIDIA-GPU über CUDA \cite{gh-ilp-gpu}. Daher wurde das ILP-Modell sowohl auf der CPU als auch auf einer modernen GPU gelöst, um eine realistische Bewertung unter aktuellen technischen Voraussetzungen zu ermöglichen.
+Um der technologischen Entwicklung seit der Veröffentlichung der ursprünglichen Algorithmen Rechnung zu tragen, wurde die ILP-Lösung sowohl für CPU- als auch für GPU-Architekturen (NVIDIA CUDA) implementiert \cite{gh-ilp}\cite{gh-ilp-gpu}. Das ermöglicht eine Bewertung der Rechenzeit unter modernen Bedingungen, die über die Möglichkeiten der ursprünglichen Studie hinausgehen.

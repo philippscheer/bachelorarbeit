@@ -1,30 +1,256 @@
 \section{Hintergrund}
 
 
-\subsection{Problemstellung}
-
-Die Erstellung eines optimalen Semesterplans ist eine zentrale Herausforderung für Studierende. Sie sehen sich im Hauptstudium mit einem umfangreichen Kursangebot konfrontiert, dessen Veranstaltungen sich in zahlreichen Terminkonstellationen überlappen können. Die Herausforderung besteht darin, aus diesem Pool an Lehrveranstaltungen eine zulässige und optimale Kombination zu wählen. Solche Zeittafelprobleme werden Student Scheduling Problems (SSP) genannt.
-
-Die Problemstellung ist komplex: Einerseits müssen Hard Constraints wie Überlappungsfreiheit und Erfüllung einer Mindestanzahl von ECTS pro Semester erfüllt sein. Andererseits gilt es, Präferenzen, die als Soft Constraints ausgedrückt werden, zu maximieren, die die Lebensrealität der Studierenden widerspiegeln. Dazu zählen etwa die Berücksichtigung von Arbeitstätigkeiten, die durch Blockieren oder Priorisieren von gewissen Stunden in der Woche ausgedrückt werden, sowie die Favorisierung von Kursen, die durch eine Priorität ausgedrückt wird.
-
-In dieser Arbeit wird das SSP für einen einzelnen Studierenden des Hauptstudiums Wirtschaftsinformatik (inklusive CBK) betrachtet und als ein Constaint-Satisfaction Problem (CSP) formuliert. Ziel ist eine möglichst akkurate Implementierung der Algorithmen, die Feldman und Golumbic im Paper "\textit{Optimization Algorithms for Student Scheduling via Constraint Satisfiability}" \cite{feldmangolumbic} beschreiben, um diese anschließend miteinander zu vergleichen.
-
-
 
 
 
 \subsection{Motivation}
+
+Studierende sehen sich im Studium mit einem umfangreichen Kursangebot konfrontiert und müssen ihre Stundenpläne meist händisch zusammenstellen. Dieser manuelle Prozess ist jedoch mehr als eine rein administrative Aufgabe; er ist eine Optimierungsentscheidung, bei der persönliche und akademische Rahmenbedingungen gegeneinander abgewogen werden müssen.
 
 Studierende berichten häufig von Schwierigkeiten bei der Erstellung ihrer Semesterpläne \cite{chen-2021, muklason-2017, trier-2024}. Zu den zentralen Ursachen zählt insbesondere die Vereinbarkeit mit einem Nebenjob; so bevorzugen 81\% der Befragten mindestens einen vollständig freien Wochentag \cite{trier-2024}. Zudem geben 74\% der Studierenden an, dass eine gleichmäßige Verteilung von Lehrveranstaltungen und Prüfungen für sie das wichtigste Kriterium bei der Stundenplanerstellung darstellt \cite{cowling-2002}. Weiterhin möchten 82\% vermeiden, mehr als eine Prüfung pro Tag zu absolvieren \cite{cowling-2002}.
 Bezüglich der zeitlichen Präferenzen werden Mittagsstunden am häufigsten gewählt, gefolgt von frühen und späten Zeitslots. Rund 31\% der Studierenden bevorzugen es, an bestimmten Tagen keine Prüfungen zu haben; besonders unpopulär sind Samstag, Sonntag, Freitag und Montag \cite{cowling-2002}.
 
 Obwohl sich diese Präferenzen grundsätzlich leicht modellieren lassen, stehen derzeit keine Programme zur Verfügung, die eine automatisierte Erstellung entsprechender Stundenpläne an der WU ermöglichen. Lediglich der Studienplaner der Österreichischen Hochschüler*innenschaft der WU \cite{studienplaner-oeh} erlaubt die manuelle Kombination von Lehrveranstaltungen und Prüfungen im Hinblick auf Überschneidungsfreiheit, bietet jedoch keine Möglichkeit zur Optimierung nach individuellen Präferenzen.
 
+Diese Diskrepanz zwischen den Anforderungen der Studierenden und den limitierten bestehenden Programmen führt zu einer suboptimalen Planungssituation.
 
 
 
 
-\subsection{Zielsetzung}
+
+\subsection{Problemstellung}
+
+Die Erstellung eines optimalen Semesterplans ist eine zentrale Herausforderung für Studierende. Das Angebot an Lehrveranstaltungen lässt sich nicht frei kombinieren, da auf zeitliche Konflikte, Erfüllung einer Mindestanzahl an ECTS pro Semester, Arbeitstätigkeit, etc. geachtet werden muss.
+Die Herausforderung besteht darin, aus diesem Pool an Lehrveranstaltungen eine zulässige und optimale Kombination zu wählen. Zulässig gilt eine Zeittafel, wenn keine zeitlichen Konflikte auftreten (keine \textit{Hard Constraints} wurden verletzt). Optimal ist eine Zeittafel, wenn eine gegebene Zielfunktion maximal ist. Die Zielfunktion beinhaltet alle Präferenzen des Studierenden, die seine Lebensrealtät widerspiegeln sollen (\textit{Soft Constraints}). Dazu zählen etwa die Berücksichtigung von Arbeitstätigkeiten, die durch Blockieren oder Priorisieren von gewissen Stunden in der Woche ausgedrückt werden, sowie die Favorisierung von Kursen, die durch eine Priorität ausgedrückt wird.
+Diese Problemstellung wird in der Literatur als Zeittafelproblem oder \textit{Student Scheduling Problem (SSP)} bezeichnet.
+
+
+
+
+
+\subsection{Zeittafelprobleme}
+
+
+Die Erstellung von Zeitplänen im akademischen Kontext gliedert sich in eine Hierarchie jeweils eigenständiger Optimierungsaufgaben. Diese Hierarchie reicht von der strategischen Planung der gesamten Universität bis hin zur individuellen Semesterplanung des einzelnen Studierenden. Um diese Arbeit einzuordnen, ist es notwendig, die theoretische Abstufung vom University Course Timetabling über das Student Sectioning bis hin zum Single Student Scheduling zu verstehen.
+
+
+
+\subsubsection{University Course Timetabling Problem (UCTTP)}
+
+Auf der obersten Ebene steht das University Course Timetabling Problem (UCTTP). Dieses Problem befasst sich mit der Erstellung des "Master-Stundenplans". Die Kernaufgabe besteht darin, eine Menge von Lehrveranstaltungen (Events) einer Menge von Zeitfenstern und Räumen zuzuordnen \cite{schaerf-1999}. Dabei müssen Ressourcenbeschränkungen (z. B. Raumgrößen) und \textit{Hard Constraints}, wie die Verfügbarkeit von Dozenten, berücksichtigt werden.
+
+Carter und Laporte beschreiben dieses Problem als NP-hart \cite{carter-1996}. Das bedeutet, dass mit steigender Anzahl an Veranstaltungen und Restriktionen der Rechenaufwand für eine exakte Lösung exponentiell wächst. Das Ziel des UCTTP ist hauptsächlich die Machbarkeit und Effizienz aus Sicht der Institution: Es muss sichergestellt werden, dass alle Kurse stattfinden können, ohne dass Dozenten oder Räume doppelt belegt werden. Individuelle Studierendenpräferenzen spielen auf dieser Ebene oft nur eine untergeordnete Rolle oder werden aggregiert betrachtet.
+
+
+
+\subsubsection{Student Sectioning Problem (SSP)}
+
+Sobald der Master-Stundenplan fixiert ist (die Veranstaltungen haben feste Zeiten und Räume), folgt die nächste Ebene: das Student Sectioning Problem (SSP). Hier verlagert sich der Fokus von der Ressourcenzuordnung (Wann findet der Kurs statt?) zur Belegung (Wer besucht welchen Kurs?).
+
+Das SSP befasst sich mit der Verteilung der Studierenden auf Übungsgruppen oder Parallelveranstaltungen (Sections) eines Kurses \cite{muller-2010}. Ein klassisches Beispiel ist ein Modul, das aus einer zentralen Vorlesung und zehn verschiedenen Labor-Terminen besteht. Das Ziel ist es, alle Studierenden so auf die Labore zu verteilen, dass Überschneidungen vermieden und Kapazitätsgrenzen eingehalten werden. Müller et al. unterscheiden hierbei zwei Ansätze \cite{muller-2010}:
+
+\begin{enumerate}
+    \item \textbf{Batch Sectioning:} Alle Studierendenwünsche werden gesammelt und global optimiert. Das maximiert die Fairness und die Gesamtauslastung, findet aber meist vor Semesterbeginn statt.
+    \item \textbf{Online Sectioning:} Die Zuteilung erfolgt sequenziell in Echtzeit (z. B. während der Anmeldephase via LPIS im Kontext der WU). Dies entspricht einem "Greedy"-Ansatz, bei dem für späte Anmeldungen oft nur suboptimale Restplätze vergeben werden können.
+\end{enumerate}
+
+
+
+\subsubsection{Single Student Scheduling}
+
+Die granularste Ebene der Hierarchie --- und der Fokus dieser Bachelorarbeit --- ist das Single Student Scheduling. Während das SSP versucht, eine Menge von Studierenden global auf Kurse aufzuteilen, betrachtet das Single Student Scheduling das Problem ausschließlich aus der Perspektive eines einzelnen Studierenden.
+
+Die Fragestellung lautet hier nicht: "Wie fülle ich die Kursräume optimal?", sondern: "Welche Kombination aus den verfügbaren Kursangeboten maximiert meinen persönlichen Nutzen?" \cite{dostert-2015}.
+
+Obwohl der Suchraum für einen einzelnen Studierenden deutlich kleiner ist als für die gesamte Universität, bleibt die Komplexität hoch. Da ein Studierender oft aus hunderten möglichen Kombinationen von Vorlesungen und Übungen wählen kann, die unterschiedliche zeitliche Attribute und Abhängigkeiten aufweisen, handelt es sich auch hier um ein kombinatorisches Optimierungsproblem. Die Herausforderung besteht darin, harte Restriktionen (keine zeitlichen Überschneidungen) zu erfüllen und gleichzeitig weiche Restriktionen (z. B. "keine Kurse am Freitag", "kompakter Stundenplan") zu optimieren.
+
+
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+            % Stile definieren
+            % Basis-Stil für alle Boxen
+            base/.style={
+                    rectangle,
+                    rounded corners=3mm,
+                    draw=black!60,
+                    very thick,
+                    text centered,
+                    align=center,
+                    inner sep=3mm,
+                    drop shadow,
+                    font=\bfseries\sffamily\footnotesize % Schrift etwas kleiner damit alles passt
+                },
+            % Der graue Stil (Standard für fast alles)
+            greybox/.style={base, top color=gray!10, bottom color=gray!30},
+            bluebox/.style={base, top color=blue!10, bottom color=blue!30},
+            orangebox/.style={base, top color=orange!10, bottom color=orange!40},
+            redbox/.style={base, top color=red!10, bottom color=red!30},
+            cyanbox/.style={base, top color=cyan!10, bottom color=cyan!30},
+            % Kleiner Stil für die "..." Boxen
+            % dotsbox/.style={
+            %         rectangle,
+            %         rounded corners=3mm,
+            %         draw=black!60,
+            %         very thick,
+            %         text centered,
+            %         inner sep=3mm,
+            %         top color=gray!5, bottom color=gray!20,
+            %         font=\bfseries\sffamily
+            %     },
+            % Pfeil-Stil
+            line/.style={
+                    draw,
+                    -latex,
+                    very thick
+                }
+        ]
+
+        % --- Ebene 1: Scheduling ---
+        \node (sched) [greybox] {Scheduling\\Problems};
+
+        % --- Ebene 2: Timetabling ---
+        \node (time) [bluebox, below=1.0cm of sched] {Timetabling\\Problems};
+
+        % "..." Box für Scheduling
+        \node (scheddots) [greybox, right=1.5cm of time] {...};
+        \draw[line] (sched) -- (scheddots);
+
+        % --- Ebene 3: Educational ---
+        \node (edu) [greybox, below=1.0cm of time] {Educational\\Timetabling Problems};
+
+        % "..." Box für Timetabling
+        \node (timedots) [greybox, right=1.5cm of edu] {...};
+        \draw[line] (time) -- (timedots);
+
+        % --- Ebene 4: High School & University ---
+        \node (uni) [greybox, below=1.0cm of edu, xshift=2cm] {University\\Timetabling Problems};
+        \node (high) [greybox, left=0.5cm of uni] {High School\\Timetabling Problems};
+
+        % --- Ebene 5: Exam & UCTTP ---
+        \node (ucttp) [orangebox, below=1.0cm of uni, xshift=1cm] {University Course TimeTabling\\Problems (UCTTP)};
+        \node (exam) [greybox, left=0.5cm of ucttp] {University Examination\\Timetabling Problems};
+
+        % --- Ebene 6: Kinder von UCTTP ---
+
+        % 1. Mitte: Curriculum-based (Grau)
+        \node (curr) [greybox, below=1.5cm of ucttp] {Curriculum-based\\CTTP};
+
+        % 2. Links: Post-Enrollment (Grau)
+        \node (post) [greybox, left=0.3cm of curr] {Post-Enrollment\\CTTP};
+
+        % 3. Rechts: Student Sectioning (BLAU/Hervorgehoben)
+        \node (ssp) [redbox, right=0.3cm of curr] {Student Sectioning\\Problem};
+
+        % --- Ebene 7: Single Student Scheduling ---
+        \node (sss) [cyanbox, below=1.0cm of ssp] {Single Student\\Scheduling};
+
+
+        % --- Verbindungen (Pfeile) ---
+        % Hauptpfad nach unten
+        \draw[line] (sched) -- (time);
+        \draw[line] (time) -- (edu);
+        \draw[line] (edu) -- (high);
+        \draw[line] (edu) -- (uni);
+        \draw[line] (uni) -- (exam);
+        \draw[line] (uni) -- (ucttp);
+
+        % Verbindungen zu den 3 UCTTP Kindern
+        \draw[line] (ucttp.south) -- (post.north);
+        \draw[line] (ucttp.south) -- (curr.north);
+        \draw[line] (ucttp.south) -- (ssp.north);
+
+        % Verbindung zum untersten Kind
+        \draw[line] (ssp) -- (sss);
+
+    \end{tikzpicture}
+    \caption{Hierarchie von Zeittafelproblemen (Adaptiert aus \cite{muhamad-2018})}
+\end{figure}
+
+
+
+
+% [TODO Zeittafelprobleme]
+
+% % TODO paper
+
+% Für die Beschriebenen Zeittafelprobleme gibt es verschiedene Algorithmen/Lösungsansätze:
+
+% \begin{enumerate}
+%     \item \textbf{Hill-Climbing Algorithmen:} Hill-Climbing Algorithmen gehören zur Klasse der lokalen Such- und Optimierungsverfahren. Sie finden gute oder nahezu optimale Lösungen für schwierige (\textit{NP-hard}) Optimierungsprobleme, ohne den gesamten Lösungsraum zu durchsuchen. Der Algorithmus versucht von einem Zustand in einen benachbarten Zustand mit besserem Zielfunktionswert überzugehen --- ähnlich wie das Erklimmen eines Hügels, auf einer Landschaft, wobei die "Höhe" des Hügels die Qualität der Lösung darstellt.
+
+%           Diese Vorgehensweise macht sie besonder effizient für große, aber gut strukturierte Optimierungsprobleme, da in kurzer Zeit eine gute Lösung gefunden werden kann. Die Implementierung ist unkompliziert, was Hill-Climbing Algorithmen in vielen Anwendungsbereichen zu einem beliebten heuristischen Ansatz macht. Ein wesentlicher Nachteil liegt in der Tendenz, in lokalen Optima zu verharren. Da der Algorithmus in seiner Grundform nur Verbesserungen akzeptiert, werden lokale Minima nicht durchschritten, selbst wenn sich dahinter ein höheres Maxima befindet \cite{jacobson-2004}.
+
+%     \item \textbf{Offering-Order Algorithmus:} Der Offering-Order Algorithmus, welcher von Feldman und Golumbic \cite{feldmangolumbic} beschrieben wird, kombiniert ein heuristisches Ordnungsverfahren mit einer \textit{Tree Search}. Der Kern des Ansatzes besteht darin, eine heuristisch bestimmte Reihenfolge für die Instanziierung der Variablen (Kurse) festzulegen --- die sogenannte "\textit{offering order}". Innerhalb ihrer Planpunkte werden somit alle Kurse vorsortiert. Mittels einer Vorwärts-Suche wird der vorsortierte Suchbaum durchsucht, um dem aktuellen Zustand einen weiteren Kurs hinzuzufügen. Führt der neue Zustand zu einem ungültigen Ergebnis, wird der letzte gültige Zustand wiederhergestellt ("\textit{back-tracking}").
+
+%           Durch die Wahl einer sinnvollen Reihenfolge lassen sich ineffiziente Suchpfade vermeiden. Auf diese Weise wird der Suchraum stark reduziert und es kann eine Lösung gefunden werden, ohne den gesamten Lösungsraum zu besuchen.
+
+%     \item \textbf{Integer Linear Programming (ILP):}
+% \end{enumerate}
+
+
+
+
+
+
+\subsection{Replikationsarbeit}
+
+Die Replizierbarkeit von Forschungsergebnissen gilt als grundlegender Eckpfeiler der Wissenschaft und ist essenziell für den Aufbau eines kumulativen Wissensbestandes. In der wissenschaftlichen Praxis wird unter einer Replikation im Allgemeinen der Versuch verstanden, die Ergebnisse einer früheren Studie durch die erneute Durchführung derselben oder einer ähnlichen Untersuchung zu bestätigen oder zu widerlegen. Das Ziel ist es, die Verlässlichkeit (Reliabilität) und Gültigkeit (Validität) von wissenschaftlichen Erkenntnissen zu prüfen und sicherzustellen, dass veröffentlichte Effekte nicht auf Zufall, Fehlern oder spezifischen Artefakten der ursprünglichen Studie beruhen.
+
+
+\subsubsection{Definition und Arten der Replikation}
+
+In der Literatur wird häufig zwischen verschiedenen Arten der Replikation unterschieden, wobei die Terminologie je nach Disziplin variiert. Ein zentraler Unterschied besteht zwischen der "exakten" oder "nahen" Replikation (Close Replication) und der "konzeptionellen" Replikation.
+
+\begin{itemize}
+    \item Bei der \textbf{exakten Replikation} wird versucht, die Methoden und Prozeduren der Originalstudie so exakt wie möglich zu reproduzieren. Das Ziel ist es, idealerweise nur jene Unterschiede zuzulassen, die unvermeidbar sind (z. B. ein anderer Zeitpunkt oder eine andere Stichprobe aus derselben Population).
+    \item \textbf{Konzeptionelle Replikationen und Erweiterungen} überprüfen die Robustheit der Ergebnisse unter veränderten Rahmenbedingungen, beispielsweise durch die Verwendung neuer Datensätze, variierter Parameter oder alternativer Schätzverfahren. Bonett \cite{bonett-2020} bezeichnet dies auch als \textit{comparable follow-up study}, bei der zwar das gleiche Design und die gleichen Messskalen verwendet werden, aber die Population oder der Kontext variieren kann.
+\end{itemize}
+
+
+Für die computergestützte Forschung (Computational Research) definiert Sandve et al. \cite{sandve-2013} Reproduzierbarkeit zudem als die Fähigkeit, Ergebnisse durch eine transparente Dokumentation des gesamten Analyse-Workflows --- von den Rohdaten bis zum Endergebnis --- nachvollziehbar und wiederholbar zu machen.
+
+
+
+\subsubsection{Anforderungen an eine wissenschaftliche Replikation}
+
+Damit eine Replikationsarbeit wissenschaftlichen Standards genügt, müssen bestimmte Anforderungen erfüllt sein. Brandt et al. \cite{brandt-2013} entwickelten hierfür das \textit{Replication Recipe}, welches unter anderem folgende Kriterien hervorhebt:
+
+\begin{itemize}
+    \item \textbf{Exakte Definition der zu replizierenden Methoden:} Die Methoden der Originalstudie müssen sorgfältig analysiert und so getreu wie möglich nachgebildet werden.
+    \item \textbf{Hohe statistische Aussagekraft:} Die Replikationsstudie muss über eine ausreichende Stichprobengröße verfügen, um Effekte zuverlässig nachweisen zu können.
+    \item \textbf{Transparenz und vollständige Dokumentation:} Alle Details zur Durchführung, inklusive Code und Daten, sollten verfügbar gemacht werden, um eine Überprüfung durch Dritte zu ermöglichen.
+    \item \textbf{Kritischer Vergleich:} Die Ergebnisse der Replikation müssen statistisch fundiert mit denen der Originalstudie verglichen werden, anstatt sich rein auf Signifikanztests zu verlassen.
+\end{itemize}
+
+
+Im Bereich der Management-Mathematik und Optimierung wird außerdem gefordert, dass Algorithmen so spezifiziert sind, dass unabhängige Forscher dieselben Ergebnisse erzielen können. Burman et al. \cite{burman-2010} betonen weiters die Notwendigkeit, dass der replizierende Forscher unabhängig von den ursprünglichen Autoren ist.
+
+
+
+\subsubsection{Einordnung und Umsetzung in dieser Arbeit}
+
+Die vorliegende Bachelorarbeit ordnet sich als Replikationsstudie der Arbeit von Feldman und Golumbic \cite{feldmangolumbic} ein. Sie kann als konzeptionelle Replikation mit Erweiterung klassifiziert werden.
+
+Ziel ist es nicht, die exakten Ergebnisse von 1990 mit den damaligen Daten zu reproduzieren, sondern die Validität der vorgeschlagenen Lösungsansätze (Hill Climbing und Offering Order) in einem neuen Kontext zu überprüfen. Dies entspricht der von Burman et al. \cite{burman-2010} beschriebenen "validierenden Replikation", bei der geprüft wird, ob Ergebnisse robust gegenüber Veränderungen in Datensätzen und Zeiträumen sind.
+
+Um die wissenschaftlichen Anforderungen an diese Replikation zu erfüllen, werden in dieser Arbeit folgende Maßnahmen getroffen:
+
+\begin{itemize}
+    \item \textbf{Methodische Treue:} Die Algorithmen werden basierend auf der Beschreibung in der Originalarbeit von Feldman und Golumbic \cite{feldmangolumbic} exakt nachprogrammiert (\textit{re-implemented}), um die methodische Vergleichbarkeit zu gewährleisten.
+    \item \textbf{Neuer Datensatz:} Die Evaluation erfolgt anhand eines aktuellen, realen Datensatzes der Wirtschaftsuniversität Wien (Sommersemester 2025), um die Anwendbarkeit auf moderne Student Scheduling Problems (SSP) zu testen.
+    \item \textbf{Erweiterte Baseline:} Da der ursprüngliche Vergleichsmaßstab (Brute Force) für die Komplexität des neuen Datensatzes nicht praktikabel ist, wird eine neue Baseline mittels Integer Linear Programming (ILP) eingeführt. Dies stellt eine methodische Modernisierung dar, wahrt aber das Ziel, die heuristischen Verfahren gegen eine optimale Lösung zu benchmarken.
+    \item \textbf{Transparenz (Computational Reproducibility):} Im Sinne der "Ten Simple Rules" von Sandve et al. \cite{sandve-2013} werden alle Schritte der Datenextraktion und Analyse dokumentiert. Der Quellcode der Implementierungen ist, wie in der Arbeit referenziert, öffentlich einsehbar, um vollständige Nachvollziehbarkeit zu garantieren.
+\end{itemize}
+
+Durch dieses Vorgehen leistet die Arbeit einen Beitrag zur Überprüfung der Generalisierbarkeit historischer Optimierungsansätze unter modernen Rahmenbedingungen.
+
+
+
+
+\subsection{Zielsetzung und Abgrenzung}
 
 Die vorliegende Bachelorarbeit hat zum Ziel, die beschriebene Problemstellung unter den aktuellen technischen Rahmenbedingungen mithilfe verschiedener Lösungsansätze zu untersuchen, diese anhand eines aktuellen Datensatzes zu validieren und anschließend einem Leistungsvergleich zu unterziehen.
 
@@ -34,46 +260,10 @@ Die vorliegende Bachelorarbeit hat zum Ziel, die beschriebene Problemstellung un
 \end{enumerate}
 
 
-
-
-
-\subsection{Zeittafelprobleme}
-
-% TODO paper
-
-
-Für die Beschriebenen Zeittafelprobleme gibt es verschiedene Algorithmen/Lösungsansätze:
+\noindent{Folgende Aspekte sind explizit vom Forschungsumfang ausgeschlossen:}
 
 \begin{enumerate}
-    \item \textbf{Hill-Climbing Algorithmen:} Hill-Climbing Algorithmen gehören zur Klasse der lokalen Such- und Optimierungsverfahren. Sie finden gute oder nahezu optimale Lösungen für schwierige (\textit{NP-hard}) Optimierungsprobleme, ohne den gesamten Lösungsraum zu durchsuchen. Der Algorithmus versucht von einem Zustand in einen benachbarten Zustand mit besserem Zielfunktionswert überzugehen --- ähnlich wie das Erklimmen eines Hügels, auf einer Landschaft, wobei die "Höhe" des Hügels die Qualität der Lösung darstellt.
-
-          Diese Vorgehensweise macht sie besonder effizient für große, aber gut strukturierte Optimierungsprobleme, da in kurzer Zeit eine gute Lösung gefunden werden kann. Die Implementierung ist unkompliziert, was Hill-Climbing Algorithmen in vielen Anwendungsbereichen zu einem beliebten heuristischen Ansatz macht. Ein wesentlicher Nachteil liegt in der Tendenz, in lokalen Optima zu verharren. Da der Algorithmus in seiner Grundform nur Verbesserungen akzeptiert, werden lokale Minima nicht durchschritten, selbst wenn sich dahinter ein höheres Maxima befindet \cite{jacobson-2004}.
-
-    \item \textbf{Offering-Order Algorithmus:} Der Offering-Order Algorithmus, welcher von Feldman und Golumbic \cite{feldmangolumbic} beschrieben wird, kombiniert ein heuristisches Ordnungsverfahren mit einer \textit{Tree Search}. Der Kern des Ansatzes besteht darin, eine heuristisch bestimmte Reihenfolge für die Instanziierung der Variablen (Kurse) festzulegen --- die sogenannte "\textit{offering order}". Innerhalb ihrer Planpunkte werden somit alle Kurse vorsortiert. Mittels einer Vorwärts-Suche wird der vorsortierte Suchbaum durchsucht, um dem aktuellen Zustand einen weiteren Kurs hinzuzufügen. Führt der neue Zustand zu einem ungültigen Ergebnis, wird der letzte gültige Zustand wiederhergestellt ("\textit{back-tracking}").
-
-          Durch die Wahl einer sinnvollen Reihenfolge lassen sich ineffiziente Suchpfade vermeiden. Auf diese Weise wird der Suchraum stark reduziert und es kann eine Lösung gefunden werden, ohne den gesamten Lösungsraum zu besuchen.
-
-    \item \textbf{Integer Linear Programming (ILP):}
+    \item Das Problem wird ausschließlich als Single Student Scheduling für einen einzelnen Studierenden gelöst. Es wird \textbf{keine Rücksicht auf andere Studierende}, die maximale Kapazität von Räumen, die Verfügbarkeit von Professoren oder die allgemeine universitäre Ressourcenplanung genommen.
+    \item Die Planung beschränkt sich auf \textbf{ein einzelnes Semester} des Hauptstudium Wirtschaftsinformatik.
+    \item Die Entwicklung einer \textbf{voll funktionsfähigen Applikation} zur Dateneingabe, Speicherung von Planungen, oder komplexer Visualisierung wird ausgeschlossen. Das Ergebnis des Programms wird durch ein computerlesbares Format (JSON) ausgegeben.
 \end{enumerate}
-
-
-
-
-\subsection{Replikationsarbeit}
-
-% todo what does a replication study do?
-
-
-
-
-
-\subsection{Abgrenzung}
-
-Folgende Aspekte sind explizit vom Forschungsumfang ausgeschlossen:
-
-\begin{enumerate}
-    \item Das Problem wird ausschließlich als SSP für einen einzelnen Studierenden gelöst. Es wird keine Rücksicht auf andere Studierende, die maximale Kapazität von Räumen, die Verfügbarkeit von Professoren oder die allgemeine universitäre Ressourcenplanung genommen.
-    \item Die Planung beschränkt sich auf ein einzelnes Semester des Hauptstudium Wirtschaftsinformatik.
-    \item Die Entwicklung einer voll funktionsfähigen Applikation zur Dateneingabe, Speicherung von Planungen, oder komplexer Visualisierung wird ausgeschlossen. Das Ergebnis des Programms wird durch ein computerlesbares Format (JSON) ausgegeben.
-\end{enumerate}
-

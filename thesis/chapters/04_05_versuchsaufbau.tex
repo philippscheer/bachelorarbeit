@@ -1,7 +1,7 @@
 \subsection{Versuchsaufbau}
 
 Das Paper von Feldman und Golumbic \cite{feldmangolumbic} wählte einen Brute-Force-Algorithmus als Baseline für Performance-Vergleiche.
-Da ein Brute-Force Algorithmus bei der großen Anzahl der Vorlesungen im VVZ der WU eine zu lange Laufzeit hätte, wurde eine Integer Linear Programming (ILP) Lösung als neue Baseline gewählt. Diese gewährleistet, ebenso wie der Brute-Force-Ansatz für kleine Instanzen, die Ermittlung des optimalen Stundenplans (mit der höchsten \textit{Mark}). Die Ergebnisse der heuristischen Algorithmen (\textit{Hill Climbing v1}, \textit{Hill Climbing v3}, \textit{Offering Order}) werden folglich relativ zur optimalen Lösung des ILP-Ansatzes bewertet. Zusätzlich zu den heuristischen Algorithmen wird auch eine \textit{GPU-optimierte Variante des ILP-Ansatzes} getestet.
+Da ein Brute-Force Algorithmus bei der großen Anzahl der Vorlesungen im VVZ der WU eine zu lange Laufzeit hätte, wurde eine Integer Linear Programming (ILP) Lösung als neue Baseline gewählt. Diese gewährleistet, ebenso wie der Brute-Force-Ansatz für kleine Instanzen, die Ermittlung des optimalen Stundenplans (mit der höchsten \textit{Mark}). Die Ergebnisse der heuristischen Algorithmen (\textit{Hill Climbing v1}, \textit{Hill Climbing v3}, \textit{Offering Order}) werden folglich relativ zur optimalen Lösung des ILP-Ansatzes bewertet. Zusätzlich zu den heuristischen Algorithmen wird auch eine GPU-optimierte Variante des ILP-Ansatzes getestet.
 
 Als Maß für die Schwierigkeit (\textit{Difficulty}) der Probleminstanz wird in dieser Arbeit nicht die Laufzeit des Brute-Force-Algorithmus verwendet, sondern die Anzahl der zu planenden Kurse (\textit{N}).
 

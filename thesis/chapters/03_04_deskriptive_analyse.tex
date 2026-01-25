@@ -2,7 +2,7 @@
 
 Um die Komplexität des Datensatzes und des Optimierungsproblems zu quantifizieren, wurde eine deskriptive Analyse durchgeführt.
 
-Der vollständige Datensatz besteht aus insgesamt 381 \textit{Offerings} ($|\mathcal{O}|$) und 28 Planpunkten, woraus sich eine durchschnittliche Anzahl von 13.6 \textit{Offerings} pro Planpunkt ergibt.
+Der vollständige Datensatz besteht aus insgesamt 381 \textit{Offerings} ($|\mathcal{O}|$) und 28 \textit{Courses}, woraus sich eine durchschnittliche Anzahl von 13.6 \textit{Offerings} pro \textit{Course} ergibt.
 
 % Feldman und Golumbic erzeugten für ihre Experimente zufällige Ausgangsdaten mit 10-20 Planpunkten, die durchschnittlich 2.5 \textit{Offerings} pro Planpunkt hatten \cite{feldmangolumbic}.
 
@@ -59,7 +59,7 @@ Zusätzlich zur Verteilung auf die Tage ist die zeitliche Platzierung innerhalb 
     \label{descriptive_analysis_start_hour_of_offerings}
 \end{table}
 
-Die Analyse der Startzeiten verdeutlicht, dass die WU Wien ein sehr breites Zeitfenster nutzt. Ein signifikanter Anteil der Kurse beginnt bereits um 08:00 Uhr (16,9 \%), was für Studierende mit Präferenzen für einen späteren Vorlesungsbeginn (vgl. Szenario \ref{scenario_free_day}) eine hohe Anzahl an potenziell zu vermeidenden Einheiten bedeutet.
+Die Analyse der Startzeiten zeigt, dass die WU Wien ein sehr breites Zeitfenster nutzt. Ein signifikanter Anteil der Kurse beginnt bereits um 08:00 Uhr (16.9 \%), was für Studierende mit Präferenzen für einen späteren Vorlesungsbeginn (vgl. Szenario \ref{scenario_free_day}) eine hohe Anzahl an potenziell zu vermeidenden Einheiten bedeutet.
 
 
 
@@ -67,7 +67,7 @@ Die Analyse der Startzeiten verdeutlicht, dass die WU Wien ein sehr breites Zeit
 
 
 
-Neben dem Beginn der Einheiten variiert auch die Dauer der einzelnen Termine, was die Berechnung von Überschneidungsfreiheiten komplexer gestaltet als bei starren Zeitslots. Tabelle \ref{descriptive_analysis_offering_duration} stellt die Dauer der Einheiten dar.
+Neben dem Beginn der Einheiten variiert auch die Dauer der einzelnen Termine, was die Berechnung von Überschneidungsfreiheiten komplexer gestaltet als bei starren Zeitslots. Tabelle \ref{descriptive_analysis_offering_duration} stellt die Dauer der Einheiten dar. Nicht ganzstündige Einheiten wurden kaufmännisch gerundet.
 
 
 \begin{table}[h]
@@ -88,7 +88,7 @@ Neben dem Beginn der Einheiten variiert auch die Dauer der einzelnen Termine, wa
 \end{table}
 
 
-Die überwiegende Mehrheit der Veranstaltungen (über 96 \%) dauert zwischen zwei und vier Stunden. Da die Termine jedoch individuell als Zeitstempel (Start/Ende) vorliegen und nicht in ein fixes Raster gepresst sind, muss der Algorithmus präzise Zeitintervall-Prüfungen durchführen, anstatt lediglich Slots zu vergleichen.
+Die überwiegende Mehrheit der Veranstaltungen (über 96 \%) dauert zwischen zwei und vier Stunden. Da die Termine jedoch individuell als Zeitstempel (Start/Ende) vorliegen und nicht in ein fixes Raster gepresst sind, muss der Algorithmus die Überschneidung der Zeitintervalle berechnen, anstatt Slots zu vergleichen.
 
 
 
