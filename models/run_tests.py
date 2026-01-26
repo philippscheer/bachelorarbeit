@@ -109,6 +109,8 @@ if __name__ == "__main__":
 
     logger.debug(f"found {len(config_files)} config files")
 
+    tests_complete = []
+
     with tqdm(
         config_files,
         desc="Benchmarking constraint config",
@@ -333,5 +335,7 @@ if __name__ == "__main__":
 
             write_benchmarks(df, cfg, cfg_name, cfg_title)
             logger.success("wrote benchmarks")
+            tests_complete.append(cfg_name)
+            logger.debug(f"tests complete: {tests_complete}")
 
     logger.success("done")
