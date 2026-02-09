@@ -191,6 +191,22 @@ def solve_ilp(offerings: list[Offering]) -> list[Offering]:
     ]
 
 
+def solve_ilp_model(model, solver, y):
+    model.solve(solver)
+
+    if pulp.LpStatus[model.status] != "Optimal":
+        logger.warning(
+            f"model status is '{pulp.LpStatus[model.status]}' != Optimal"
+        )
+
+    return [
+        [o for o in offerings if o.courseId == cid][0]
+        for cid, var in y.items()
+        if pulp.value(var) > 0.5
+    ]
+
+
+
 if __name__ == "__main__":
     with open(RAW_DATA_DIR / "offerings.pkl", "rb") as f:
         offerings: list[Offering] = pickle.load(f)

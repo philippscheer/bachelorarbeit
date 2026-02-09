@@ -18,8 +18,8 @@ from utils import get_schedule_mark, is_valid_schedule, preprocess
 
 from hill_climbing_v1 import build_schedule as test_hill_climbing_v1
 from hill_climbing_v3 import build_schedule as test_hill_climbing_v3
-from ilp import solve_ilp as test_ilp
-from ilp_gpu import solve_ilp as test_ilp_gpu
+from ilp import solve_ilp_model as test_ilp, solve_ilp as ilp_benchmark, create_model as create_model_ilp
+from ilp_gpu import solve_ilp_model as test_ilp_gpu, create_model as create_model_ilp_gpu
 from offering_order import solve_offering_order as test_offering_order
 
 from utils.print_schedule import print_schedule
@@ -148,7 +148,7 @@ if __name__ == "__main__":
                     min=1, max=999
                 )
                 logger.info(f"trying count {C.TOTAL_COURSE_COUNT_CONSTRAINT}")
-                schedule = test_ilp(
+                schedule = ilp_benchmark(
                     offerings
                 )  # might be the best schedule, but not the longest
                 previous_schedule = None
@@ -165,7 +165,7 @@ if __name__ == "__main__":
                     C.TOTAL_COURSE_COUNT_CONSTRAINT = SimpleNamespace(
                         min=len(schedule) + 1, max=999
                     )
-                    schedule = test_ilp(offerings)
+                    schedule = ilp_benchmark(offerings)
                     logger.info(
                         f"found schedule with {len(schedule)} offerings, "
                         f"valid={is_valid_schedule(schedule, schedule_complete=True, verbose=args.verbose)}, "
@@ -217,8 +217,16 @@ if __name__ == "__main__":
                             f"{cfg_title}, ccc {i}/{ccc_max-1}, run {_+1}/{loops}"
                         )
 
-                        with profile() as profileResult:
-                            schedule = alg_fn(offerings)
+                        if alg_name in ("ilp", "ilp_gpu"):
+                            model, solver, y = ({
+                                "ilp": create_model_ilp,
+                                "ilp_gpu": create_model_ilp_gpu
+                            }[alg_name])(offerings)
+                            with profile() as profileResult:
+                                schedule = alg_fn(offerings)
+                        else:
+                            with profile() as profileResult:
+                                schedule = alg_fn(offerings)
 
                         if _ == 0 and args.print_schedule:
                             print_schedule(schedule)
