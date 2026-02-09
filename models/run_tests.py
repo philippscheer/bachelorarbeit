@@ -223,7 +223,7 @@ if __name__ == "__main__":
                                 "ilp_gpu": create_model_ilp_gpu
                             }[alg_name])(offerings)
                             with profile() as profileResult:
-                                schedule = alg_fn(offerings)
+                                schedule = alg_fn(model, solver, y)
                         else:
                             with profile() as profileResult:
                                 schedule = alg_fn(offerings)
