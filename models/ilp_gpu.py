@@ -27,7 +27,7 @@ def solve_ilp(offerings: list[Offering]) -> list[Offering]:
     ]
 
 
-def solve_ilp_model(model, solver, y):
+def solve_ilp_model(model, solver, y, offerings):
     model.solve(pulp.CUOPT(msg=False))
     if pulp.LpStatus[model.status] != "Optimal":
         logger.warning("model status is not optimal!")

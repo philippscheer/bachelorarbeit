@@ -191,7 +191,7 @@ def solve_ilp(offerings: list[Offering]) -> list[Offering]:
     ]
 
 
-def solve_ilp_model(model, solver, y):
+def solve_ilp_model(model, solver, y, offerings):
     model.solve(solver)
 
     if pulp.LpStatus[model.status] != "Optimal":
