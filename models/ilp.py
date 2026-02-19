@@ -125,7 +125,7 @@ def solve_ilp(offerings: list[Offering]) -> list[Offering]:
     model.solve(solver)
 
     if pulp.LpStatus[model.status] != "Optimal":
-        logger.warning(f"MODEL STATUS: {pulp.LpStatus[model.status]} != Optimal")
+        logger.warning(f"MODEL STATUS NOT OPTIMAL: {pulp.LpStatus[model.status]}")
     else:
         logger.success(f"MODEL STATUS: {pulp.LpStatus[model.status]}")
 
