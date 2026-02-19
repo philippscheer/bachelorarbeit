@@ -1,17 +1,14 @@
 import sys
 import pulp
-import pickle
+from types import SimpleNamespace
 from loguru import logger
 from collections import defaultdict
 
-from bachelorarbeit.config import RAW_DATA_DIR
 from bachelorarbeit.dtypes import Offering
 import bachelorarbeit.constraints as C
 
 from utils import (
-    get_schedule_mark,
     get_offering_mark,
-    is_valid_schedule,
     preprocess,
     load_offerings,
 )
@@ -152,6 +149,8 @@ def solve_ilp_model(model, solver, y, offerings):
 if __name__ == "__main__":
     # ran by benchexec. the first argument is the constraint file, so load constraint, build model, solve
     load_constraints_from_file(sys.argv[1])
+    num_courses = int(sys.argv[2])
+    C.TOTAL_COURSE_COUNT_CONSTRAINT = SimpleNamespace(min=num_courses, max=num_courses)
 
     offerings = load_offerings()
     offerings = preprocess(offerings)
