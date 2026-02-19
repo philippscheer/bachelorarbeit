@@ -40,7 +40,7 @@ class Tool(benchexec.tools.template.BaseTool):
         """
         # This dynamically returns the directory that contains your executable
         # (e.g., "/root/bachelorarbeit")
-        return os.path.dirname(BACHELORARBEIT_PATH)
+        return BACHELORARBEIT_PATH
 
     def name(self):
         return "Bachelorarbeit ILP Test"
