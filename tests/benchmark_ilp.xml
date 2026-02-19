@@ -11,10 +11,10 @@ SPDX-License-Identifier: Apache-2.0
 
 <!DOCTYPE benchmark PUBLIC "+//IDN sosy-lab.org//DTD BenchExec benchmark 3.30//EN" "https://www.sosy-lab.org/benchexec/benchmark-3.30.dtd">
 <!-- Example file for benchmark definition for BenchExec. -->
-<benchmark tool="bachelorarbeit_ilp_test"
+<benchmark tool="ilp_test"
            displayName="ILP Benchmarks"
            timelimit="10s"
-           memlimit="10MB"
+           memlimit="50 MB"
            cpuCores="4"
            threads="1">
 
