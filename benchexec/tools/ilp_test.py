@@ -54,3 +54,26 @@ class Tool(benchexec.tools.template.BaseTool):
         # Intentionally leave out 'options' to ensure ONLY the file is passed.
         # This will execute: python3 /path/to/ilp_test.py /path/to/constraint.json
         return ["python3", executable] + tasks
+
+    def determine_result(self, returncode, returnsignal, output, isTimeout):
+        """
+        Parses the tool's output to determine the final status.
+        'output' is a list of strings, where each string is a line printed to the terminal.
+        """
+        # If your script crashed or was forcefully killed, flag it as an error
+        if returnsignal == 9 or isTimeout:
+            return "TIMEOUT"
+        if returncode != 0:
+            return f"ERROR (exit code {returncode})"
+
+        # Scan the terminal output for specific keywords printed by your ILP script
+        for line in output:
+            if "OPTIMAL_SOLUTION_FOUND" in line:
+                return benchexec.result.RESULT_DONE  # Standard BenchExec green "Done"
+            elif "INFEASIBLE" in line:
+                return "INFEASIBLE"  # You can return custom status strings too!
+            elif "EXCEPTION" in line or "Traceback" in line:
+                return benchexec.result.RESULT_ERROR
+
+        # If the script finishes but we don't see our expected success keywords
+        return benchexec.result.RESULT_UNKNOWN

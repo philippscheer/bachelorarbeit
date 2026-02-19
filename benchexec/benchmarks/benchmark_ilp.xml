@@ -21,8 +21,6 @@ SPDX-License-Identifier: Apache-2.0
   <!-- <rundefinition> defines a tool configuration to benchmark (can appear multiple times). -->
   <!-- <rundefinition name="benchmark-4411"> -->
 
-  <rundefinition />
-
     <!-- <option> defines command-line arguments (can appear multiple times). -->
     <!-- <option name="config">4411</option> -->
   <!-- </rundefinition> -->
@@ -56,5 +54,62 @@ SPDX-License-Identifier: Apache-2.0
   <!-- Copy all result files from below the working directory to the output directory
        (this is redundant because it is the default). -->
   <resultfiles>.</resultfiles>
+
+
+
+
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+  <rundefinition />
+
+
+
 
 </benchmark>
