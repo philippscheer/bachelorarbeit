@@ -1,7 +1,7 @@
+import sys
 import pulp
 import pickle
 from loguru import logger
-from itertools import combinations
 from collections import defaultdict
 
 from bachelorarbeit.config import RAW_DATA_DIR
@@ -12,9 +12,10 @@ from utils import (
     get_schedule_mark,
     get_offering_mark,
     is_valid_schedule,
-    schedule_overlaps,
     preprocess,
+    load_offerings,
 )
+from utils.load_constraints import load_constraints_from_file
 
 
 def create_model(
@@ -24,8 +25,7 @@ def create_model(
 
     # decision vars (0 or 1 for each possible course. 1 means picked, 0 means not picked)
     y = {
-        c.courseId: pulp.LpVariable(f"y_{c.courseId}", cat="Binary")
-        for c in offerings
+        c.courseId: pulp.LpVariable(f"y_{c.courseId}", cat="Binary") for c in offerings
     }
 
     for must_schedule_course_id in C.COURSE_MUST_SCHEDULE:
@@ -55,10 +55,7 @@ def create_model(
 
     # 3. constraint: daily hour load constraint
     # map: day -> list of (course_id, hours_that_day)
-    if (
-        C.HOUR_LOAD_CONSTRAINT.min is not None
-        or C.HOUR_LOAD_CONSTRAINT.max is not None
-    ):
+    if C.HOUR_LOAD_CONSTRAINT.min is not None or C.HOUR_LOAD_CONSTRAINT.max is not None:
         hours_per_day_map = defaultdict(list)
         for off in offerings:
             for date_info in off.dates:
@@ -66,18 +63,14 @@ def create_model(
                 end = date_info["end"]
                 duration_hours = (end - start).total_seconds() / 3600.0
 
-                hours_per_day_map[start.date()].append(
-                    (off.courseId, duration_hours)
-                )
+                hours_per_day_map[start.date()].append((off.courseId, duration_hours))
 
         for day, contributions in hours_per_day_map.items():
             # u_d: Is the student at uni at all on this day?
             u_d = pulp.LpVariable(f"used_day_{day}", cat="Binary")
 
             # Calculate total hours for this day based on selected courses
-            day_hour_sum = pulp.lpSum(
-                y[cid] * hrs for cid, hrs in contributions
-            )
+            day_hour_sum = pulp.lpSum(y[cid] * hrs for cid, hrs in contributions)
 
             # Minimum load: If day is used (u_d=1), must be >= min.
             # If not used (u_d=0), sum must be 0.
@@ -91,52 +84,6 @@ def create_model(
             if C.HOUR_LOAD_CONSTRAINT.max is not None:
                 model += day_hour_sum <= C.HOUR_LOAD_CONSTRAINT.max * u_d
 
-    # implicit constraint: forbidden pairs - overlaps
-    # forbidden_pairs_overlaps = [
-    #     (c1.courseId, c2.courseId)
-    #     for c1, c2 in combinations(offerings, 2)
-    #     if schedule_overlaps([c1, c2])
-    # ]
-    # logger.debug(
-    #     f"found {len(forbidden_pairs_overlaps)} pairs forbidden by overlap"
-    # )
-    # for i, j in forbidden_pairs_overlaps:
-    #     model += y[i] + y[j] <= 1
-
-    # GO
-    # timeline = defaultdict(list)
-
-    # for off in offerings:
-    #     for date_info in off.dates:
-    #         start = date_info["start"]
-    #         end = date_info["end"]
-    #         # We only care about courses that share the same day
-    #         day = start.date()
-    #         # Store the course ID and the specific time interval
-    #         timeline[day].append((start, end, off.courseId))
-
-    # for day, sessions in timeline.items():
-    #     # 2. Get all unique start/end timestamps for this day
-    #     times = sorted(
-    #         list(set([s[0] for s in sessions] + [s[1] for s in sessions]))
-    #     )
-
-    #     # 3. For every "slice" of time between two timestamps
-    #     for i in range(len(times) - 1):
-    #         slot_start = times[i]
-    #         slot_end = times[i + 1]
-
-    #         # Find all courses that are active during this specific slice
-    #         active_in_slot = [
-    #             y[cid]
-    #             for start, end, cid in sessions
-    #             if start < slot_end and end > slot_start
-    #         ]
-
-    #         # If more than one course could be in this slot, add the constraint
-    #         if len(active_in_slot) > 1:
-    #             model += pulp.lpSum(active_in_slot) <= 1
-
     # 3. Optimized Timeline Logic
     timeline = defaultdict(list)
     for off in offerings:
@@ -148,9 +95,7 @@ def create_model(
 
     for day, sessions in timeline.items():
         # Get all unique split points
-        times = sorted(
-            list(set([s[0] for s in sessions] + [s[1] for s in sessions]))
-        )
+        times = sorted(list(set([s[0] for s in sessions] + [s[1] for s in sessions])))
 
         for i in range(len(times) - 1):
             slot_start = times[i]
@@ -180,9 +125,7 @@ def solve_ilp(offerings: list[Offering]) -> list[Offering]:
     model.solve(solver)
 
     if pulp.LpStatus[model.status] != "Optimal":
-        logger.warning(
-            f"model status is '{pulp.LpStatus[model.status]}' != Optimal"
-        )
+        logger.warning(f"model status is '{pulp.LpStatus[model.status]}' != Optimal")
 
     return [
         [o for o in offerings if o.courseId == cid][0]
@@ -195,9 +138,7 @@ def solve_ilp_model(model, solver, y, offerings):
     model.solve(solver)
 
     if pulp.LpStatus[model.status] != "Optimal":
-        logger.warning(
-            f"model status is '{pulp.LpStatus[model.status]}' != Optimal"
-        )
+        logger.warning(f"model status is '{pulp.LpStatus[model.status]}' != Optimal")
 
     return [
         [o for o in offerings if o.courseId == cid][0]
@@ -206,18 +147,11 @@ def solve_ilp_model(model, solver, y, offerings):
     ]
 
 
-
 if __name__ == "__main__":
-    with open(RAW_DATA_DIR / "offerings.pkl", "rb") as f:
-        offerings: list[Offering] = pickle.load(f)
+    # ran by benchexec. the first argument is the constraint file, so load constraint, build model, solve
+    load_constraints_from_file(sys.argv[0])
 
+    offerings = load_offerings()
     offerings = preprocess(offerings)
 
     best_solution = solve_ilp(offerings)
-    logger.success("found solution")
-    logger.success(f"{best_solution=}")
-    logger.success(
-        f"{is_valid_schedule(best_solution, schedule_complete=True)=}"
-    )
-    logger.success(f"{len(best_solution)=}")
-    logger.success(f"{get_schedule_mark(best_solution)=}")

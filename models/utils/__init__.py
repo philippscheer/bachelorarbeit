@@ -1,3 +1,4 @@
+import pickle
 from loguru import logger
 from typing import TypeVar, Literal
 from itertools import combinations
@@ -6,6 +7,7 @@ from datetime import datetime, time
 
 from bachelorarbeit.dtypes import Offering
 import bachelorarbeit.constraints as C
+from bachelorarbeit.config import RAW_DATA_DIR
 
 T = TypeVar("T")
 
@@ -27,10 +29,7 @@ def is_valid_schedule(
         verbose and logger.debug("schedule overlaps")
         return False
 
-    if (
-        C.HOUR_LOAD_CONSTRAINT.min is not None
-        or C.HOUR_LOAD_CONSTRAINT.max is not None
-    ):
+    if C.HOUR_LOAD_CONSTRAINT.min is not None or C.HOUR_LOAD_CONSTRAINT.max is not None:
         # hour load constraint
         min_hrs, max_hrs = daily_schedule_hours(schedule)
         if (
@@ -161,9 +160,7 @@ def flatten(xss: list[list[T]]) -> list[T]:
     return [x for xs in xss for x in xs]
 
 
-def dates_overlap(
-    start1: datetime, end1: datetime, start2: datetime, end2: datetime
-):
+def dates_overlap(start1: datetime, end1: datetime, start2: datetime, end2: datetime):
     return start1 < end2 and end1 > start2
 
 
@@ -198,10 +195,7 @@ def is_on_day(dt: datetime, day: Weekday) -> bool:
 def violates_hard_constraints(
     offering: Offering, verbose: bool = False, ignore_must_schedule: bool = True
 ):
-    if (
-        not ignore_must_schedule
-        and offering.courseId not in C.COURSE_MUST_SCHEDULE
-    ):
+    if not ignore_must_schedule and offering.courseId not in C.COURSE_MUST_SCHEDULE:
         logger.debug("mandatory course id not scheduled")
         return True
 
@@ -244,9 +238,7 @@ def daily_schedule_hours(schedule: list[Offering]) -> tuple[float, float]:
         merged = merge_intervals(intervals)
 
         # Calculate total duration in hours for this day
-        total_seconds = sum(
-            (end - start).total_seconds() for start, end in merged
-        )
+        total_seconds = sum((end - start).total_seconds() for start, end in merged)
         hours = total_seconds / 3600.0
 
         if hours > 0:
@@ -289,9 +281,7 @@ def get_offering_mark(offering: Offering):
         for weekday, hour_start, hour_end, mark_change in [
             c for c in C.FIXED_TIME_CONSTRAINTS if abs(c[3]) != C.P
         ]:
-            if times_overlap(
-                date["start"], date["end"], hour_start, hour_end, weekday
-            ):
+            if times_overlap(date["start"], date["end"], hour_start, hour_end, weekday):
                 mark += mark_change
     return mark
 
@@ -313,9 +303,7 @@ def rebuild_available_offerings(
     available_offerings: list[Offering],
     v3: bool = False,
 ) -> list[Offering]:
-    taken_group_ids = list(
-        set(map(lambda offering: offering.groupId, schedule))
-    )
+    taken_group_ids = list(set(map(lambda offering: offering.groupId, schedule)))
     taken_course_ids = list(map(lambda o: o.courseId, schedule))
 
     def _filter_available_offerings(previously_available_offering: Offering):
@@ -332,9 +320,7 @@ def rebuild_available_offerings(
 
         return True
 
-    available_offerings = list(
-        filter(_filter_available_offerings, available_offerings)
-    )
+    available_offerings = list(filter(_filter_available_offerings, available_offerings))
     return (
         available_offerings[(len(available_offerings) - 1) // 2 :]
         if v3
@@ -359,8 +345,7 @@ def preprocess(offerings: list[Offering]) -> list[Offering]:
     keep_offerings = [
         offering
         for offering in offerings
-        if offering.groupId is not None
-        and not violates_hard_constraints(offering)
+        if offering.groupId is not None and not violates_hard_constraints(offering)
     ]
 
     for i, offering in enumerate(keep_offerings):
@@ -388,3 +373,9 @@ def get_must_schedule_courses(offerings: list[Offering]) -> list[Offering]:
             raise Exception("insane")
         must_schedule.append(offers[0])
     return must_schedule
+
+
+def load_offerings() -> list[Offering]:
+    with open(RAW_DATA_DIR / "offerings.pkl", "rb") as f:
+        offerings: list[Offering] = pickle.load(f)
+        return offerings
