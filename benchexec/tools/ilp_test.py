@@ -34,6 +34,13 @@ class Tool(benchexec.tools.template.BaseTool):
 
         return target_script
 
+    def environment(self, executable):
+        """
+        Sets specific environment variables inside the BenchExec container.
+        This forces Python to look in the root directory for your custom modules.
+        """
+        return {"additionalEnv": {"PYTHONPATH": BACHELORARBEIT_PATH}}
+
     def working_directory(self, executable):
         """
         Overrides the default BenchExec behavior to set a custom CWD.

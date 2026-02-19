@@ -125,7 +125,9 @@ def solve_ilp(offerings: list[Offering]) -> list[Offering]:
     model.solve(solver)
 
     if pulp.LpStatus[model.status] != "Optimal":
-        logger.warning(f"model status is '{pulp.LpStatus[model.status]}' != Optimal")
+        logger.warning(f"MODEL STATUS: {pulp.LpStatus[model.status]} != Optimal")
+    else:
+        logger.success(f"MODEL STATUS: {pulp.LpStatus[model.status]}")
 
     return [
         [o for o in offerings if o.courseId == cid][0]
@@ -149,7 +151,7 @@ def solve_ilp_model(model, solver, y, offerings):
 
 if __name__ == "__main__":
     # ran by benchexec. the first argument is the constraint file, so load constraint, build model, solve
-    load_constraints_from_file(sys.argv[0])
+    load_constraints_from_file(sys.argv[1])
 
     offerings = load_offerings()
     offerings = preprocess(offerings)
