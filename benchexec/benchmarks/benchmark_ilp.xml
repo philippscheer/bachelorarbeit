@@ -11,7 +11,7 @@ SPDX-License-Identifier: Apache-2.0
 
 <!DOCTYPE benchmark PUBLIC "+//IDN sosy-lab.org//DTD BenchExec benchmark 3.30//EN" "https://www.sosy-lab.org/benchexec/benchmark-3.30.dtd">
 <!-- Example file for benchmark definition for BenchExec. -->
-<benchmark tool="ilp_test_tool"
+<benchmark tool="ilp_test"
            displayName="ILP Benchmarks"
            timelimit="10s"
            memlimit="50 MB"
@@ -22,6 +22,8 @@ SPDX-License-Identifier: Apache-2.0
            hardtimelimit="*optional hard CPU-time limit, use unit 's', 'min', etc. (defines when the tool will be forcefully killed, by default it is the same as timelimit but setting hardtimelimit to a larger value than timelimit gives the tool a grace period for terminating itself)" -->
   <!-- <rundefinition> defines a tool configuration to benchmark (can appear multiple times). -->
   <!-- <rundefinition name="benchmark-4411"> -->
+
+  <rundefinition />
 
     <!-- <option> defines command-line arguments (can appear multiple times). -->
     <!-- <option name="config">4411</option> -->
