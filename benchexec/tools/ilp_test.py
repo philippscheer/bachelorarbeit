@@ -53,7 +53,7 @@ class Tool(benchexec.tools.template.BaseTool):
         """
         # Intentionally leave out 'options' to ensure ONLY the file is passed.
         # This will execute: python3 /path/to/ilp_test.py /path/to/constraint.json
-        return ["python3", executable] + tasks
+        return [".venv/bin/python3", executable] + tasks
 
     def determine_result(self, returncode, returnsignal, output, isTimeout):
         """
