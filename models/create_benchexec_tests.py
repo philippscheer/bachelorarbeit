@@ -30,7 +30,7 @@ TOOLS = [
 ]
 XML_BENCHMARK_START = """<?xml version="1.0"?>
 <!DOCTYPE benchmark PUBLIC "+//IDN sosy-lab.org//DTD BenchExec benchmark 3.30//EN" "https://www.sosy-lab.org/benchexec/benchmark-3.30.dtd">
-<benchmark tool="{{tool}}"
+<benchmark tool="custom_tools.{{tool}}"
            displayName="{{tool}}_benchmarks"
            timelimit="15s"
            threads="1">
