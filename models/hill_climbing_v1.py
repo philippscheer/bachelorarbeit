@@ -1,18 +1,21 @@
-import pickle
-from loguru import logger
+import sys
 
-from bachelorarbeit.config import RAW_DATA_DIR
+from loguru import logger
+from types import SimpleNamespace
+
 from bachelorarbeit.dtypes import Offering
 import bachelorarbeit.constraints as C
 
 from utils import (
     get_schedule_mark,
-    get_offering_mark,
     is_valid_schedule,
     rebuild_available_offerings,
     preprocess,
     get_must_schedule_courses,
+    load_offerings,
 )
+from utils.profile import profile
+from utils.load_constraints import load_constraints_from_file
 
 
 """
@@ -80,9 +83,7 @@ def build_schedule(offerings: list[Offering]) -> list[Offering] | None:
     ]
 
     while True:
-        available_offerings = rebuild_available_offerings(
-            schedule, available_offerings
-        )
+        available_offerings = rebuild_available_offerings(schedule, available_offerings)
         next_valid_course = schedule_course(schedule, available_offerings)
 
         if (
@@ -112,14 +113,15 @@ def build_schedule(offerings: list[Offering]) -> list[Offering] | None:
 
 
 if __name__ == "__main__":
-    with open(RAW_DATA_DIR / "offerings.pkl", "rb") as f:
-        offerings: list[Offering] = pickle.load(f)
+    # ran by benchexec. the first argument is the constraint file, so load constraint, build model, solve
+    # constraint loading not included in benchmark
+    load_constraints_from_file(sys.argv[1])
+    num_courses = int(sys.argv[2])
+    C.TOTAL_COURSE_COUNT_CONSTRAINT = SimpleNamespace(min=num_courses, max=num_courses)
 
+    # preprocessing not included in benchmarks
+    offerings = load_offerings()
     offerings = preprocess(offerings)
-    schedule = build_schedule(offerings)
 
-    logger.success("found schedule")
-    logger.success(f"{schedule=}")
-    logger.success(f"{len(schedule)=}")
-    logger.success(f"{is_valid_schedule(schedule, schedule_complete=True)=}")
-    logger.success(f"{get_schedule_mark(schedule)=}")
+    with profile(sys.argv[1], sys.argv[2]):
+        best_solution = build_schedule(offerings)

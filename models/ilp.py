@@ -13,6 +13,7 @@ from utils import (
     load_offerings,
 )
 from utils.load_constraints import load_constraints_from_file
+from utils.profile import profile
 
 
 def create_model(
@@ -148,11 +149,14 @@ def solve_ilp_model(model, solver, y, offerings):
 
 if __name__ == "__main__":
     # ran by benchexec. the first argument is the constraint file, so load constraint, build model, solve
+    # constraint loading not included in benchmark
     load_constraints_from_file(sys.argv[1])
     num_courses = int(sys.argv[2])
     C.TOTAL_COURSE_COUNT_CONSTRAINT = SimpleNamespace(min=num_courses, max=num_courses)
 
+    # preprocessing not included in benchmarks
     offerings = load_offerings()
     offerings = preprocess(offerings)
 
-    best_solution = solve_ilp(offerings)
+    with profile(sys.argv[1], sys.argv[2]):
+        best_solution = solve_ilp(offerings)

@@ -1,19 +1,21 @@
-import json
+import sys
 import time
-import pickle
+
 from typing import List
 from loguru import logger
+from types import SimpleNamespace
 
-from bachelorarbeit.config import RAW_DATA_DIR
 from bachelorarbeit.dtypes import Offering
 import bachelorarbeit.constraints as C
 
 from utils import (
-    get_schedule_mark,
     get_offering_mark,
     is_valid_schedule,
     preprocess,
+    load_offerings,
 )
+from utils.profile import profile
+from utils.load_constraints import load_constraints_from_file
 
 
 OFF_ORDER_TIMEOUT = 10
@@ -77,9 +79,7 @@ def offering_order_algorithm(
 
         # If we've scheduled all groups, check if the final schedule is valid and course count is within limits
         if group_index >= len(groups):
-            if min_courses <= len(
-                schedule
-            ) <= max_courses and is_valid_schedule(
+            if min_courses <= len(schedule) <= max_courses and is_valid_schedule(
                 schedule, schedule_complete=True
             ):
                 return schedule
@@ -90,9 +90,7 @@ def offering_order_algorithm(
 
         for offering in offerings:
             # Forward checking: check compatibility with the current (partial) schedule
-            if is_valid_schedule(
-                schedule + [offering], schedule_complete=False
-            ):
+            if is_valid_schedule(schedule + [offering], schedule_complete=False):
                 if len(schedule) + 1 > max_courses:
                     continue
                 schedule.append(offering)
@@ -134,17 +132,15 @@ def solve_offering_order(offerings):
 
 
 if __name__ == "__main__":
-    with open(RAW_DATA_DIR / "offerings.pkl", "rb") as f:
-        offerings: list[Offering] = pickle.load(f)
+    # ran by benchexec. the first argument is the constraint file, so load constraint, build model, solve
+    # constraint loading not included in benchmark
+    load_constraints_from_file(sys.argv[1])
+    num_courses = int(sys.argv[2])
+    C.TOTAL_COURSE_COUNT_CONSTRAINT = SimpleNamespace(min=num_courses, max=num_courses)
 
+    # preprocessing not included in benchmarks
+    offerings = load_offerings()
     offerings = preprocess(offerings)
 
-    # print(f"{groups=}")
-    schedule = solve_offering_order(offerings)
-    logger.success("found schedule")
-    logger.success(f"{schedule=}")
-    logger.success(f"{len(schedule)=}")
-    logger.success(
-        f"{is_valid_schedule(schedule, schedule_complete=True, verbose=True)=}"
-    )
-    logger.success(f"{get_schedule_mark(schedule)=}")
+    with profile(sys.argv[1], sys.argv[2]):
+        best_solution = solve_offering_order(offerings)

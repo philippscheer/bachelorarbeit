@@ -1,15 +1,16 @@
+import sys
 import pulp
-import pickle
+
 from loguru import logger
+from types import SimpleNamespace
 
-from bachelorarbeit.config import RAW_DATA_DIR
+from utils.load_constraints import load_constraints_from_file
+from utils.profile import profile
+
 from bachelorarbeit.dtypes import Offering
+import bachelorarbeit.constraints as C
 
-from utils import (
-    get_schedule_mark,
-    is_valid_schedule,
-    preprocess,
-)
+from utils import preprocess, load_offerings
 from models.ilp import create_model
 
 
@@ -39,16 +40,16 @@ def solve_ilp_model(model, solver, y, offerings):
     ]
 
 
-
 if __name__ == "__main__":
-    with open(RAW_DATA_DIR / "offerings.pkl", "rb") as f:
-        offerings: list[Offering] = pickle.load(f)
+    # ran by benchexec. the first argument is the constraint file, so load constraint, build model, solve
+    # constraint loading not included in benchmark
+    load_constraints_from_file(sys.argv[1])
+    num_courses = int(sys.argv[2])
+    C.TOTAL_COURSE_COUNT_CONSTRAINT = SimpleNamespace(min=num_courses, max=num_courses)
 
+    # preprocessing not included in benchmarks
+    offerings = load_offerings()
     offerings = preprocess(offerings)
 
-    best_solution = solve_ilp(offerings)
-    logger.success("found solution")
-    logger.success(f"{best_solution=}")
-    logger.success(f"{is_valid_schedule(best_solution)=}")
-    logger.success(f"{len(best_solution)=}")
-    logger.success(f"{get_schedule_mark(best_solution)=}")
+    with profile(sys.argv[1], sys.argv[2]):
+        best_solution = solve_ilp(offerings)

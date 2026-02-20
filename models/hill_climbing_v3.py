@@ -1,7 +1,8 @@
-import pickle
-from loguru import logger
+import sys
 
-from bachelorarbeit.config import RAW_DATA_DIR
+from loguru import logger
+from types import SimpleNamespace
+
 from bachelorarbeit.dtypes import Offering
 import bachelorarbeit.constraints as C
 
@@ -11,7 +12,10 @@ from utils import (
     rebuild_available_offerings,
     preprocess,
     get_must_schedule_courses,
+    load_offerings,
 )
+from utils.profile import profile
+from utils.load_constraints import load_constraints_from_file
 
 
 """
@@ -60,16 +64,12 @@ def schedule_course(
     """
     Picks one offering that fits best into the schedule and returns this offering
     """
-    if (
-        len(schedule) == 0
-    ):  # schedule is empty, remove offering with highest score
+    if len(schedule) == 0:  # schedule is empty, remove offering with highest score
         return sorted(available, key=lambda item: -item.mark)[0]
 
     schedule_marks: list[Offering, int] = [
         [a, get_schedule_mark([*schedule, a])]
-        for a in (
-            available if not v3 else available[(len(available) - 1) // 2 :]
-        )
+        for a in (available if not v3 else available[(len(available) - 1) // 2 :])
     ]
     try:
         return sorted(schedule_marks, key=lambda item: -item[1])[0][0]
@@ -122,14 +122,15 @@ def build_schedule(offerings: list[Offering]) -> list[Offering] | None:
 
 
 if __name__ == "__main__":
-    with open(RAW_DATA_DIR / "offerings.pkl", "rb") as f:
-        offerings: list[Offering] = pickle.load(f)
+    # ran by benchexec. the first argument is the constraint file, so load constraint, build model, solve
+    # constraint loading not included in benchmark
+    load_constraints_from_file(sys.argv[1])
+    num_courses = int(sys.argv[2])
+    C.TOTAL_COURSE_COUNT_CONSTRAINT = SimpleNamespace(min=num_courses, max=num_courses)
 
+    # preprocessing not included in benchmarks
+    offerings = load_offerings()
     offerings = preprocess(offerings)
-    schedule = build_schedule(offerings)
 
-    logger.success("found schedule")
-    logger.success(f"{schedule=}")
-    logger.success(f"{len(schedule)=}")
-    logger.success(f"{is_valid_schedule(schedule, schedule_complete=True)=}")
-    logger.success(f"{get_schedule_mark(schedule)=}")
+    with profile(sys.argv[1], sys.argv[2]):
+        best_solution = build_schedule(offerings)

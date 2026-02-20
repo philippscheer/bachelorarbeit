@@ -1,7 +1,10 @@
+import os
+import json
 import time
 import threading
 import tracemalloc
 
+from pathlib import Path
 from contextlib import contextmanager
 
 
@@ -20,20 +23,31 @@ class ProfileResult:
 
 
 @contextmanager
-def profile(sampling_interval=0.01):
+def profile(constraint_file_path: str, num_runs: str, sampling_interval=0.01):
     """
     Context manager to measure execution time and memory usage precisely.
 
     Returns a ProfileResult object with statistics.
     """
     result = ProfileResult()
-    tracemalloc.start()
+    mem_stats = []
     start_time = time.perf_counter()
 
-    mem_stats = []
+    results = []
+    constraint_file_path: Path = Path(constraint_file_path)
+    output_file_path = (
+        constraint_file_path.parent
+        / f"{constraint_file_path.stem}_difficulty_{num_runs}_result.json"
+    )
+
+    if os.path.isfile(output_file_path):
+        with open(output_file_path, "r") as f:
+            results = json.load(f)
 
     # Sample memory usage until code block is finished
     stop_event = {"stop": False}
+
+    tracemalloc.start()
 
     def sampler():
         while not stop_event["stop"]:
@@ -52,6 +66,17 @@ def profile(sampling_interval=0.01):
         t.join()
         _, peak = tracemalloc.get_traced_memory()
         tracemalloc.stop()
+
+        results.append(
+            {
+                "mem_peak": peak,
+                "mem_measurements": mem_stats,
+                "time_elapsed": end_time - start_time,
+            }
+        )
+
+        with open(output_file_path, "w") as f:
+            json.dump(results, f)
 
         result.mem_peak = peak
         result.mem_measurements = mem_stats
