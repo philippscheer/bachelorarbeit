@@ -120,7 +120,7 @@ if __name__ == "__main__":
                 )
                 for i in range(min_len, max_len + 1):
                     for j in range(ROUNDS):
-                        crafted_xml += f'<rundefinition name="run_{str(j + 1).zfill(2)}"> <option>{i}</option> </rundefinition>\n'
+                        crafted_xml += f'<rundefinition name="run_{str(j + 1).zfill(2)}_{str(i).zfill(2)}"> <option>{i}</option> </rundefinition>\n'
                 crafted_xml += XML_BENCHMARK_END
                 with open(
                     PROJ_ROOT / "benchexec" / "benchmarks" / f"{cfg_name}_{tool}.xml",
