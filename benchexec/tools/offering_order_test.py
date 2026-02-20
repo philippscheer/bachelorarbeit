@@ -25,7 +25,7 @@ class Tool(benchexec.tools.template.BaseTool):
         Finds the executable using an absolute path instead of the system PATH.
         """
         # Hardcode the exact absolute path to your target script here:
-        target_script = "models/ilp.py"
+        target_script = "models/offering_order.py"
 
         # Verify it actually exists before BenchExec tries to run it
         if not os.path.exists(target_script):

@@ -21,7 +21,13 @@ from utils.load_constraints import load_constraints_from_file
 
 CURRENT_PATH = os.path.dirname(os.path.abspath(__file__))
 ROUNDS = 50
-TOOLS = ["ilp_test", "ilp_gpu_test", "offering_order_test", "hill_climbing_test"]
+TOOLS = [
+    "ilp_test",
+    "ilp_gpu_test",
+    "offering_order_test",
+    "hill_climbing_v1_test",
+    "hill_climbing_v3_test",
+]
 XML_BENCHMARK_START = """<?xml version="1.0"?>
 <!DOCTYPE benchmark PUBLIC "+//IDN sosy-lab.org//DTD BenchExec benchmark 3.30//EN" "https://www.sosy-lab.org/benchexec/benchmark-3.30.dtd">
 <benchmark tool="{{tool}}"
