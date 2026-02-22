@@ -10,7 +10,7 @@ from utils.profile import profile
 from bachelorarbeit.dtypes import Offering
 import bachelorarbeit.constraints as C
 
-from utils import preprocess, load_offerings
+from utils import preprocess, load_offerings, get_schedule_mark, is_valid_schedule
 from models.ilp import create_model
 
 
@@ -51,5 +51,16 @@ if __name__ == "__main__":
     offerings = load_offerings()
     offerings = preprocess(offerings)
 
-    with profile(sys.argv[1], sys.argv[2]):
-        best_solution = solve_ilp(offerings)
+    with profile(sys.argv[1], sys.argv[2]) as p:
+        schedule = solve_ilp(offerings)
+
+    is_valid, score = is_valid_schedule(
+        schedule, schedule_complete=True
+    ), get_schedule_mark(schedule)
+
+    if not is_valid:
+        print("SCHEDULE INVALID")
+    else:
+        print("SCHEDULE VALID")
+
+    p.write_results(is_valid, score)

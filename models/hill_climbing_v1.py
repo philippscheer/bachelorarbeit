@@ -76,7 +76,9 @@ def schedule_course(
         return None
 
 
-def build_schedule(offerings: list[Offering]) -> list[Offering] | None:
+def build_schedule(
+    offerings: list[Offering], verbose: bool = True
+) -> list[Offering] | None:
     schedule = get_must_schedule_courses(offerings)
     available_offerings = [
         o for o in offerings if o.courseId not in [s.courseId for s in schedule]
@@ -101,13 +103,13 @@ def build_schedule(offerings: list[Offering]) -> list[Offering] | None:
         if next_valid_course is None:
             return None
 
-        logger.debug(
+        verbose and logger.debug(
             f"picked {next_valid_course.courseId}, "
             f"valid={is_valid_schedule(schedule, schedule_complete=False)}, "
             f"{len(available_offerings)} offerings remaining"
         )
         schedule.append(next_valid_course)
-        logger.debug(f"{schedule=}")
+        verbose and logger.debug(f"{schedule=}")
 
     return schedule
 
@@ -123,5 +125,17 @@ if __name__ == "__main__":
     offerings = load_offerings()
     offerings = preprocess(offerings)
 
-    with profile(sys.argv[1], sys.argv[2]):
-        best_solution = build_schedule(offerings)
+    with profile(sys.argv[1], sys.argv[2]) as p:
+        schedule = build_schedule(offerings, verbose=False)
+
+    is_valid, score = is_valid_schedule(
+        schedule, schedule_complete=True
+    ), get_schedule_mark(schedule)
+
+    # print to tell benchexec if the run was successful
+    if is_valid:
+        print("SCHEDULE VALID")
+    else:
+        print("SCHEDULE INVALID")
+
+    p.write_results(is_valid, score)

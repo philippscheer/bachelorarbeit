@@ -13,6 +13,7 @@ from utils import (
     is_valid_schedule,
     preprocess,
     load_offerings,
+    get_schedule_mark,
 )
 from utils.profile import profile
 from utils.load_constraints import load_constraints_from_file
@@ -142,5 +143,16 @@ if __name__ == "__main__":
     offerings = load_offerings()
     offerings = preprocess(offerings)
 
-    with profile(sys.argv[1], sys.argv[2]):
-        best_solution = solve_offering_order(offerings)
+    with profile(sys.argv[1], sys.argv[2]) as p:
+        schedule = solve_offering_order(offerings)
+
+    is_valid, score = is_valid_schedule(
+        schedule, schedule_complete=True
+    ), get_schedule_mark(schedule)
+
+    if is_valid:
+        print("SCHEDULE VALID")
+    else:
+        print("SCHEDULE INVALID")
+
+    p.write_results(is_valid, score)

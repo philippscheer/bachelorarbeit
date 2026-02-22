@@ -76,10 +76,10 @@ class Tool(benchexec.tools.template.BaseTool):
 
         # Scan the terminal output for specific keywords printed by your ILP script
         for line in output:
-            if "MODEL STATUS: Optimal" in line:
+            if "SCHEDULE INVALID" in line:
+                return "INVALID"
+            elif "SCHEDULE VALID" in line:
                 return benchexec.result.RESULT_DONE  # Standard BenchExec green "Done"
-            elif "MODEL STATUS NOT OPTIMAL" in line:
-                return "INFEASIBLE"  # You can return custom status strings too!
             elif "EXCEPTION" in line or "Traceback" in line:
                 return benchexec.result.RESULT_ERROR
 
