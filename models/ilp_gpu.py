@@ -51,7 +51,7 @@ if __name__ == "__main__":
     offerings = load_offerings()
     offerings = preprocess(offerings)
 
-    with profile(sys.argv[1], sys.argv[2]) as p:
+    with profile(sys.argv[1], sys.argv[2], vram=True) as p:
         schedule = solve_ilp(offerings)
 
     is_valid, score = is_valid_schedule(
