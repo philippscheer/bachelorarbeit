@@ -58,7 +58,7 @@
                 ] {\loadedMemoryData};
             \addlegendentry{ILP}
 
-            % --- ILP Memory Usage ---
+            % --- ILP GPU RAM ---
             \addplot[
                 mark=*,
                 color=purple,
@@ -73,7 +73,8 @@
                     y={ILP GPU},
                     y error={ILP GPU stdev},
                 ] {\loadedMemoryData};
-            \addlegendentry{ILP GPU}
+            \addlegendentry{ILP GPU RAM}
+
         \end{axis}
 
         % --- Right axis (Hill Climbing & Offering Order) ---
@@ -141,6 +142,55 @@
                     y error expr=\thisrow{Offering Order stdev},
                 ] {\loadedMemoryData};
             \addlegendentry{Offering Order}
+
+        \end{axis}
+    \end{tikzpicture}
+}
+
+\newcommand{\vramChart}[2][]{%
+    % #1 = optional max difficulty (empty -> show all)
+    % #2 = CSV file path
+
+    \pgfplotstableread[col sep=comma]{#2}\loadedVramData
+
+    \ifx\relax#1\relax
+        \def\vramMaxDifficulty{0}%
+        \def\vramHasMax{0}%
+    \else
+        \edef\vramMaxDifficulty{#1}%
+        \def\vramHasMax{1}%
+    \fi
+
+    \begin{tikzpicture}
+        \begin{axis}[
+                title={ILP GPU VRAM (Bytes)},
+                axis y line*=left,
+                xlabel={Difficulty},
+                ylabel={VRAM Nutzung (Bytes)},
+                ymajorgrids=true,
+                width=0.95\textwidth,
+                height=7cm,
+                grid=major,
+                legend style={at={(0.5,-0.2)}, anchor=north, legend columns=-1},
+                table/x=difficulty,
+            ]
+
+            \addplot[
+                mark=pentagon*,
+                color=cyan!70!black,
+                line width=1pt,
+                dashed,
+                smooth,
+                error bars/.cd,
+                y dir=both,
+                y explicit,
+                /pgfplots/x filter/.code={\ifnum\vramHasMax=1 \ifdim\pgfmathresult pt>\vramMaxDifficulty pt \def\pgfmathresult{} \fi \fi}
+            ] table [
+                    x=difficulty,
+                    y={ILP GPU VRAM},
+                    y error={ILP GPU VRAM stdev},
+                ] {\loadedVramData};
+            \addlegendentry{ILP GPU VRAM}
 
         \end{axis}
     \end{tikzpicture}

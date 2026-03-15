@@ -1,0 +1,2953 @@
+[
+    {
+        "time_elapsed": 0.04385557025671005,
+        "mem_peak": 18410,
+        "mem_measurements": [
+            3479,
+            7977,
+            13008
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04313039407134056,
+        "mem_peak": 20262,
+        "mem_measurements": [
+            3479,
+            5875,
+            15095
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043600279837846756,
+        "mem_peak": 19044,
+        "mem_measurements": [
+            3479,
+            12421,
+            13827
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043634794652462006,
+        "mem_peak": 21930,
+        "mem_measurements": [
+            3479,
+            14709,
+            16767
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.0429888591170311,
+        "mem_peak": 20210,
+        "mem_measurements": [
+            3479,
+            13982,
+            14993
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04368653893470764,
+        "mem_peak": 22129,
+        "mem_measurements": [
+            3479,
+            16325,
+            16892
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043760962784290314,
+        "mem_peak": 22126,
+        "mem_measurements": [
+            3479,
+            15093,
+            16959
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043465666472911835,
+        "mem_peak": 22282,
+        "mem_measurements": [
+            3479,
+            14487,
+            17102
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.0438363254070282,
+        "mem_peak": 22952,
+        "mem_measurements": [
+            3479,
+            14703,
+            16944
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04382545128464699,
+        "mem_peak": 18159,
+        "mem_measurements": [
+            3479,
+            7238,
+            11870
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043328557163476944,
+        "mem_peak": 22527,
+        "mem_measurements": [
+            3479,
+            13168,
+            17396
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043319907039403915,
+        "mem_peak": 21468,
+        "mem_measurements": [
+            3479,
+            15598,
+            16236
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04404682666063309,
+        "mem_peak": 17564,
+        "mem_measurements": [
+            3479,
+            10770,
+            13148
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.044566720724105835,
+        "mem_peak": 28697,
+        "mem_measurements": [
+            3479,
+            14996,
+            24311
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043556131422519684,
+        "mem_peak": 17550,
+        "mem_measurements": [
+            3479,
+            10955,
+            12118
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043197937309741974,
+        "mem_peak": 22527,
+        "mem_measurements": [
+            3479,
+            13168,
+            17396
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04382873699069023,
+        "mem_peak": 17483,
+        "mem_measurements": [
+            3479,
+            11780,
+            12347
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04346296191215515,
+        "mem_peak": 21370,
+        "mem_measurements": [
+            3479,
+            15465,
+            16155
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043228231370449066,
+        "mem_peak": 21468,
+        "mem_measurements": [
+            3479,
+            15448,
+            16233
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043959226459264755,
+        "mem_peak": 28697,
+        "mem_measurements": [
+            3479,
+            15030,
+            24313
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.0558486245572567,
+        "mem_peak": 22210,
+        "mem_measurements": [
+            3479,
+            13742,
+            14942,
+            17186
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04380388557910919,
+        "mem_peak": 20464,
+        "mem_measurements": [
+            3479,
+            10571,
+            15247
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04360412061214447,
+        "mem_peak": 19515,
+        "mem_measurements": [
+            3479,
+            12989,
+            14113
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04377855733036995,
+        "mem_peak": 18554,
+        "mem_measurements": [
+            3479,
+            12748,
+            13322
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.044094186276197433,
+        "mem_peak": 16470,
+        "mem_measurements": [
+            3479,
+            9353,
+            11253
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04399097338318825,
+        "mem_peak": 17633,
+        "mem_measurements": [
+            3479,
+            9573,
+            12416
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04404902830719948,
+        "mem_peak": 23304,
+        "mem_measurements": [
+            3479,
+            17148,
+            17668
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043950144201517105,
+        "mem_peak": 23304,
+        "mem_measurements": [
+            3479,
+            17067,
+            17668
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.044308554381132126,
+        "mem_peak": 21399,
+        "mem_measurements": [
+            3479,
+            15350,
+            17030
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04357922822237015,
+        "mem_peak": 18404,
+        "mem_measurements": [
+            3479,
+            12868,
+            12822
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04364117234945297,
+        "mem_peak": 20556,
+        "mem_measurements": [
+            3479,
+            13122,
+            15339
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043977655470371246,
+        "mem_peak": 20438,
+        "mem_measurements": [
+            3479,
+            13911,
+            16069
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04426940158009529,
+        "mem_peak": 22952,
+        "mem_measurements": [
+            3479,
+            12874,
+            16276
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04369746521115303,
+        "mem_peak": 18291,
+        "mem_measurements": [
+            3479,
+            12069,
+            13027
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043773360550403595,
+        "mem_peak": 20173,
+        "mem_measurements": [
+            3479,
+            12872,
+            14611
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04366353154182434,
+        "mem_peak": 17737,
+        "mem_measurements": [
+            3479,
+            10366,
+            12520
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04361066594719887,
+        "mem_peak": 20124,
+        "mem_measurements": [
+            3479,
+            12355,
+            12751
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04481218382716179,
+        "mem_peak": 21451,
+        "mem_measurements": [
+            3479,
+            15620,
+            17084
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043591950088739395,
+        "mem_peak": 21370,
+        "mem_measurements": [
+            3479,
+            15598,
+            16103
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04343636706471443,
+        "mem_peak": 15475,
+        "mem_measurements": [
+            3479,
+            7616,
+            10144
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04361819475889206,
+        "mem_peak": 22221,
+        "mem_measurements": [
+            3479,
+            10559,
+            17036
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043586231768131256,
+        "mem_peak": 21468,
+        "mem_measurements": [
+            3479,
+            15416,
+            16231
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043802015483379364,
+        "mem_peak": 22203,
+        "mem_measurements": [
+            3479,
+            16389,
+            16465
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043324414640665054,
+        "mem_peak": 21993,
+        "mem_measurements": [
+            3479,
+            14709,
+            16862
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.044270891696214676,
+        "mem_peak": 20462,
+        "mem_measurements": [
+            3479,
+            13291,
+            16095
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04379596188664436,
+        "mem_peak": 22203,
+        "mem_measurements": [
+            3479,
+            14727,
+            17038
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.0440649688243866,
+        "mem_peak": 21497,
+        "mem_measurements": [
+            3479,
+            15566,
+            16280
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.043940674513578415,
+        "mem_peak": 22327,
+        "mem_measurements": [
+            3479,
+            13750,
+            14570
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.044304199516773224,
+        "mem_peak": 17991,
+        "mem_measurements": [
+            3479,
+            11899,
+            13390
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04359492287039757,
+        "mem_peak": 20976,
+        "mem_measurements": [
+            3479,
+            12080,
+            15342
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040787383913993835,
+        "mem_peak": 20511,
+        "mem_measurements": [
+            3479,
+            13953,
+            16046
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04089504852890968,
+        "mem_peak": 23501,
+        "mem_measurements": [
+            3479,
+            14983,
+            18952
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040907055139541626,
+        "mem_peak": 20853,
+        "mem_measurements": [
+            3479,
+            12878,
+            16230
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04075782373547554,
+        "mem_peak": 18074,
+        "mem_measurements": [
+            3479,
+            12458,
+            13188
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040703680366277695,
+        "mem_peak": 20703,
+        "mem_measurements": [
+            3479,
+            12744,
+            16051
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040783338248729706,
+        "mem_peak": 20853,
+        "mem_measurements": [
+            3479,
+            12878,
+            16102
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04083378240466118,
+        "mem_peak": 22632,
+        "mem_measurements": [
+            3479,
+            13096,
+            17829
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04074949026107788,
+        "mem_peak": 17837,
+        "mem_measurements": [
+            3479,
+            10659,
+            13084
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04079458490014076,
+        "mem_peak": 23093,
+        "mem_measurements": [
+            3479,
+            18030,
+            18236
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040720075368881226,
+        "mem_peak": 29760,
+        "mem_measurements": [
+            3479,
+            19844,
+            24954
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04076546058058739,
+        "mem_peak": 21537,
+        "mem_measurements": [
+            3479,
+            13047,
+            16952
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04076060280203819,
+        "mem_peak": 20498,
+        "mem_measurements": [
+            3479,
+            12463,
+            16017
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.041020508855581284,
+        "mem_peak": 15755,
+        "mem_measurements": [
+            3479,
+            6816,
+            11292
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04084291681647301,
+        "mem_peak": 21604,
+        "mem_measurements": [
+            3479,
+            13253,
+            17102
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04070175439119339,
+        "mem_peak": 21966,
+        "mem_measurements": [
+            3479,
+            15933,
+            17115
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04082988202571869,
+        "mem_peak": 29405,
+        "mem_measurements": [
+            3479,
+            19860,
+            24893
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04075956717133522,
+        "mem_peak": 18341,
+        "mem_measurements": [
+            3479,
+            12799,
+            13505
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04076483100652695,
+        "mem_peak": 29517,
+        "mem_measurements": [
+            3479,
+            17877,
+            24901
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040770478546619415,
+        "mem_peak": 17303,
+        "mem_measurements": [
+            3479,
+            7118,
+            12840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04075620695948601,
+        "mem_peak": 18353,
+        "mem_measurements": [
+            3479,
+            12667,
+            13465
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04078635573387146,
+        "mem_peak": 30024,
+        "mem_measurements": [
+            3479,
+            19866,
+            25321
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04087114706635475,
+        "mem_peak": 24531,
+        "mem_measurements": [
+            3479,
+            12726,
+            19681
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040806762874126434,
+        "mem_peak": 22062,
+        "mem_measurements": [
+            3479,
+            12357,
+            17433
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04083172231912613,
+        "mem_peak": 20606,
+        "mem_measurements": [
+            3479,
+            12908,
+            16093
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04080403223633766,
+        "mem_peak": 28979,
+        "mem_measurements": [
+            3479,
+            15101,
+            24432
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04072841629385948,
+        "mem_peak": 22791,
+        "mem_measurements": [
+            3479,
+            13333,
+            18294
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040708694607019424,
+        "mem_peak": 21958,
+        "mem_measurements": [
+            3479,
+            12985,
+            17242
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04076267033815384,
+        "mem_peak": 30804,
+        "mem_measurements": [
+            3479,
+            13061,
+            26323
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04079689458012581,
+        "mem_peak": 21417,
+        "mem_measurements": [
+            3479,
+            12862,
+            16952
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04078741744160652,
+        "mem_peak": 17814,
+        "mem_measurements": [
+            3479,
+            12371,
+            12980
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040736064314842224,
+        "mem_peak": 28588,
+        "mem_measurements": [
+            3479,
+            17062,
+            24003
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04069972038269043,
+        "mem_peak": 28719,
+        "mem_measurements": [
+            3479,
+            16860,
+            24166
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040673065930604935,
+        "mem_peak": 21851,
+        "mem_measurements": [
+            3479,
+            15664,
+            16964
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040725018829107285,
+        "mem_peak": 20131,
+        "mem_measurements": [
+            3479,
+            12700,
+            15329
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040759604424238205,
+        "mem_peak": 28719,
+        "mem_measurements": [
+            3479,
+            18157,
+            23981
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040748901665210724,
+        "mem_peak": 21108,
+        "mem_measurements": [
+            3479,
+            12214,
+            16613
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040738120675086975,
+        "mem_peak": 20704,
+        "mem_measurements": [
+            3479,
+            13006,
+            16209
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.0407978855073452,
+        "mem_peak": 19727,
+        "mem_measurements": [
+            3479,
+            12249,
+            14925
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04073580726981163,
+        "mem_peak": 20906,
+        "mem_measurements": [
+            3479,
+            12709,
+            16425
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04086959734559059,
+        "mem_peak": 21043,
+        "mem_measurements": [
+            3479,
+            14879,
+            16207
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04085429757833481,
+        "mem_peak": 27881,
+        "mem_measurements": [
+            3479,
+            16298,
+            23301
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04073742404580116,
+        "mem_peak": 21726,
+        "mem_measurements": [
+            3479,
+            13696,
+            17245
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04080134257674217,
+        "mem_peak": 19179,
+        "mem_measurements": [
+            3479,
+            10908,
+            14377
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04077710583806038,
+        "mem_peak": 16755,
+        "mem_measurements": [
+            3479,
+            11041,
+            11921
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040743496268987656,
+        "mem_peak": 20489,
+        "mem_measurements": [
+            3479,
+            14171,
+            15587
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040681011974811554,
+        "mem_peak": 21322,
+        "mem_measurements": [
+            3479,
+            13364,
+            16778
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040795184671878815,
+        "mem_peak": 22555,
+        "mem_measurements": [
+            3479,
+            15878,
+            17686
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.040789224207401276,
+        "mem_peak": 16020,
+        "mem_measurements": [
+            3479,
+            10355,
+            11218
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04072321206331253,
+        "mem_peak": 32066,
+        "mem_measurements": [
+            3479,
+            23056,
+            27181
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.04072895273566246,
+        "mem_peak": 20004,
+        "mem_measurements": [
+            3503,
+            11011,
+            15135
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.19011163711547852,
+        "mem_peak": 350880,
+        "mem_measurements": [
+            3775,
+            254713,
+            313450
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18641336634755135,
+        "mem_peak": 352298,
+        "mem_measurements": [
+            3775,
+            235052,
+            315067
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18210469186306,
+        "mem_peak": 352512,
+        "mem_measurements": [
+            3775,
+            235671,
+            315690
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.17616073787212372,
+        "mem_peak": 352373,
+        "mem_measurements": [
+            3775,
+            235352,
+            315123
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.19165169075131416,
+        "mem_peak": 351841,
+        "mem_measurements": [
+            3775,
+            234547,
+            314863
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18712115660309792,
+        "mem_peak": 352804,
+        "mem_measurements": [
+            3775,
+            235610,
+            315631
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.1830013170838356,
+        "mem_peak": 353517,
+        "mem_measurements": [
+            3775,
+            237021,
+            316442
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.19396118447184563,
+        "mem_peak": 350823,
+        "mem_measurements": [
+            3775,
+            233440,
+            313656
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.17623382434248924,
+        "mem_peak": 353150,
+        "mem_measurements": [
+            3775,
+            235692,
+            315814
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.194159846752882,
+        "mem_peak": 352545,
+        "mem_measurements": [
+            3775,
+            235519,
+            315509
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.1859428957104683,
+        "mem_peak": 355755,
+        "mem_measurements": [
+            3775,
+            254694,
+            318907
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18205075338482857,
+        "mem_peak": 350525,
+        "mem_measurements": [
+            3775,
+            233234,
+            313258
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.1937398873269558,
+        "mem_peak": 351825,
+        "mem_measurements": [
+            3775,
+            234547,
+            314555
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18540028110146523,
+        "mem_peak": 351514,
+        "mem_measurements": [
+            3775,
+            234048,
+            314072
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18467992544174194,
+        "mem_peak": 351905,
+        "mem_measurements": [
+            3775,
+            234082,
+            314512
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.17621494457125664,
+        "mem_peak": 352060,
+        "mem_measurements": [
+            3775,
+            250155,
+            314623
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.19298053532838821,
+        "mem_peak": 352947,
+        "mem_measurements": [
+            3775,
+            235808,
+            315914
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.17911452427506447,
+        "mem_peak": 352012,
+        "mem_measurements": [
+            3775,
+            234648,
+            314918
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18656577542424202,
+        "mem_peak": 351700,
+        "mem_measurements": [
+            3775,
+            234146,
+            314472
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.16979415342211723,
+        "mem_peak": 351248,
+        "mem_measurements": [
+            3775,
+            255281,
+            313862
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18960415944457054,
+        "mem_peak": 354256,
+        "mem_measurements": [
+            3775,
+            237880,
+            317353
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.19494183734059334,
+        "mem_peak": 351002,
+        "mem_measurements": [
+            3775,
+            233537,
+            313569
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.19779333472251892,
+        "mem_peak": 352682,
+        "mem_measurements": [
+            3775,
+            236068,
+            315352
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18741576001048088,
+        "mem_peak": 352714,
+        "mem_measurements": [
+            3775,
+            235756,
+            315428
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18560392037034035,
+        "mem_peak": 351387,
+        "mem_measurements": [
+            3775,
+            234391,
+            314469
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18666616454720497,
+        "mem_peak": 353661,
+        "mem_measurements": [
+            3775,
+            237428,
+            316524
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18401630595326424,
+        "mem_peak": 352008,
+        "mem_measurements": [
+            3775,
+            234547,
+            314721
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.17750553414225578,
+        "mem_peak": 351603,
+        "mem_measurements": [
+            3775,
+            234343,
+            314324
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18642165139317513,
+        "mem_peak": 352825,
+        "mem_measurements": [
+            3775,
+            235615,
+            315535
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.1930994614958763,
+        "mem_peak": 351431,
+        "mem_measurements": [
+            3775,
+            234168,
+            314240
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18718918040394783,
+        "mem_peak": 351160,
+        "mem_measurements": [
+            3775,
+            233718,
+            313837
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18309250846505165,
+        "mem_peak": 351253,
+        "mem_measurements": [
+            3775,
+            233905,
+            313869
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.17969803884625435,
+        "mem_peak": 351246,
+        "mem_measurements": [
+            3775,
+            254621,
+            313913
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18520735576748848,
+        "mem_peak": 352040,
+        "mem_measurements": [
+            3775,
+            234566,
+            314639
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.19449228793382645,
+        "mem_peak": 352866,
+        "mem_measurements": [
+            3775,
+            235915,
+            315682
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18902406841516495,
+        "mem_peak": 353108,
+        "mem_measurements": [
+            3775,
+            236065,
+            315980
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.19140125811100006,
+        "mem_peak": 353207,
+        "mem_measurements": [
+            3775,
+            236212,
+            315878
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.1884944662451744,
+        "mem_peak": 353421,
+        "mem_measurements": [
+            3775,
+            236623,
+            316184
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.1897360421717167,
+        "mem_peak": 353006,
+        "mem_measurements": [
+            3775,
+            236016,
+            315989
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.1959729939699173,
+        "mem_peak": 351592,
+        "mem_measurements": [
+            3775,
+            234134,
+            314260
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.1998121738433838,
+        "mem_peak": 352149,
+        "mem_measurements": [
+            3775,
+            234740,
+            314856
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.17839417979121208,
+        "mem_peak": 351609,
+        "mem_measurements": [
+            3775,
+            250339,
+            314392
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18321774154901505,
+        "mem_peak": 352120,
+        "mem_measurements": [
+            3775,
+            250665,
+            315024
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.19277547299861908,
+        "mem_peak": 352196,
+        "mem_measurements": [
+            3775,
+            235153,
+            314959
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.1756208837032318,
+        "mem_peak": 351994,
+        "mem_measurements": [
+            3775,
+            235000,
+            314756
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.19332769885659218,
+        "mem_peak": 352348,
+        "mem_measurements": [
+            3775,
+            234951,
+            314913
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.18428212776780128,
+        "mem_peak": 351418,
+        "mem_measurements": [
+            3775,
+            234118,
+            314079
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.1882215552031994,
+        "mem_peak": 352181,
+        "mem_measurements": [
+            3775,
+            234707,
+            314940
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.1913982480764389,
+        "mem_peak": 351532,
+        "mem_measurements": [
+            3775,
+            234031,
+            314105
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.1895894557237625,
+        "mem_peak": 351037,
+        "mem_measurements": [
+            3775,
+            233589,
+            313658
+        ],
+        "vram_peak": 13734051840,
+        "vram_measurements": [
+            13706788864,
+            13706788864,
+            13734051840
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032121606171131134,
+        "mem_peak": 472605,
+        "mem_measurements": [
+            3527,
+            235954,
+            262545
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03473151847720146,
+        "mem_peak": 474456,
+        "mem_measurements": [
+            3527,
+            231614,
+            264439
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032618798315525055,
+        "mem_peak": 471959,
+        "mem_measurements": [
+            3647,
+            235308,
+            261942
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03265998885035515,
+        "mem_peak": 473070,
+        "mem_measurements": [
+            3647,
+            236419,
+            263059
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03270795941352844,
+        "mem_peak": 474420,
+        "mem_measurements": [
+            3647,
+            238084,
+            264458
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03467059135437012,
+        "mem_peak": 474658,
+        "mem_measurements": [
+            3647,
+            231706,
+            264598
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.034473832696676254,
+        "mem_peak": 473575,
+        "mem_measurements": [
+            3647,
+            230626,
+            263613
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032500606030225754,
+        "mem_peak": 473623,
+        "mem_measurements": [
+            3647,
+            237082,
+            263661
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03247334435582161,
+        "mem_peak": 472513,
+        "mem_measurements": [
+            3647,
+            229512,
+            262499
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032687149941921234,
+        "mem_peak": 474919,
+        "mem_measurements": [
+            3647,
+            238467,
+            264804
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03286176919937134,
+        "mem_peak": 474872,
+        "mem_measurements": [
+            3647,
+            238319,
+            264910
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.0328003391623497,
+        "mem_peak": 472262,
+        "mem_measurements": [
+            3647,
+            229310,
+            262248
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032479945570230484,
+        "mem_peak": 473526,
+        "mem_measurements": [
+            3647,
+            230525,
+            263350
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032733090221881866,
+        "mem_peak": 477658,
+        "mem_measurements": [
+            3647,
+            241212,
+            267488
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03426514193415642,
+        "mem_peak": 472657,
+        "mem_measurements": [
+            3647,
+            236061,
+            262646
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03226028010249138,
+        "mem_peak": 472207,
+        "mem_measurements": [
+            3647,
+            229206,
+            262245
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032686516642570496,
+        "mem_peak": 471601,
+        "mem_measurements": [
+            3647,
+            228606,
+            261584
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032344672828912735,
+        "mem_peak": 473413,
+        "mem_measurements": [
+            3647,
+            230522,
+            263451
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03234308212995529,
+        "mem_peak": 473327,
+        "mem_measurements": [
+            3647,
+            230326,
+            263310
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03289046138525009,
+        "mem_peak": 473073,
+        "mem_measurements": [
+            3647,
+            230023,
+            263111
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032646697014570236,
+        "mem_peak": 473716,
+        "mem_measurements": [
+            3647,
+            230718,
+            263699
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03217025846242905,
+        "mem_peak": 476758,
+        "mem_measurements": [
+            3647,
+            234011,
+            266695
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03277608007192612,
+        "mem_peak": 474680,
+        "mem_measurements": [
+            3647,
+            231780,
+            264669
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032700974494218826,
+        "mem_peak": 473878,
+        "mem_measurements": [
+            3647,
+            237227,
+            263916
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03249157592654228,
+        "mem_peak": 473779,
+        "mem_measurements": [
+            3647,
+            237177,
+            263762
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03239887207746506,
+        "mem_peak": 476348,
+        "mem_measurements": [
+            3647,
+            233653,
+            266337
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032521575689315796,
+        "mem_peak": 474083,
+        "mem_measurements": [
+            3647,
+            237484,
+            264069
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03247300162911415,
+        "mem_peak": 472908,
+        "mem_measurements": [
+            3647,
+            229965,
+            262894
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032535236328840256,
+        "mem_peak": 476660,
+        "mem_measurements": [
+            3647,
+            233760,
+            266698
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03217533975839615,
+        "mem_peak": 474374,
+        "mem_measurements": [
+            3647,
+            237980,
+            264363
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03267129138112068,
+        "mem_peak": 473557,
+        "mem_measurements": [
+            3647,
+            237030,
+            263491
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03229082003235817,
+        "mem_peak": 477705,
+        "mem_measurements": [
+            3647,
+            241054,
+            267743
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03242136538028717,
+        "mem_peak": 474376,
+        "mem_measurements": [
+            3647,
+            231522,
+            264359
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03271497040987015,
+        "mem_peak": 474031,
+        "mem_measurements": [
+            3647,
+            231030,
+            264069
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032393813133239746,
+        "mem_peak": 475736,
+        "mem_measurements": [
+            3647,
+            239189,
+            265774
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03243149444460869,
+        "mem_peak": 473318,
+        "mem_measurements": [
+            3647,
+            230268,
+            263356
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.0324857234954834,
+        "mem_peak": 472608,
+        "mem_measurements": [
+            3647,
+            236113,
+            262646
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03233073651790619,
+        "mem_peak": 471745,
+        "mem_measurements": [
+            3647,
+            228747,
+            261728
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03249332681298256,
+        "mem_peak": 476042,
+        "mem_measurements": [
+            3647,
+            239498,
+            266025
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.0327487587928772,
+        "mem_peak": 472002,
+        "mem_measurements": [
+            3647,
+            235501,
+            261991
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03244416415691376,
+        "mem_peak": 475387,
+        "mem_measurements": [
+            3647,
+            238944,
+            265425
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03267044201493263,
+        "mem_peak": 475283,
+        "mem_measurements": [
+            3647,
+            238704,
+            265269
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032176580280065536,
+        "mem_peak": 472952,
+        "mem_measurements": [
+            3647,
+            236301,
+            262935
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03385666012763977,
+        "mem_peak": 473768,
+        "mem_measurements": [
+            3647,
+            237117,
+            263751
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.0328168086707592,
+        "mem_peak": 472412,
+        "mem_measurements": [
+            3647,
+            235761,
+            262398
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03237583488225937,
+        "mem_peak": 473881,
+        "mem_measurements": [
+            3647,
+            230831,
+            263821
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.03273005038499832,
+        "mem_peak": 474331,
+        "mem_measurements": [
+            3647,
+            231333,
+            264369
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032372649759054184,
+        "mem_peak": 475990,
+        "mem_measurements": [
+            3647,
+            239443,
+            265979
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032475076615810394,
+        "mem_peak": 474686,
+        "mem_measurements": [
+            3647,
+            231688,
+            264675
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.032441411167383194,
+        "mem_peak": 472317,
+        "mem_measurements": [
+            3647,
+            229267,
+            262303
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011443808674812317,
+        "mem_peak": 17408,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011717598885297775,
+        "mem_peak": 14479,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011611133813858032,
+        "mem_peak": 17105,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011383678764104843,
+        "mem_peak": 14075,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011476363986730576,
+        "mem_peak": 12765,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.01132252812385559,
+        "mem_peak": 13772,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011542640626430511,
+        "mem_peak": 16600,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011510401964187622,
+        "mem_peak": 17206,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011507831513881683,
+        "mem_peak": 14127,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011502265930175781,
+        "mem_peak": 13570,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011574652045965195,
+        "mem_peak": 13013,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011467952281236649,
+        "mem_peak": 14225,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.01148867979645729,
+        "mem_peak": 14329,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011679142713546753,
+        "mem_peak": 13772,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011472433805465698,
+        "mem_peak": 14531,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011486764997243881,
+        "mem_peak": 16245,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011961881071329117,
+        "mem_peak": 17558,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011477991938591003,
+        "mem_peak": 14023,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.01154475286602974,
+        "mem_peak": 13267,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011523783206939697,
+        "mem_peak": 13570,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011357180774211884,
+        "mem_peak": 15893,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011491909623146057,
+        "mem_peak": 14984,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011510845273733139,
+        "mem_peak": 17711,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011969983577728271,
+        "mem_peak": 13469,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011463262140750885,
+        "mem_peak": 13267,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.01152707263827324,
+        "mem_peak": 12762,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011571064591407776,
+        "mem_peak": 12863,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.012070238590240479,
+        "mem_peak": 13619,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011514224112033844,
+        "mem_peak": 16349,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011310789734125137,
+        "mem_peak": 12407,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011717159301042557,
+        "mem_peak": 14782,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011645834892988205,
+        "mem_peak": 14681,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011343531310558319,
+        "mem_peak": 12358,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011538352817296982,
+        "mem_peak": 12612,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011719457805156708,
+        "mem_peak": 13873,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011383909732103348,
+        "mem_peak": 13769,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011487886309623718,
+        "mem_peak": 13368,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011445250362157822,
+        "mem_peak": 23217,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011683136224746704,
+        "mem_peak": 19379,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011651817709207535,
+        "mem_peak": 19275,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011541776359081268,
+        "mem_peak": 16450,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011580850929021835,
+        "mem_peak": 13218,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011508762836456299,
+        "mem_peak": 26348,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011561214923858643,
+        "mem_peak": 22149,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011513013392686844,
+        "mem_peak": 21647,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011450018733739853,
+        "mem_peak": 13371,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011430613696575165,
+        "mem_peak": 14277,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011398717761039734,
+        "mem_peak": 21344,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011656034737825394,
+        "mem_peak": 18418,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    },
+    {
+        "time_elapsed": 0.011507134884595871,
+        "mem_peak": 13570,
+        "mem_measurements": [
+            3647
+        ],
+        "is_valid": true,
+        "score": 140
+    }
+]
