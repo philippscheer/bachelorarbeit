@@ -1,39 +1,46 @@
-\section{Diskussion}
-
-\subsection{Vergleich der Ergebnisse}
-
-Die Ergebnisse zeigen sowohl Bestätigungen als auch interessante Abweichungen zu den Erkenntnissen von Feldman und Golumbic \cite{feldmangolumbic}.
+\section{Diskussion}\label{chap:diskussion}
 
 
+\subsection{Ergebnisse in der Ursprungsarbeit}
 
+Feldman und Golumbic \cite{feldmangolumbic} verglichen in ihrer Arbeit einen Offering-Order-Algorithmus mit zwei Hill-Climbing-Algorithmen. Sie stellten fest, dass der Offering-Order-Algorithmus (insbesondere in der "Update"-Variante, in der die \textit{Mark} nach jeder Auswahl des nächsten Kurses neu berechnet wurde) die Hill-Climbing-Ansätze (getestet als Version 2 und 3) in der Lösungsqualität häufig übertrifft oder zumindest gleichwertige Ergebnisse liefert. Hinsichtlich der Laufzeit weist Offering-Order eine kürzere Laufzeit als die Hill-Climbing-Implementierungen vor.
+Gemessen wurde die Lösungsqualität als Prozentsatz relativ zum Optimum (welches mittels Brute-Force ermittelt wurde). Die Laufzeit wurde in Sekunden gemessen.
+
+
+
+\subsection{Vergleich mit der Ursprungsarbeit}
+
+Die Ergebnisse dieser Bachelorarbeit zeigen sowohl Bestätigungen als auch interessante Abweichungen zu den Erkenntnissen von Feldman und Golumbic \cite{feldmangolumbic}.
 
 
 \subsubsection{Lösungsqualität (Score)}
 
-Ein wesentlicher Unterschied zeigt sich in der Lösungsqualität. Feldman und Golumbic stellten fest, dass der Offering Order-Algorithmus (insbesondere in der "Update"-Variante) den Hill Climbing-Ansatz (getestet als Version 2 und 3) häufig übertrifft oder zumindest gleichwertige Ergebnisse liefert, besonders bei der Berücksichtigung von Constraints. In den vorliegenden Ergebnissen zeigt sich aber ein anderes Bild: Die implementierten Hill Climbing-Algorithmen (v1 und v3) erzielten in den meisten Szenarien (z. B. Szenario 1, 2, 4) durchgehend höhere Scores als der Offering Order-Algorithmus. Der Offering Order-Ansatz performte in dieser Arbeit fast durchgehend schlechter als die Hill Climbing-Varianten.
+Ein wesentlicher Unterschied zeigt sich in der Lösungsqualität. Feldman und Golumbic stellten fest, dass der Offering-Order-Algorithmus (insbesondere in der "Update"-Variante) den Hill-Climbing-Ansatz (getestet als Version 2 und 3) häufig übertrifft oder zumindest gleichwertige Ergebnisse liefert, besonders bei der Berücksichtigung von Constraints. In den vorliegenden Ergebnissen zeigt sich aber ein anderes Bild: Die implementierten Hill-Climbing-Algorithmen (v1 und v3) erzielten in den meisten Szenarien (z. B. Szenario 1, 2, 4) durchgehend höhere Scores als der Offering-Order-Algorithmus. Der Offering-Order-Ansatz performte in dieser Arbeit fast durchgehend schlechter als die Hill-Climbing-Varianten.
 
-Dieser scheinbare Widerspruch lässt sich erklären: In dieser Arbeit wurde die Variante "Offering Order - Fixed" implementiert. Ein Blick auf die Daten von Feldman und Golumbic zeigt, dass auch dort die "Fixed"-Variante deutlich volatiler und oft schlechter abschnitt als die "Update"-Variante. Dass der Offering Order-Algorithmus in dieser Arbeit besonders schlecht abschnitt, wenn bereits Kurse vorgegeben waren (Szenario 12), zeigt die Schwäche der statischen Sortierung: Sobald der Suchraum durch fixe Kurse eingeschränkt ist, kann die feste Sortierung nicht flexibel genug reagieren.
+Dieser scheinbare Widerspruch lässt sich erklären: In dieser Arbeit wurde die Variante "Offering-Order - Fixed" implementiert. Ein Blick auf die Daten von Feldman und Golumbic zeigt, dass auch dort die "Fixed"-Variante deutlich volatiler und oft schlechter abschnitt als die "Update"-Variante. Dass der Offering-Order-Algorithmus in dieser Arbeit besonders schlecht abschnitt, wenn bereits Kurse vorgegeben waren (Szenario 12), zeigt die Schwäche der statischen Sortierung: Sobald der Suchraum durch fixe Kurse eingeschränkt ist, "verläuft" sich Offering-Order in lokalen Optima, die eine niedrige \textit{Mark} haben oder die Mindestanzahl an gewählten \textit{Offerings} nicht erfüllt.
 
-Interessant ist außerdem der Vergleich der Hill Climbing-Varianten. Während angenommen werden könnte, dass Version 1 (größerer Suchraum) immer bessere Ergebnisse liefert als Version 3 (reduzierter Suchraum), zeigte sich in Szenario 1 ("Keine Kurse an Montagen"), dass Hill Climbing v3 teilweise bessere Ergebnisse lieferte als v1. Dies deutet darauf hin, dass eine einschränkung des Suchraums in v3 nützlich sein kann und den Algorithmus davor bewahrt, sich in seltenen lokalen Optima zu verfangen, die v1 aufgrund seiner breiteren Suche wählt.
-
-
-
+Interessant ist außerdem der Vergleich der Hill-Climbing-Varianten. Während angenommen werden könnte, dass Version 1 (größerer Suchraum) immer bessere Ergebnisse liefert als Version 3 (reduzierter Suchraum), zeigte sich in Szenario 1 ("Keine Kurse an Montagen"), dass Hill-Climbing v3 teilweise bessere Ergebnisse lieferte als v1. Dies deutet darauf hin, dass eine Einschränkung des Suchraums in v3 nützlich sein kann und den Algorithmus davor bewahrt, sich in seltenen lokalen Optima zu verfangen, die in v3 vorzeitig eliminiert werden, aber in v1 aufgrund der breiteren Suche gewählt werden.
 
 
 \subsubsection{Laufzeit und Performance}
 
-Hinsichtlich der Laufzeit decken sich die Ergebnisse weitgehend mit der Ursprungsarbeit. Feldman und Golumbic identifizierten Offering Order als sehr schnelle Methode. Das konnte bestätigt werden; Offering Order war in den Messungen schneller als die Hill Climbing-Ansätze. Auch die Beobachtung, dass Hill Climbing v1 aufgrund des größeren Suchraums langsamer ist als v3, entspricht den Erwartungen.
+Hinsichtlich der Laufzeit decken sich die Ergebnisse weitgehend mit der Ursprungsarbeit. Feldman und Golumbic identifizierten Offering-Order als schnellste Methode. Das konnte bestätigt werden; Offering-Order war in allen Messungen schneller als die Hill-Climbing-Ansätze. Auch die Beobachtung, dass Hill-Climbing v1 aufgrund des größeren Suchraums langsamer ist als v3, entspricht den Erwartungen.
+
+Die Ergebnisse hinsichtlich der Laufzeit decken sich mit der Ursprungsarbeit auch unter den veränderten Rahmenbedingungen dieser Replikationsarbeit. Feldman und Golumbic \cite{feldmangolumbic} identifizierten Offering-Order als die schnellste Methode unter den verglichenen Algorithmen --- dies zeigt sich auch im Kontext des realen WU-Datensatzes: Offering-Order war in allen 14 Szenarien konsistent schneller als beide Hill-Climbing-Varianten. Der Laufzeitvorteil von Offering-Order ist damit nicht auf die spezifischen Daten oder Rahmenbedingungen von 1990 beschränkt, sondern erweist sich als robust gegenüber einem neuen Datensatz.
+Des Weiteren bestätigt sich die Beobachtung, dass Hill-Climbing v1 aufgrund des größeren Suchraums langsamer ist als v3 --- ein Ergebnis, das sich in dieser Arbeit über alle Szenarien hinweg zeigt und die theoretische Erwartung erfüllt.
 
 
 
 
+\subsection{Eigene Ergebnisse im erweiterten Kontext}
 
 \subsubsection{Der Einfluss moderner Solver (ILP)}
 
-Ein Aspekt, den die Ursprungsarbeit von 1990 technologisch bedingt nicht untersuchen konnte, ist der Vergleich mit modernen exakten Verfahren. Feldman und Golumbic nutzten Brute-Force als Baseline, was nur für kleine Probleminstanzen möglich ist. Die Ergebnisse dieser Arbeit zeigen jedoch, dass moderne ILP-Solver (hier: CBC/Gurobi via Python-MIP) für die betrachteten Problemgrößen extrem effizient sind. Entgegen der Erwartung, dass Heuristiken für diese kombinatorischen Probleme notwendig sind, um akzeptable Laufzeiten zu erreichen, war der ILP-Ansatz (CPU) in fast allen Szenarien schneller als die Heuristiken Hill Climbing und Offering Order. Lediglich in Szenario 8 ("Mehr als ein Kurs pro Tag") stieg die Laufzeit des ILP-Ansatzes signifikant an.
+Ein Aspekt, den die Ursprungsarbeit von 1990 technologisch bedingt nicht untersuchen konnte, ist der Vergleich mit modernen exakten Verfahren. Feldman und Golumbic nutzten Brute-Force (siehe Kapitel \ref{chap:bruteforce}) als Baseline (siehe Kapitel \ref{chap:bruteforce}). Durch die begrenzte Rechenleistung waren ILP-Solver zur Zeit der Ursprungsarbeit noch keine praktikable Lösung (siehe Kapiel \ref{chap:ilp_als_loesung}). Die Ergebnisse dieser Arbeit zeigen jedoch, dass moderne ILP-Solver (hier: CBC/Gurobi via Python-MIP) für die betrachteten Problemgrößen extrem effizient sind. Entgegen der Erwartung, dass Heuristiken für diese kombinatorischen Probleme notwendig sind, um --- beispielsweise für eine Webanwendung --- akzeptable Laufzeiten von maximal 10 Sekunden \cite{nielsen-2024} zu erreichen, war der ILP-Ansatz (CPU) in fast allen Szenarien schneller als die Heuristiken Hill-Climbing und Offering-Order. Lediglich in Szenario 8 ("Mehr als ein Kurs pro Tag") war die Laufzeit von ILP durchgehend über jenen von Offering-Order und Hill-Climbing.
+
+\subsubsection{GPU vs. CPU}
 
 Der Vergleich zwischen CPU- und GPU-basiertem ILP zeigte zudem, dass die GPU-Implementierung zwar sehr konstante Laufzeiten aufweist, jedoch bei kleineren und mittleren Problemgrößen langsamer ist als die CPU-Variante. Erst bei steigender Komplexität steigt auch die Effizienz der GPU, was die CPU-Variante für typische Probleminstanzen zur bevorzugten Wahl macht.
-
 
 
 
@@ -44,8 +51,8 @@ Die Generalisierbarkeit und Gültigkeit der Ergebnisse unterliegt bestimmten Ein
 
 
 \begin{itemize}
-    \item \textbf{Spezifität des Datensatzes:} Die Evaluation erfolgte ausschließlich auf Basis der Daten der Wirtschaftsuniversität Wien für das Sommersemester 2025. Die Struktur dieses Datensatzes (Dichte der Konflikte, Verteilung der Kurse auf Wochentage) beeinflusst die Performance der Algorithmen. An Universitäten mit anderen Wahlmöglichkeiten könnten die Heuristiken (insbesondere Offering Order) andere Ergebnisse liefern.
-    \item \textbf{Algorithmen-Varianten:} Wie in Abschnitt 6.1 diskutiert, wurde beim Offering Order-Algorithmus die statische Variante ("Fixed") implementiert. Auf die Implementierung der "Update"-Variante wurde in dieser Arbeit verzichtet. Der Grund hierfür ist derselbe wie für den Verzicht auf Hill Climbing v2: Es fehlen im vorliegenden Kontext die notwendigen Abhängigkeiten (beispielsweise zwischen Pflicht- und Wahlfachgruppen), auf denen diese Varianten basieren. Da diese Abhängigkeiten für die spezifische Logik der Update- bzw. v2-Varianten essenziell sind, beschränkte sich die Untersuchung auf die Varianten, die ohne diese Abhängigkeiten operieren (Hill Climbing v1/v3 und Offering Order Fixed). Eine Implementierung unter Berücksichtigung solcher Abhängigkeiten könnte zu einer anderen Lösungsqualität und Laufzeit führen.
+    \item \textbf{Spezifität des Datensatzes:} Die Evaluation erfolgte ausschließlich auf Basis der Daten der Wirtschaftsuniversität Wien für das Sommersemester 2025. Die Struktur dieses Datensatzes (Dichte der Konflikte, Verteilung der Kurse auf Wochentage) beeinflusst die Performance der Algorithmen. An Universitäten mit anderen Wahlmöglichkeiten könnten die Heuristiken (insbesondere Offering-Order) andere Ergebnisse liefern.
+    \item \textbf{Algorithmen-Varianten:} Wie in Abschnitt 6.1 diskutiert, wurde beim Offering-Order-Algorithmus die statische Variante ("Fixed") implementiert. Auf die Implementierung der "Update"-Variante wurde in dieser Arbeit verzichtet. Der Grund hierfür ist derselbe wie für den Verzicht auf Hill-Climbing v2: Es fehlen im vorliegenden Kontext die notwendigen Abhängigkeiten (beispielsweise zwischen Pflicht- und Wahlfachgruppen), auf denen diese Varianten basieren. Da diese Abhängigkeiten für die spezifische Logik der Update- bzw. v2-Varianten essenziell sind, beschränkte sich die Untersuchung auf die Varianten, die ohne diese Abhängigkeiten operieren (Hill-Climbing v1/v3 und Offering-Order Fixed). Eine Implementierung unter Berücksichtigung solcher Abhängigkeiten könnte zu einer anderen Lösungsqualität und Laufzeit führen.
     \item \textbf{Abhängigkeit von Hardware:} Die Laufzeitmessungen wurden auf einem spezifischen Server der Wirtschaftsuniversität Wien durchgeführt. Während die relativen Unterschiede zwischen den Algorithmen übertragbar sein dürften, sind die absoluten Laufzeiten hardwareabhängig. Insbesondere der Break-Even-Point zwischen CPU- und GPU-ILP hängt von der CUDA-Leistung ab.
     \item \textbf{Zielfunktion:} Die Definition der Zielfunktion und die Gewichtung der Penalties sind subjektiv gewählt. Eine Veränderung dieser Parameter verändert die Suchlandschaft. Heuristiken bleiben je dementsprechend öfter oder seltener in lokalen Optima stecken.
 \end{itemize}

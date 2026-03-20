@@ -1,4 +1,4 @@
-\subsection{Struktur des Datensatzes}
+\subsection{Datenstruktur}
 
 Der Datensatz des Vorlesungsverzeichnisses der Wirtschaftsuniversität Wien für das Sommersemester 2025 bildet die Grundlage für die vorliegende Arbeit. Die Daten wurden automatisiert unter Verwendung des beschriebenen Prozesses \ref{alg:datenextraktion} extrahiert.
 
@@ -8,3 +8,52 @@ Die Modellierung des Studiums an der WU basiert auf zwei zentralen Entitäten, d
     \item \textbf{Course (Planpunkt):} Ein \textit{Course} repräsentiert ein zu absolvierendes Modul, das mit einer festen ECTS-Anzahl assoziiert ist. Aus den verfügbaren \textit{Offerings} eines Planpunkts darf maximal eines ausgewählt werden.
     \item \textbf{Offering (Lehrveranstaltung): } Ein \textit{Offering} ist eine Lehrveranstaltung, die einem Planpunkt angehört. Jedes Offering besitzt eine eindeutige ID (von $1 - 9999$) und ist mit konkreten Termin- und Zeitangaben hinterlegt, die für die Prüfung von zeitlichen Konflikten verwendet wird.
 \end{itemize}
+
+\begin{figure}[H]
+    \centering
+
+    \begin{tikzpicture}
+
+        % Schedule (oben Mitte)
+        \umlclass[x=5, y=0]{Schedule}{
+            mark : float \\
+            offerings : list[Offering]
+        }{}
+
+        % Course (unten links)
+        \umlclass[x=0, y=-6]{Course}{
+            moduleId : string \\
+            ects : int
+        }{}
+
+        % Offering (unten Mitte)
+        \umlclass[x=5, y=-6]{Offering}{
+            offeringId : int \\
+            dates : list[DateRange] \\
+            lvLeiter : string
+        }{}
+
+        % DateRange (unten rechts)
+        \umlclass[x=10, y=-6]{DateRange}{
+            start : datetime \\
+            end : datetime
+        }{}
+
+        % Schedule <>-> Offering (Aggregation, 1 zu 1..*)
+        % Constraint: max. 1 Offering pro Course
+        % \umlaggreg[mult1=1, mult2=1..*, pos stereo=0.5,
+        %     stereo={max. 1 pro Course}]{Schedule}{Offering}
+        \umlaggreg[mult1=1, mult2=1..*]{Schedule}{Offering}
+
+        % Offering -> Course (Association, * zu 1)
+        % Viele Offerings gehören zu genau 1 Course
+        % \umlassoc[mult1=*, mult2=1, arg1=gehört zu, pos1=0.3]{Offering}{Course}
+        \umlassoc[mult1=*, mult2=1, pos1=0.3]{Offering}{Course}
+
+        % Offering <>-> DateRange (Komposition, 1 zu 1..*)
+        % DateRange gehört immer zu genau 1 Offering
+        \umlcompo[mult1=1, mult2=1..*]{Offering}{DateRange}
+
+    \end{tikzpicture}
+    \caption{UML Klassendiagramm des Vorlesungsverzeichnis-Modells}
+\end{figure}

@@ -1,7 +1,20 @@
-\section{Fazit}
+\section{Fazit}\label{chap:fazit}
 
 \subsection{Verwandte Arbeiten}
 
 \subsection{Anwendungsfälle und Weiterentwicklung}
 
+Die Ergebnisse dieser Arbeit legen nahe, dass ein ILP-basierter Ansatz zur automatisierten Semesterplanung für WU-Studierende aufgrund von Laufzeit und Lösungsqualität die beste Wahl ist. Der naheliegendste Anwendungsfall ist die Integration der entwickelten Algorithmen in bestehende studentische Tools: Der ÖH-WU Studienplaner \cite{studienplaner-oeh} bietet bereits eine Weboberfläche zur manuellen Prüfung von Überschneidungsfreiheit. Eine Erweiterung um eine automatisierte Stundenplanoptimierung --- auf Basis des in dieser Arbeit implementierten ILP-Ansatzes --- würde den Mehrwert des Tools steigern, da Studierende nicht mehr manuell kombinieren müssten, sondern einen nach individuellen Präferenzen optimierten Stundenplan erhalten könnten.
+
+Hinsichtlich einer möglicher Weiterentwicklung bietet das ILP-Modell eine solide Grundlage. Durch die Zielfunktion lassen sich prinzipiell beliebe weitere Präferenzen modellieren --- etwa die Bevorzugung bestimmter Lektoren oder die Berücksichtigung von Gehzeiten zwischen den Gebäuden der WU. Weiters wäre denkbar, das Modell auf einen Multi-Student-Schedulung Ansatz zu erweitern, also die simultane Optimierung der Stundenpläne mehrere Studierender unter Berücksichtigung sozialer Präferenzen wie gemeinsamer Vorlesungen. Um den praktischen Nutzen der Arbeit für Studierende unmittelbar erfahrbar zu machen, wäre ein Web- oder Mobile-Interface der logische nächste Schritt.
+
+
 \subsection{Schlussworte}
+
+Diese Bachelorarbeit hatte zum Ziel, die Algorithmen von Feldman und Golumbic \cite{feldmangolumbic} unter heutigen Bedingungen zu evaluieren und ihre Anwendbarkeit auf einen realen Datensatz der Wirtschaftsuniversität Wien zu überprüfen. Rückblickend lässt sich festhalten, dass dieses Ziel erreicht wurde --- und dass die Arbeit dabei sowohl erwartete als auch überraschende Erkenntnisse geliefert hat.
+
+Die Kernaussage von Feldman und Golumbic, dass Offering-Order hinsichtlich der Laufzeit den Hill-Climbing-Ansätzen überlegen ist, konnte bestätigt werden. Ebenso zeigte sich, dass Hill-Climbing in der Lösungsqualität robust abschneidet.
+
+Die vielleicht überraschendste Erkenntnis dieser Arbeit ist jedoch die Effizienz moderner ILP-Solver. Dass ein exaktes Verfahren die heuristischen Algorithmen in der Laufzeit in fast allen Szenarien übertrifft, war im Vorfeld nicht erwartet worden. Für die Praxis bedeutet das, dass der vermeintliche Trade-off zwischen Lösungsqualität und Geschwindigkeit --- der die Motivation für Heuristiken historisch begründet hat --- für Probleminstanzen der hier betrachteten Größenordnung nicht mehr zwingend gilt.
+
+Dennoch sollte man die Limitierungen dieser Arbeit beachten. Die Evaluation beschränkt sich auf einen einzigen Datensatz eines einzelnen Semesters, und die implementierten Algorithmusvarianten decken nicht das gesamte Spektrum der Originalarbeit ab. Ob die Ergebnisse auf andere Universitäten oder größere Probleminstanzen übertragbar sind, bleibt eine offene Frage.

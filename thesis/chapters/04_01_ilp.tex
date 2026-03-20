@@ -1,6 +1,6 @@
 \subsection{Implementierung des ILP Baseline Ansatzes}
 
-Feldman und Golumbic vergleichen in Ihrem Paper \cite{feldmangolumbic} die Outputs der Algorithmen "Hill Climbing" und "Offering Order" mit dem optimalen Stundenplan, der mittels Brute-Force ermittelt wurde. Da ein Brute-Force Algorithmus bei der großen Anzahl der Vorlesungen im VVZ der WU eine zu lange Laufzeit hätte, wurde eine Integer Linear Programming (ILP) Lösung als Benchmark gewählt, die ebenfalls unter Berücksichtigung aller Nebenbedingungen den optimalen Stundenplan erzeugt \cite{gh-ilp}.
+Feldman und Golumbic vergleichen in Ihrem Paper \cite{feldmangolumbic} die Outputs der Algorithmen "Hill-Climbing" und "Offering-Order" mit dem optimalen Stundenplan, der mittels Brute-Force ermittelt wurde. Da ein Brute-Force Algorithmus bei der großen Anzahl der Vorlesungen im VVZ der WU eine zu lange Laufzeit hätte, wurde eine Integer Linear Programming (ILP) Lösung als Benchmark gewählt, die ebenfalls unter Berücksichtigung aller Nebenbedingungen den optimalen Stundenplan erzeugt \cite{gh-ilp}.
 
 
 \subsubsection{Variablen, Parameter und Zielfunktion}
@@ -20,7 +20,7 @@ Zur formalen Definition des Modells werden die folgenden Mengen, Parameter und E
           \end{itemize}
     \item \textbf{Parameter:}
           \begin{itemize}
-              \item $\text{Mark}(i)$: Der berechnete Nutzen (Score) für das Kursangebot $i$.
+              \item $\text{Mark}(i)$: Der berechnete Nutzen für das Kursangebot $i$.
               \item $C_{\min}, C_{\max}$: Unter- und Obergrenze für die Gesamtzahl der zu wählenden Kurse.
               \item $D_{\min}, D_{\max}$: Unter- und Obergrenze für die Anzahl der Kurse an einem belegten Tag.
           \end{itemize}

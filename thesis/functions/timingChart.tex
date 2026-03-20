@@ -77,7 +77,7 @@
             \addlegendentry{ILP GPU}
         \end{axis}
 
-        % --- Right axis (Hill Climbing & Offering Order) ---
+        % --- Right axis (Hill-Climbing & Offering-Order) ---
         \begin{axis}[
                 axis y line*=right,
                 axis x line=none,
@@ -91,7 +91,7 @@
                 table/x=difficulty,
             ]
 
-            % --- Hill Climbing v1 ---
+            % --- Hill-Climbing v1 ---
             \addplot[
                 mark=square*,
                 color=red,
@@ -106,9 +106,9 @@
                     y={Hill Climbing v1},
                     y error expr=\thisrow{Hill Climbing v1 stdev},
                 ] {\loadedMemoryData};
-            \addlegendentry{Hill Climbing v1}
+            \addlegendentry{Hill-Climbing v1}
 
-            % --- Hill Climbing v3 ---
+            % --- Hill-Climbing v3 ---
             \addplot[
                 mark=triangle*,
                 color=green!60!black,
@@ -123,9 +123,9 @@
                     y={Hill Climbing v3},
                     y error expr=\thisrow{Hill Climbing v3 stdev},
                 ] {\loadedMemoryData};
-            \addlegendentry{Hill Climbing v3}
+            \addlegendentry{Hill-Climbing v3}
 
-            % --- Offering Order ---
+            % --- Offering-Order ---
             \addplot[
                 mark=diamond*,
                 color=orange,
@@ -141,7 +141,7 @@
                     y={Offering Order},
                     y error expr=\thisrow{Offering Order stdev},
                 ] {\loadedMemoryData};
-            \addlegendentry{Offering Order}
+            \addlegendentry{Offering-Order}
 
         \end{axis}
     \end{tikzpicture}

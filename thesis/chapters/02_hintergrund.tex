@@ -1,25 +1,12 @@
-\section{Hintergrund}
+\section{Hintergrund}\label{chap:hintergrund}
 
-
-
-
-
-\subsection{Motivation}
-
-Studierende sehen sich im Studium mit einem umfangreichen Kursangebot konfrontiert und müssen ihre Stundenpläne meist händisch zusammenstellen. Dieser manuelle Prozess ist jedoch mehr als eine rein administrative Aufgabe; er ist eine Optimierungsentscheidung, bei der persönliche und akademische Rahmenbedingungen gegeneinander abgewogen werden müssen.
-
-Studierende berichten häufig von Schwierigkeiten bei der Erstellung ihrer Semesterpläne \cite{chen-2021, muklason-2017, trier-2024}. Zu den zentralen Ursachen zählt insbesondere die Vereinbarkeit mit einem Nebenjob; so bevorzugen 81\% der Befragten mindestens einen vollständig freien Wochentag \cite{trier-2024}. Zudem geben 74\% der Studierenden an, dass eine gleichmäßige Verteilung von Lehrveranstaltungen und Prüfungen für sie das wichtigste Kriterium bei der Stundenplanerstellung darstellt \cite{cowling-2002}. Weiterhin möchten 82\% vermeiden, mehr als eine Prüfung pro Tag zu absolvieren \cite{cowling-2002}.
-Bezüglich der zeitlichen Präferenzen werden Mittagsstunden am häufigsten gewählt, gefolgt von frühen und späten Zeitslots. Rund 31\% der Studierenden bevorzugen es, an bestimmten Tagen keine Prüfungen zu haben; besonders unpopulär sind Samstag, Sonntag, Freitag und Montag \cite{cowling-2002}.
-
-Obwohl sich diese Präferenzen grundsätzlich leicht modellieren lassen, stehen derzeit keine Programme zur Verfügung, die eine automatisierte Erstellung entsprechender Stundenpläne an der WU ermöglichen. Lediglich der Studienplaner der Österreichischen Hochschüler*innenschaft der WU \cite{studienplaner-oeh} erlaubt die manuelle Kombination von Lehrveranstaltungen und Prüfungen im Hinblick auf Überschneidungsfreiheit, bietet jedoch keine Möglichkeit zur Optimierung nach individuellen Präferenzen.
-
-Diese Diskrepanz zwischen den Anforderungen der Studierenden und den limitierten bestehenden Programmen führt zu einer suboptimalen Planungssituation.
 
 
 
 
 
 \subsection{Problemstellung}
+
 
 Die Erstellung eines optimalen Semesterplans ist eine zentrale Herausforderung für Studierende. Das Angebot an Lehrveranstaltungen lässt sich nicht frei kombinieren, da auf zeitliche Konflikte, Erfüllung einer Mindestanzahl an ECTS pro Semester, Arbeitstätigkeit, etc. geachtet werden muss.
 Die Herausforderung besteht darin, aus diesem Pool an Lehrveranstaltungen eine zulässige und optimale Kombination zu wählen. Zulässig gilt eine Zeittafel, wenn keine zeitlichen Konflikte auftreten (keine \textit{Hard Constraints} wurden verletzt). Optimal ist eine Zeittafel, wenn eine gegebene Zielfunktion maximal ist. Die Zielfunktion beinhaltet alle Präferenzen des Studierenden, die seine Lebensrealtät widerspiegeln sollen (\textit{Soft Constraints}). Dazu zählen etwa die Berücksichtigung von Arbeitstätigkeiten, die durch Blockieren oder Priorisieren von gewissen Stunden in der Woche ausgedrückt werden, sowie die Favorisierung von Kursen, die durch eine Priorität ausgedrückt wird.
@@ -32,11 +19,16 @@ Diese Problemstellung wird in der Literatur als Zeittafelproblem oder \textit{St
 \subsection{Zeittafelprobleme}
 
 
-Die Erstellung von Zeitplänen im akademischen Kontext gliedert sich in eine Hierarchie jeweils eigenständiger Optimierungsaufgaben. Diese Hierarchie reicht von der strategischen Planung der gesamten Universität bis hin zur individuellen Semesterplanung des einzelnen Studierenden. Um diese Arbeit einzuordnen, ist es notwendig, die theoretische Abstufung vom University Course Timetabling über das Student Sectioning bis hin zum Single Student Scheduling zu verstehen.
+Zeittafelprobleme werden als Unterkategorie kombinatorischer Optimierungsprobleme gesehen, bei denen Aktivitäten (z.B. Lehrveranstaltungen, Prüfungen oder Schichten) unter Einhaltung von \textit{Hard Constraints} und \textit{Soft Constraints} auf Ressourcen wie Zeitfenster und Räume verteilt werden. Educational Timetabling ist wiederum eine Unterkategorie der Zeittafelprobleme, die sich speziell mit Optimierungsproblemen im Bildungskontext beschäftigt \cite{ceschia-2022}.
+
+Innerhalb der Educational-Timetabling-Forschung hat sich ein Standard etabliert, der High-School-Timetabling, University Course Timetabling und Examination Timetabling als grundlegende Problemfamilien unterscheidet. Diese Probleme sind in der Regel NP-schwer, was bedeutet, dass mit wachsender Problemgröße und zunehmender Zahl an \textit{Constraints} keine effizienten exakten Algorithmen bekannt sind und daher heuristische Ansätze angewandt werden. Carter und Laporte \cite{carter-1996} zeigen anhand des Examination Timetabling, dass realistische Probleminstanzen typischerweise nur mit Heuristiken, die an das Problem angepasst sind, z.B. Greedy-Konstruktionen, Tabu Search oder Simulated Annealing, praktikabel lösbar sind, und prägten damit die algorithmische Behandlung von Zeittafelproblemen im universitären Umfeld \cite{carter-1996}.
+
+Die, im weiteren Verlauf dieser Arbeit betrachtete Hierarchie vom University Course Timetabling über das Student Sectioning bis hin zum Single Student Scheduling lässt sich als zunehmende Individualisierung innerhalb der Problemfamilie der Educational-Timetabling-Probleme interpretieren: Während beim University Course Timetabling institutionelle Zielfunktionen wie Auslastung und Konfliktfreiheit auf Ebene der gesamten Organisation im Vordergrund stehen, rücken beim Student Sectioning kohorten- und gruppenspezifische \textit{Constraints} in den Fokus. Single Student Scheduling ist schließlich die feinste Granularität, in der die Zielfunktion auf die Nutzenmaximierung eines einzelnen Studierenden ausgelegt ist, die sich durch persönliche Präferenzen (z.B. Mindest-ECTS pro Semester, Freie Tage, etc.) ergibt und damit einen studentenzentrierten Spezialfall der allgemeinen Zeittafel- und Scheduling-Probleme bildet \cite{rudova-2003} \cite{muller-2010}.
 
 
 
-\subsubsection{University Course Timetabling Problem (UCTTP)}
+
+\subsubsection{University Course Timetabling Problem (UCTTP)}\label{chap:ucttp}
 
 Auf der obersten Ebene steht das University Course Timetabling Problem (UCTTP). Dieses Problem befasst sich mit der Erstellung des "Master-Stundenplans". Die Kernaufgabe besteht darin, eine Menge von Lehrveranstaltungen (Events) einer Menge von Zeitfenstern und Räumen zuzuordnen \cite{schaerf-1999}. Dabei müssen Ressourcenbeschränkungen (z. B. Raumgrößen) und \textit{Hard Constraints}, wie die Verfügbarkeit von Dozenten, berücksichtigt werden.
 
@@ -44,7 +36,7 @@ Carter und Laporte beschreiben dieses Problem als NP-hart \cite{carter-1996}. Da
 
 
 
-\subsubsection{Student Sectioning Problem (SSP)}
+\subsubsection{Student Sectioning Problem (SSP)}\label{chap:ssp}
 
 Sobald der Master-Stundenplan fixiert ist (die Veranstaltungen haben feste Zeiten und Räume), folgt die nächste Ebene: das Student Sectioning Problem (SSP). Hier verlagert sich der Fokus von der Ressourcenzuordnung (Wann findet der Kurs statt?) zur Belegung (Wer besucht welchen Kurs?).
 
@@ -67,7 +59,8 @@ Obwohl der Suchraum für einen einzelnen Studierenden deutlich kleiner ist als f
 
 
 
-\begin{figure}[htbp]
+% \begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \begin{tikzpicture}[
             % Stile definieren
@@ -166,7 +159,7 @@ Obwohl der Suchraum für einen einzelnen Studierenden deutlich kleiner ist als f
         \draw[line] (ssp) -- (sss);
 
     \end{tikzpicture}
-    \caption{Hierarchie von Zeittafelproblemen (Adaptiert aus \cite{muhamad-2018})}
+    \caption{Hierarchie von Zeittafelproblemen (adaptiert aus \cite{muhamad-2018})}
 \end{figure}
 
 
@@ -193,11 +186,70 @@ Obwohl der Suchraum für einen einzelnen Studierenden deutlich kleiner ist als f
 
 
 
+\newpage
+
+\subsection{Lösungsverfahren}
+
+\subsubsection{Brute-Force als langsames, exaktes Lösungsverfahren}\label{chap:bruteforce}
+
+Der einfachste Ansatz zur exakten Lösung des Student Scheduling Problems ist es, alle möglichen Stundenplankombinationen mit der Zielfunktion zu bewerten. Das globale Optimum ist damit garantiert auffindbar, da keine Kombination ausgelassen wird.
+
+Der Nachteil dieses Ansatzes liegt in der Komplexität: Die Anzahl der zu prüfenden Kombinationen wächst exponentiell mit der Problemgröße. Feldman und Golumbic nutzten Brute-Force in ihrer Arbeit von 1990 als Baseline, was für die dort betrachteten kleinen Probleminstanzen ("30 courses", was als 30 \textit{Offerings} interpretiert wurde \cite{feldmangolumbic}) praktikabel war. Für den WU-Datensatz dieser Arbeit mit 381 \textit{Offerings} und 28 \textit{Courses} wäre ein Brute-Force-Ansatz rechnerisch nicht mehr durchführbar --- die Anzahl möglicher Kombinationen übersteigt jede akzeptable Laufzeit bei weitem.
+
+Die Frage, wie ein exaktes Verfahren dennoch für größere Probleminstanzen eingesetzt werden kann, beantwortet ein Ansatz, der seit den 1990er Jahren erheblich an praktischer Bedeutung gewonnen hat: Integer Linear Programming \cite{bixby2012brief} \cite{newman-2013}.
 
 
-\subsection{Replikationsarbeit}
 
-Die Replizierbarkeit von Forschungsergebnissen gilt als grundlegender Eckpfeiler der Wissenschaft und ist essenziell für den Aufbau eines kumulativen Wissensbestandes. In der wissenschaftlichen Praxis wird unter einer Replikation im Allgemeinen der Versuch verstanden, die Ergebnisse einer früheren Studie durch die erneute Durchführung derselben oder einer ähnlichen Untersuchung zu bestätigen oder zu widerlegen. Das Ziel ist es, die Verlässlichkeit (Reliabilität) und Gültigkeit (Validität) von wissenschaftlichen Erkenntnissen zu prüfen und sicherzustellen, dass veröffentlichte Effekte nicht auf Zufall, Fehlern oder spezifischen Artefakten der ursprünglichen Studie beruhen.
+\newpage
+
+\subsubsection{Integer Linear Programming als schnelles, exaktes Lösungsverfahren}\label{chap:ilp_als_loesung}
+
+Integer Linear Programming (ILP) ist ein mathematisches Optimierungsverfahren, das auf linearer Programmierung basiert. Zusätzlich müssen einige oder alle Entscheidungsvariablen ganzzahlig sein. Für kombinatorische Optimierungsprobleme wie das Student Scheduling Problem ist diese Eigenschaft wichtig, da Entscheidungen wie "Kurs wird belegt" oder "Kurs wird nicht belegt" von Natur aus binär sind.
+
+Während ILP als Verfahren bereits in den 1950er Jahren entwickelt wurde, war seine praktische Anwendbarkeit auf reale Probleminstanzen lange Zeit durch die verfügbare Rechenleistung stark eingeschränkt. Feldman und Golumbic griffen in ihrer Arbeit von 1990 daher auf Brute-Force als Baseline zurück. Für kleine Probleminstanzen, wie sie 1990 untersucht wurden, war dies praktikabel. Für die Größenordnung des WU-Datensatzes mit 381 Offerings und 28 Courses wäre ein Brute-Force-Ansatz jedoch rechnerisch nicht mehr durchführbar \cite{bixby2012brief} \cite{newman-2013}.
+
+Seit den 1990er Jahren haben sich ILP-Solver durch verschiedenste Fortschritte --- insbesondere Branch-and-Bound, Branch-and-Cut sowie verbesserte Präprozessierungsverfahren --- und die gestiegene Rechenleistung moderner Hardware zu effizienten Werkzeugen entwickelt. Moderne Solver wie CBC oder Gurobi sind in der Lage, kombinatorische Probleme, die für Brute-Force zu komplex sind, in akzeptabler Zeit exakt zu lösen. In dieser Arbeit wird ILP daher als zeitgemäße Baseline eingesetzt, die dieselbe Rolle übernimmt wie Brute-Force in der Ursprungsarbeit: die Ermittlung des nachweislich optimalen Stundenplans, gegen den die heuristischen Verfahren bewertet werden \cite{clautiaux-2024}.
+
+Trotz der enormen Fortschritte moderner ILP-Solver gibt es Problemklassen, bei denen auch exakte Verfahren an ihre Grenzen stoßen --- etwa wenn die Problemgröße weiter wächst, Echtzeit-Anforderungen bestehen oder die Modellierung als ILP nicht praktikabel ist. In solchen Fällen bieten heuristische Verfahren eine Alternative.
+
+
+\newpage
+
+\subsubsection{Heuristische Verfahren als schnelle, nicht exakte Lösungsverfahren}
+
+Heuristische Verfahren verzichten auf die Garantie, das globale Optimum zu finden, und tauschen diese Garantie gegen deutlich kürzere Laufzeiten ein. Anstatt den gesamten Lösungsraum systematisch zu durchsuchen, navigieren sie durch den Suchraum anhand von problemspezifischen Faustregeln oder lokalen Verbesserungsschritten --- mit dem Ziel, in akzeptabler Zeit eine möglichst gute, wenn auch nicht notwendigerweise optimale Lösung zu finden. In der Timetabling-Literatur haben sich dabei zwei grundlegende Klassen etabliert: Greedy-Verfahren und Lokale Suchheuristiken.
+
+Greedy-Konstruktionsheuristiken bauen eine Lösung von Grund auf schrittweise auf, indem sie bei jedem Schritt lokal die beste verfügbare Entscheidung treffen --- ohne spätere Schritte zu berücksichtigen. Der Vorteil: Sie sind einfach und schnell; der Nachteil ist, dass frühe Entscheidungen nicht revidiert werden und so zu suboptimalen Gesamtlösungen führen können (lokale Optima). Eine verbreitete Erweiterung ist das Backtracking, das lokalen Optima nachträglich auflöst. Der Offering-Order-Algorithmus von Feldman und Golumbic \cite{feldmangolumbic} folgt genau diesem Prinzip: Er sortiert Offerings nach ihrer Bewertung und wählt sie sequenziell aus, ergänzt um eine Backtracking-Strategie für den Fall von Konflikten. Eine weitere bekannte Greedy-Konstruktionsheuristik im Timetabling-Kontext ist der Graph-Coloring-Ansatz \cite{carter-1996}, bei dem Kurse als Knoten eines Graphen modelliert werden und Konflikte als Kanten --- das Stundenplanproblem wird damit auf ein Färbungsproblem reduziert.
+
+Lokale Suchheuristiken hingegen starten von einer bestehenden, oft greedy konstruierten Lösung und verbessern sie iterativ durch kleine, gezielte Änderungen. Sie sind in der Lage, initial schlechte Lösungen schrittweise zu verbessern, laufen jedoch ebenfalls Gefahr, in lokalen Optima stecken zu bleiben. Fortgeschrittenere lokale Suchheuristiken versuchen, das Problem lokaler Optima zu umgehen. Tabu Search \cite{chen-2021} führt eine Verbotsliste kürzlich besuchter Lösungen, um Zyklen zu vermeiden und den Suchraum breiter zu erkunden. Simulated Annealing \cite{ceschia-2022} erlaubt mit einer zu Beginn hohen, schrittweise sinkenden Wahrscheinlichkeit auch verschlechternde Schritte, um lokalen Optima zu entkommen. Evolutionäre Algorithmen wie Genetische Algorithmen \cite{chen-2021} kombinieren mehrere Lösungen durch Crossover- und Mutationsoperatoren und simulieren damit einen evolutionären Selektionsprozess.
+
+Die vorliegende Arbeit untersucht mit Hill-Climbing und Offering-Order zwei der grundlegendsten Vertreter von Greedy-Konstruktionsheuristiken und prüft, ob ihre Ergebnisse unter heutigen Bedingungen Bestand haben --- und ob ILP-Solver diese Heuristiken mittlerweile auch in der Laufzeit übertreffen.
+
+Die Frage, unter welchen wissenschaftlichen Anforderungen ein solcher Vergleich durchgeführt werden soll und was es bedeutet, Ergebnisse einer früheren Arbeit unter neuen Bedingungen zu überprüfen, wird im folgenden Kapitel geklärt.
+
+
+
+
+\subsection{Replikationsarbeit}\label{chap:replikationsarbeit}
+
+Unter einer Replikationsarbeit versteht man den Versuch, Ergebnisse einer früheren Studie durch eine Wiederholung mit demselben oder einem sehr ähnlichen Design zu bestätigen oder zu widerlegen. Replikationsarbeiten gelten als "cornerstone of the scientific method" \cite{simons-2014}, weil oft wiederholte, konsistente Ergebnisse das Vertrauen in die wissenschaftliche Aussagekraft stärken.
+Ziel solcher Arbeiten ist es, die Verlässlichkeit (Reliabilität) und Gültigkeit (Validität) von wissenschaftlichen Erkenntnissen zu prüfen und sicherzustellen, dass veröffentlichte Ergebnisse nicht auf Zufall oder Fehler der ursprünglichen Arbeit beruhen \cite{sciences-2019}.
+
+Reliabilität von Ergebnisse ist gegeben, wenn die Messung bei Wiederholung unter gleichen Bedingungen stabile Werte liefert. Zentrale Aspekte hierbei sind unter anderem:
+
+\begin{itemize}
+    \item Test-Retest-Reliabilität (Konsistenz über Zeit)
+    \item Interne Konsistenz (Kohärenz von Messelementen)
+    \item Interrater-Reliabilität (Übereinstimmung zwischen unterschiedlichen Beobachtern)
+\end{itemize}
+\cite{middleton-2022}
+
+Validität ist gegeben, wenn die Messungen auch wirklich das gemessen haben, was gemessen werden sollte. Eine invalide Messung liegt beispielsweise vor, wenn die Mathekompetenz gemessen werden soll, die Textaufgaben allerdings zu kompliziert formuliert sind, sodass es mehr auf Sprachverständnis als Mathematik ankommt.
+
+Hohe Validität setzt in der Regel ausreichende Reliabilität voraus, geht aber darüber hinaus, indem sie fordert, dass die Messwerte inhaltlich sinnvoll interpretierbar sind \cite{chiang-2015}.
+
+In computergestützter Forschung wird unter Reproduzierbarkeit zusätlich die Möglichkeit verstanden, die Ergebnisse auf Basis der zugrunde liegenden Daten und Algorithmen exakt nachzuvollziehen.Sandve et al. formulierten hierfür zehn Prinzipen ("Ten Simple Rules for Reproducible Computational Research") \cite{sandve-2013}, die von der Dokumentation aller Auswertungsschritte bis zur öffentlichen Zugänglichkeit von Code und Ergebnissen reichen und so die Überprüfbarkeit sicherstellen.
+
 
 
 \subsubsection{Definition und Arten der Replikation}
@@ -208,9 +260,6 @@ In der Literatur wird häufig zwischen verschiedenen Arten der Replikation unter
     \item Bei der \textbf{exakten Replikation} wird versucht, die Methoden und Prozeduren der Originalstudie so exakt wie möglich zu reproduzieren. Das Ziel ist es, idealerweise nur jene Unterschiede zuzulassen, die unvermeidbar sind (z. B. ein anderer Zeitpunkt oder eine andere Stichprobe aus derselben Population).
     \item \textbf{Konzeptionelle Replikationen und Erweiterungen} überprüfen die Robustheit der Ergebnisse unter veränderten Rahmenbedingungen, beispielsweise durch die Verwendung neuer Datensätze, variierter Parameter oder alternativer Schätzverfahren. Bonett \cite{bonett-2020} bezeichnet dies auch als \textit{comparable follow-up study}, bei der zwar das gleiche Design und die gleichen Messskalen verwendet werden, aber die Population oder der Kontext variieren kann.
 \end{itemize}
-
-
-Für die computergestützte Forschung (Computational Research) definiert Sandve et al. \cite{sandve-2013} Reproduzierbarkeit zudem als die Fähigkeit, Ergebnisse durch eine transparente Dokumentation des gesamten Analyse-Workflows --- von den Rohdaten bis zum Endergebnis --- nachvollziehbar und wiederholbar zu machen.
 
 
 
@@ -229,28 +278,13 @@ Damit eine Replikationsarbeit wissenschaftlichen Standards genügt, müssen best
 Im Bereich der Management-Mathematik und Optimierung wird außerdem gefordert, dass Algorithmen so spezifiziert sind, dass unabhängige Forscher dieselben Ergebnisse erzielen können. Burman et al. \cite{burman-2010} betonen weiters die Notwendigkeit, dass der replizierende Forscher unabhängig von den ursprünglichen Autoren ist.
 
 
-
-\subsubsection{Einordnung und Umsetzung in dieser Arbeit}
-
 Die vorliegende Bachelorarbeit ordnet sich als Replikationsstudie der Arbeit von Feldman und Golumbic \cite{feldmangolumbic} ein. Sie kann als konzeptionelle Replikation mit Erweiterung klassifiziert werden.
 
-Ziel ist es nicht, die exakten Ergebnisse von 1990 mit den damaligen Daten zu reproduzieren, sondern die Validität der vorgeschlagenen Lösungsansätze (Hill Climbing und Offering Order) in einem neuen Kontext zu überprüfen. Dies entspricht der von Burman et al. \cite{burman-2010} beschriebenen "validierenden Replikation", bei der geprüft wird, ob Ergebnisse robust gegenüber Veränderungen in Datensätzen und Zeiträumen sind.
-
-Um die wissenschaftlichen Anforderungen an diese Replikation zu erfüllen, werden in dieser Arbeit folgende Maßnahmen getroffen:
-
-\begin{itemize}
-    \item \textbf{Methodische Treue:} Die Algorithmen werden basierend auf der Beschreibung in der Originalarbeit von Feldman und Golumbic \cite{feldmangolumbic} exakt nachprogrammiert (\textit{re-implemented}), um die methodische Vergleichbarkeit zu gewährleisten.
-    \item \textbf{Neuer Datensatz:} Die Evaluation erfolgt anhand eines aktuellen, realen Datensatzes der Wirtschaftsuniversität Wien (Sommersemester 2025), um die Anwendbarkeit auf moderne Student Scheduling Problems (SSP) zu testen.
-    \item \textbf{Erweiterte Baseline:} Da der ursprüngliche Vergleichsmaßstab (Brute Force) für die Komplexität des neuen Datensatzes nicht praktikabel ist, wird eine neue Baseline mittels Integer Linear Programming (ILP) eingeführt. Dies stellt eine methodische Modernisierung dar, wahrt aber das Ziel, die heuristischen Verfahren gegen eine optimale Lösung zu benchmarken.
-    \item \textbf{Transparenz (Computational Reproducibility):} Im Sinne der "Ten Simple Rules" von Sandve et al. \cite{sandve-2013} werden alle Schritte der Datenextraktion und Analyse dokumentiert. Der Quellcode der Implementierungen ist, wie in der Arbeit referenziert, öffentlich einsehbar, um vollständige Nachvollziehbarkeit zu garantieren.
-\end{itemize}
-
-Durch dieses Vorgehen leistet die Arbeit einen Beitrag zur Überprüfung der Generalisierbarkeit historischer Optimierungsansätze unter modernen Rahmenbedingungen.
 
 
 
+\section{Zielsetzung und Abgrenzung}\label{chap:zielsetzung_abgrenzung}
 
-\subsection{Zielsetzung und Abgrenzung}
 
 Die vorliegende Bachelorarbeit hat zum Ziel, die beschriebene Problemstellung unter den aktuellen technischen Rahmenbedingungen mithilfe verschiedener Lösungsansätze zu untersuchen, diese anhand eines aktuellen Datensatzes zu validieren und anschließend einem Leistungsvergleich zu unterziehen.
 

@@ -1,22 +1,22 @@
 \subsection{Implementierung der Hill-Climbing Algorithmen}
 
-Basierend auf der Methodik von Feldman und Golumbic \cite{feldmangolumbic} wurden die Optimierungsalgorithmen \textit{Hill Climbing v1} und \textit{Hill Climbing v3} implementiert. Das Ziel dieser Algorithmen ist es, inkrementell, durch lokal optimale Entscheidungen einen Stundenplan zu finden, der die Zielfunktion (\textit{Mark}) maximiert.
+Basierend auf der Methodik von Feldman und Golumbic \cite{feldmangolumbic} wurden die Optimierungsalgorithmen \textit{Hill-Climbing v1} und \textit{Hill-Climbing v3} implementiert. Das Ziel dieser Algorithmen ist es, inkrementell, durch lokal optimale Entscheidungen einen Stundenplan zu finden, der die Zielfunktion (\textit{Mark}) maximiert.
 
 
 
 
 
-\subsubsection{Hill Climbing v1}
+\subsubsection{Hill-Climbing v1}
 
-Der \textit{Hill Climbing v1}-Algorithmus wählt bei jedem Schritt das beste verfügbare \textit{Offering} aus \textbf{allen verfügbaren Offerings} gemessen am \textit{Mark} des Stundenplans inklusive des gewählten \textit{Offering} \cite{gh-hc1}.
-
-
+Der \textit{Hill-Climbing v1}-Algorithmus wählt bei jedem Schritt das beste verfügbare \textit{Offering} aus \textbf{allen verfügbaren Offerings} gemessen am \textit{Mark} des Stundenplans inklusive des gewählten \textit{Offering} \cite{gh-hc1}.
 
 
 
-\subsubsection{Hill Climbing v3}
 
-Der \textit{Hill Climbing v3}-Algorithmus unterscheidet sich vom \textit{v1}-Ansatz dadurch, dass der Suchraum für einen neuen Kurs reduziert wird. Anstatt alle verfügbaren \textit{Offerings} zu evaluieren, beschränkt \textit{v3} die Auswahl auf eine Teilmenge der nach \textit{Mark} sortierten Liste.
+
+\subsubsection{Hill-Climbing v3}
+
+Der \textit{Hill-Climbing v3}-Algorithmus unterscheidet sich vom \textit{v1}-Ansatz dadurch, dass der Suchraum für einen neuen Kurs reduziert wird. Anstatt alle verfügbaren \textit{Offerings} zu evaluieren, beschränkt \textit{v3} die Auswahl auf eine Teilmenge der nach \textit{Mark} sortierten Liste.
 Konkret wird in der Implementierung nur die zweite Hälfte --- die Offerings mit der individuell besten \textit{Mark} --- der verfügbaren \textit{Offerings} betrachtet \cite{gh-hc3}.
 
 
@@ -29,7 +29,7 @@ Ausgehend vom aktuellen Stundenplan wird für jeden möglichen nächsten Zustand
 
 \begin{equation}
     \label{eq:v1_selection}
-    a^* = \arg\max_{a \in \text{available\_offerings}} \left( \text{get\_schedule\_mark}(\text{schedule} \cup \{a\}) \right)
+    a^* = \arg\max_{a \in \text{available\_offerings}} \left( \textit{Mark}(\text{schedule} \cup \{a\}) \right)
 \end{equation}
 
 
@@ -49,7 +49,7 @@ Der Algorithmus bricht ab, wenn einer der folgenden Zustände eintritt:
 
 
 \begin{algorithm}[H]
-    \caption{Hill Climbing}
+    \caption{Hill-Climbing}
     \begin{algorithmic}[1]
 
         \State $\mathit{schedule} \gets \emptyset$
@@ -80,7 +80,7 @@ Der Algorithmus bricht ab, wenn einer der folgenden Zustände eintritt:
 
 
 
-\subsubsection{Zur Nicht-Implementierung von Hill Climbing v2}
+\subsubsection{Zur Nicht-Implementierung von Hill-Climbing v2}
 
-Der von Feldman und Golumbic vorgeschlagene \textit{Hill Climbing v2}-Algorithmus priorisiert zusätzlich auf der Ebene von \textit{Gruppen} (\textit{Groups}). Im Originalkontext des Papers beziehen sich Gruppen auf die Unterscheidung zwischen Pflichtveranstaltungen (\textit{Mandatory}) und Wahlveranstaltungen (\textit{Elective}), wobei die Priorität der Gruppen die Auswahl von Pflichtveranstaltungen vor Wahlveranstaltungen erzwingt \cite{feldmangolumbic}.
+Der von Feldman und Golumbic vorgeschlagene \textit{Hill-Climbing v2}-Algorithmus priorisiert zusätzlich auf der Ebene von \textit{Gruppen} (\textit{Groups}). Im Originalkontext des Papers beziehen sich Gruppen auf die Unterscheidung zwischen Pflichtveranstaltungen (\textit{Mandatory}) und Wahlveranstaltungen (\textit{Elective}), wobei die Priorität der Gruppen die Auswahl von Pflichtveranstaltungen vor Wahlveranstaltungen erzwingt \cite{feldmangolumbic}.
 Da es im Hauptstudium Wirtschaftsinformatik keine Unterscheidung zwischen Pflicht- und Wahlveranstaltungen gibt, wäre die Implementierung funktional identisch mit \textit{v1}.

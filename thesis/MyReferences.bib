@@ -26,16 +26,45 @@
 
 
 
-@misc{studienplaner-oeh,
-  key   = {ÖH},
-  title = {ÖH-WU Studienplaner},
-  url   = {https://studienplaner.oeh-wu.at/}
-}
 
 
 /*
   Replikationsarbeiten
 */
+@misc{middleton-2022,
+  author = {Middleton, Fiona},
+  month  = {10},
+  title  = {{Reliability vs Validity in Research | Differences, Types \& Examples}},
+  year   = {2022},
+  url    = {https://www.scribbr.co.uk/research-methods/reliability-or-validity/}
+}
+@misc{chiang-2015,
+  author = {Chiang, I-Chant A. and Jhangiani, Rajiv S. and Price, Paul C.},
+  month  = {10},
+  title  = {{Reliability and validity of measurement}},
+  year   = {2015},
+  url    = {https://opentextbc.ca/researchmethods/chapter/reliability-and-validity-of-measurement/}
+}
+@article{sciences-2019,
+  author = {National Academy of Sciences},
+  month  = {5},
+  title  = {{Reproducibility and replicability in science}},
+  year   = {2019},
+  doi    = {10.17226/25303},
+  url    = {https://bioterio.facmed.unam.mx/docs/Libro_Reproducibilidad_y_replicabilidad_NAS-press.pdf}
+}
+@article{simons-2014,
+  author  = {Simons, Daniel J.},
+  journal = {Perspectives on Psychological Science},
+  month   = {1},
+  number  = {1},
+  pages   = {76--80},
+  title   = {{The value of direct replication}},
+  volume  = {9},
+  year    = {2014},
+  doi     = {10.1177/1745691613514755},
+  url     = {https://doi.org/10.1177/1745691613514755}
+}
 @article{boylan-2016,
   author  = {Boylan, John E.},
   journal = {IMA Journal of Management Mathematics},
@@ -101,8 +130,28 @@
 /*
 Zeittafelprobleme
 */
-
-
+@book{rudova-2003,
+  author    = {Rudová, Hana and Murray, Keith},
+  booktitle = {Lecture notes in computer science},
+  month     = {1},
+  pages     = {310--328},
+  title     = {{University Course Timetabling with Soft Constraints}},
+  year      = {2003},
+  doi       = {10.1007/978-3-540-45157-0\{_}21},
+  url       = {https://doi.org/10.1007/978-3-540-45157-0_21}
+}
+@article{ceschia-2022,
+  author  = {Ceschia, Sara and Di Gaspero, Luca and Schaerf, Andrea},
+  journal = {European Journal of Operational Research},
+  month   = {7},
+  number  = {1},
+  pages   = {1--18},
+  title   = {{Educational timetabling: Problems, benchmarks, and state-of-the-art results}},
+  volume  = {308},
+  year    = {2022},
+  doi     = {10.1016/j.ejor.2022.07.011},
+  url     = {https://doi.org/10.1016/j.ejor.2022.07.011}
+}
 @article{carter-1996,
   author  = {Carter, Michael W. and Laporte, Gilbert and Lee, Sau Yan},
   journal = {Journal of the Operational Research Society},
@@ -164,7 +213,48 @@ Zeittafelprobleme
 }
 
 
+@misc{nielsen-2024,
+  author = {Nielsen, Jakob},
+  month  = {1},
+  title  = {{Response times: The 3 important limits}},
+  year   = {2024},
+  url    = {https://www.nngroup.com/articles/response-times-3-important-limits/}
+}
 
+
+/* ILP */
+@incollection{bixby2012brief,
+  title     = {A brief history of linear and mixed-integer programming computation},
+  author    = {Bixby, Robert E},
+  booktitle = {Optimization Stories},
+  pages     = {107--121},
+  year      = {2012},
+  publisher = {European Mathematical Society-EMS-Publishing House GmbH}
+}
+@article{newman-2013,
+  author  = {Newman, Alexandra M. and Weiss, Martin},
+  journal = {INFORMS Transactions on Education},
+  month   = {9},
+  number  = {1},
+  pages   = {26--38},
+  title   = {{A survey of Linear and Mixed-Integer optimization tutorials}},
+  volume  = {14},
+  year    = {2013},
+  doi     = {10.1287/ited.2013.0115},
+  url     = {https://doi.org/10.1287/ited.2013.0115}
+}
+@article{clautiaux-2024,
+  author  = {Clautiaux, François and Ljubić, Ivana},
+  journal = {European Journal of Operational Research},
+  month   = {11},
+  number  = {3},
+  pages   = {707--731},
+  title   = {{Last fifty years of integer linear programming: A focus on recent practical advances}},
+  volume  = {324},
+  year    = {2024},
+  doi     = {10.1016/j.ejor.2024.11.018},
+  url     = {https://doi.org/10.1016/j.ejor.2024.11.018}
+}
 /*
  Probleme bei der Stundenplanerstellung
 */
@@ -211,10 +301,22 @@ Zeittafelprobleme
 }
 
 
+@misc{unitime,
+  author       = {UniTime},
+  howpublished = {\url{https://www.unitime.org/}}
+}
+
+
+
+
 /*
 Github Fragments
 */
 
+@misc{gh-general,
+  author       = {Philipp Scheer},
+  howpublished = {\url{https://github.com/philippscheer/bachelorarbeit}}
+}
 @misc{gh-hc1,
   author       = {Philipp Scheer},
   howpublished = {\url{https://github.com/philippscheer/bachelorarbeit/blob/main/models/hill_climbing_v1.py}}
@@ -235,7 +337,43 @@ Github Fragments
   author       = {Philipp Scheer},
   howpublished = {\url{https://github.com/philippscheer/bachelorarbeit/blob/main/models/ilp_gpu.py}}
 }
+@misc{gh-vvz,
+  author       = {Philipp Scheer},
+  howpublished = {\url{https://github.com/philippscheer/bachelorarbeit/blob/main/data/raw/vvz_model.pkl}}
+}
+@misc{gh-vvz-script,
+  author       = {Philipp Scheer},
+  howpublished = {\url{https://github.com/philippscheer/bachelorarbeit/blob/main/bachelorarbeit/dataset.py}}
+}
+@misc{gh-raw-results,
+  author       = {Philipp Scheer},
+  howpublished = {\url{https://github.com/philippscheer/bachelorarbeit/blob/main/results/raw/results.zip}}
+}
+@misc{gh-results-to-csv-script,
+  author       = {Philipp Scheer},
+  howpublished = {\url{https://github.com/philippscheer/bachelorarbeit/blob/main/models/results_to_csv.py}}
+}
 @misc{vvz-wu,
-  title        = {Vorlesungsverzeichnis der Wirtschaftsuniversität Wien},
+  author       = {Vorlesungsverzeichnis der Wirtschaftsuniversität Wien},
   howpublished = {\url{https://vvz.wu.ac.at/}}
+}
+@misc{studienplaner-oeh,
+  author       = {ÖH-WU Studienplaner},
+  url          = {https://studienplaner.oeh-wu.at/},
+  howpublished = {https://studienplaner.oeh-wu.at/}
+}
+@misc{app-mystudylife,
+  author       = {MyStudyLife},
+  url          = {https://mystudylife.com/},
+  howpublished = {https://mystudylife.com/}
+}
+@misc{app-uachieve,
+  author       = {uAchieve Schedule Builder},
+  url          = {https://collegesource.com/degree-planning-tools/uachieve-schedule-builder},
+  howpublished = {https://collegesource.com/degree-planning-tools/uachieve-schedule-builder}
+}
+@misc{benchexec,
+  author       = {benchexec},
+  url          = {https://github.com/sosy-lab/benchexec},
+  howpublished = {https://github.com/sosy-lab/benchexec}
 }

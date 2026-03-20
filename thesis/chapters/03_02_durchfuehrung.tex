@@ -1,33 +1,33 @@
-\subsection{Extraktionsprozess}
+\subsection{Extraktionsprozess}\label{0302_daten_extraktion}\label{chap:scraping}
 
 
 Der Prozess der automatisierten Extraktion wurde folgendermaßen realisiert:
 
 
 \begin{algorithm}[H]
-    \caption{Datenextraktion aus Vorlesungsverzeichnis}
-    \label{alg:datenextraktion}
-    \begin{algorithmic}[1]
-        \State $\mathit{offerings} \gets \emptyset$
-        \State $\mathit{modules} \gets \emptyset$
+  \caption{Datenextraktion aus Vorlesungsverzeichnis}
+  \label{alg:datenextraktion}
+  \begin{algorithmic}[1]
+    \State $\mathit{offerings} \gets \emptyset$
+    \State $\mathit{courses} \gets \emptyset$
 
-        \For{$id \gets 1, 9999$}
-        \State $url \gets \textsc{CraftCourseURL}(id)$
-        \State $page \gets \textsc{HttpGet}(url)$
+    \For{$id \gets 1, 9999$}
+    \State $url \gets \textsc{CraftCourseURL}(id)$
+    \State $page \gets \textsc{HttpGet}(url)$
 
-        \If{$\textsc{Contains}(page\, "Keine~Lehrveranstaltung~gefunden")$}
-        \State \textbf{continue}
-        \EndIf
+    \If{$\textsc{Contains}(page\, "Keine~Lehrveranstaltung~gefunden")$}
+    \State \textbf{continue}
+    \EndIf
 
-        \State $(module, dates) \gets \textsc{ExtractDates}(page)$
+    \State $(course, dates) \gets \textsc{ExtractDates}(page)$
 
-        \If{$module \notin \text{dom}(modules)$}
-        \State $ects \gets \textsc{ExtractECTSFromModule}(module)$
-        \State $modules \gets modules \cup \{(module, ects)\}$
-        \EndIf
+    \If{$course \notin \text{dom}(courses)$}
+    \State $ects \gets \textsc{ExtractECTSFromCourse}(course)$
+    \State $courses \gets courses \cup \{(course, ects)\}$
+    \EndIf
 
-        \State $\mathit{offerings} \gets \mathit{offerings} \cup \{(id, dates, modules_{module})\}$
-        \EndFor
+    \State $\mathit{offerings} \gets \mathit{offerings} \cup \{(id, dates, courses_{course})\}$
+    \EndFor
 
-    \end{algorithmic}
+  \end{algorithmic}
 \end{algorithm}

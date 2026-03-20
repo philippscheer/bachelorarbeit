@@ -50,7 +50,7 @@
                     x=difficulty,
                     y expr=(\thisrow{Hill Climbing v1} / \thisrow{ILP})
                 ] {\loadedData};
-            \addlegendentry{Hill Climbing v1}
+            \addlegendentry{Hill-Climbing v1}
 
             % --- Hill Climbing v3 relative to ILP ---
             \addplot[
@@ -63,9 +63,9 @@
                     x=difficulty,
                     y expr=(\thisrow{Hill Climbing v3} / \thisrow{ILP})
                 ] {\loadedData};
-            \addlegendentry{Hill Climbing v3}
+            \addlegendentry{Hill-Climbing v3}
 
-            % --- Offering Order relative to ILP ---
+            % --- Offering-Order relative to ILP ---
             \addplot[
                 mark=triangle*,
                 line width=1pt,
@@ -77,7 +77,7 @@
                     x=difficulty,
                     y expr=(\thisrow{Offering Order} / \thisrow{ILP})
                 ] {\loadedData};
-            \addlegendentry{Offering Order}
+            \addlegendentry{Offering-Order}
 
         \end{axis}
     \end{tikzpicture}
