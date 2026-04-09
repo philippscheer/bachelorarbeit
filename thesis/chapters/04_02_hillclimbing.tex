@@ -16,7 +16,7 @@ Der \textit{Hill-Climbing v1}-Algorithmus wählt bei jedem Schritt das beste ver
 
 \subsubsection{Hill-Climbing v3}
 
-Der \textit{Hill-Climbing v3}-Algorithmus unterscheidet sich vom \textit{v1}-Ansatz dadurch, dass der Suchraum für einen neuen Kurs reduziert wird. Anstatt alle verfügbaren \textit{Offerings} zu evaluieren, beschränkt \textit{v3} die Auswahl auf eine Teilmenge der nach \textit{Mark} sortierten Liste.
+Der \textit{Hill-Climbing-v3}-Algorithmus unterscheidet sich vom \textit{v1}-Ansatz dadurch, dass der Suchraum für einen neuen Kurs reduziert wird. Anstatt alle verfügbaren \textit{Offerings} zu evaluieren, beschränkt \textit{v3} die Auswahl auf eine Teilmenge der nach \textit{Mark} sortierten Liste.
 Konkret wird in der Implementierung nur die zweite Hälfte --- die Offerings mit der individuell besten \textit{Mark} --- der verfügbaren \textit{Offerings} betrachtet \cite{gh-hc3}.
 
 
@@ -44,7 +44,7 @@ Der Algorithmus bricht ab, wenn einer der folgenden Zustände eintritt:
 \begin{enumerate}
     \item Der Stundenplan ist valide und hat die maximale Anzahl von Lehrveranstaltungen erreicht.
     \item Der Stundenplan ist valide, und es kann keine weitere gültige \textit{Offering} gefunden werden, ohne dass eine Nebenbedingung verletzt wird.
-    \item Es kann keine weitere \textit{Offering} gefunden werden, die keine Constraints verletzt. Wenn die minimale Anzahl der Lehrveranstaltungen noch nicht erfüllt ist, führt das zu einem ungültigen Ergebnis.
+    \item Es kann kein weiteres \textit{Offering} gefunden werden, die keine Constraints verletzt. Wenn die minimale Anzahl der Lehrveranstaltungen noch nicht erfüllt ist, führt das zu einem ungültigen Ergebnis.
 \end{enumerate}
 
 

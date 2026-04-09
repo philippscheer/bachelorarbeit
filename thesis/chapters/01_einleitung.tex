@@ -3,7 +3,7 @@
 
 Kaum eine Entscheidung im Alltag von Studierenden erscheint so simpel und erweist sich gleichzeitig so komplex wie die Erstellung des eigenen Stundenplans. Was auf den ersten Blick nach einer organisatorischen Routineaufgabe aussieht, entpuppt sich bei näherer Betrachtung als vielschichtiges Optimierungsproblem: Überschneidungen zwischen Lehrveranstaltungen, begrenzte Kursplätze und individuelle Präferenzen wie Arbeitszeiten und Lerngewohnheiten machen die Planung zu einer Herausforderung
 
-In einer Zeit, in der viele Entscheidungsprozesse bereits durch Algorithmen unterstützt werden, stellt sich die Frage, ob auch die Stundenplanerstellung automatisiert und optimiert werden kann. Hier setzt die folgende Arbeit an: Sie untersucht, wie sich das \textit{Student Schedulung Problem (SSP)} mithilfe von verschiedenen Optimierungsverfahren modellieren und lösen lässt.
+In einer Zeit, in der viele Entscheidungsprozesse bereits durch Algorithmen unterstützt werden, stellt sich die Frage, ob auch die Stundenplanerstellung automatisiert und optimiert werden kann. Hier setzt die folgende Arbeit an: Sie untersucht, wie sich das \textit{Student Scheduling Problem (SSP)} mithilfe von verschiedenen Optimierungsverfahren modellieren und lösen lässt.
 
 
 
@@ -22,7 +22,7 @@ Obwohl sich diese Präferenzen grundsätzlich leicht modellieren lassen, stehen 
 
 Bestehende Lösungen zur Stundenplanung im universitären Umfeld lassen sich grob in zwei Kategorien unterteilen: institutionelle Planungssysteme und studentenzentrierte Hilfsmittel.
 
-Auf institutioneller Ebene existieren ausgereifte Softwarelösungen wie UniTime \cite{unitime} \cite{muller-2010}, ein quelloffenes System der Apereo Foundation, das Universitäten bei der Erstellung konfliktfreier Master-Stundenpläne unterstützt und dabei das Student Sectioning Problem berücksichtigt. Ähnliche kommerzielle Lösungen wie Infosilem oder Coursedog adressieren ebenfalls die Ressourcenplanung aus Sicht der Institution - also die in Kapitel \ref{chap:ucttp} und \ref{chap:ssp} beschriebenen Problemebenen. Diese Systeme sind jedoch auf die Bedürfnisse von Administratoren ausgelegt und lösen das Problem der Stundenplanerstellung aus der Perspektive der gesamten Universität, nicht des einzelnen Studierenden.
+Auf institutioneller Ebene existieren ausgereifte Softwarelösungen wie UniTime \cite{unitime} \cite{muller-2010}, ein quelloffenes System der Apereo Foundation, das Universitäten bei der Erstellung konfliktfreier Master-Stundenpläne unterstützt und dabei das Student Sectioning Problem berücksichtigt. Ähnliche kommerzielle Lösungen wie Infosilem oder Coursedog adressieren ebenfalls die Ressourcenplanung aus Sicht der Institution - also die in Kapitel \ref{chap:ucttp} und \ref{chap:ssp} beschriebenen Problemebenen. Diese Systeme sind jedoch auf die Bedürfnisse von Administrierenden ausgelegt und lösen das Problem der Stundenplanerstellung aus der Perspektive der gesamten Universität, nicht des einzelnen Studierenden.
 
 Auf studentenzentrierter Ebene gibt es eine Reihe von Kalender- und Planungsapps wie MyStudyLife \cite{app-mystudylife} oder den uAchieve Schedule Builder \cite{app-uachieve}, die es Studierenden erlauben, bereits fixierte Lehrveranstaltungen zu verwalten und in einem persönlichen Kalender darzustellen. Diese Tools setzen jedoch voraus, dass der Studierende seine Kurswahl bereits getroffen hat - eine Optimierung nach individuellen Präferenzen findet nicht statt.
 
@@ -45,10 +45,10 @@ Eine exakte Replikation --- also die Reproduktion der ursprünglichen Ergebnisse
 Um die wissenschaftlichen Anforderungen an diese Replikation zu erfüllen, werden in dieser Arbeit folgende Maßnahmen getroffen:
 
 \begin{itemize}
-  \item \textbf{Methodische Treue:} Die Algorithmen werden basierend auf der Beschreibung in der Originalarbeit von Feldman und Golumbic \cite{feldmangolumbic} exakt nachprogrammiert (\textit{"re-implemented"}), um die methodische Vergleichbarkeit zu gewährleisten.
-  \item \textbf{Neuer Datensatz:} Die Evaluation erfolgt anhand eines aktuellen, realen Datensatzes der Wirtschaftsuniversität Wien (Sommersemester 2025).
-  \item \textbf{Erweiterte Baseline:} Da der ursprüngliche Vergleichsmaßstab (Brute Force) für die Komplexität des neuen Datensatzes nicht praktikabel ist, wird eine neue Baseline mittels Integer Linear Programming (ILP) eingeführt. Dies stellt eine methodische Modernisierung dar, wahrt aber das Ziel, die heuristischen Verfahren gegen eine optimale Lösung zu benchmarken.
-  \item \textbf{Transparenz (Computational Reproducibility):} Im Sinne der "Ten Simple Rules" von Sandve et al. \cite{sandve-2013} werden alle Schritte der Datenextraktion und Analyse dokumentiert. Der Quellcode der Implementierungen ist, wie in der Arbeit referenziert, öffentlich einsehbar, um vollständige Nachvollziehbarkeit zu garantieren \cite{gh-general}.
+    \item \textbf{Methodische Treue:} Die Algorithmen werden basierend auf der Beschreibung in der Originalarbeit von Feldman und Golumbic \cite{feldmangolumbic} exakt nachprogrammiert (\textit{"re-implemented"}), um die methodische Vergleichbarkeit zu gewährleisten.
+    \item \textbf{Neuer Datensatz:} Die Evaluation erfolgt anhand eines aktuellen, realen Datensatzes der Wirtschaftsuniversität Wien (Sommersemester 2025).
+    \item \textbf{Erweiterte Baseline:} Da der ursprüngliche Vergleichsmaßstab (Brute Force) für die Komplexität des neuen Datensatzes nicht praktikabel ist, wird eine neue Baseline mittels Integer Linear Programming (ILP) eingeführt. Dies stellt eine methodische Modernisierung dar, wahrt aber das Ziel, die heuristischen Verfahren gegen eine optimale Lösung zu benchmarken.
+    \item \textbf{Transparenz (Computational Reproducibility):} Im Sinne der "Ten Simple Rules" von Sandve et al. \cite{sandve-2013} werden alle Schritte der Datenextraktion und Analyse dokumentiert. Der Quellcode der Implementierungen ist, wie in der Arbeit referenziert, öffentlich einsehbar, um vollständige Nachvollziehbarkeit zu garantieren \cite{gh-general}.
 \end{itemize}
 
 
@@ -58,10 +58,10 @@ Um die wissenschaftlichen Anforderungen an diese Replikation zu erfüllen, werde
 Die vorliegende Bachelorarbeit leistet folgende wesentliche Beiträge:
 
 \begin{itemize}
-  \item Die Algorithmen von Feldman und Golumbic \cite{feldmangolumbic} --- Hill-Climbing v1, Hill-Climbing v3 und Offering-Order --- wurden nachprogrammiert und mit einem aktuellen Datensatz der Wirtschaftsuniversität Wien (Hauptstudium Wirtschaftsinformatik, Sommersemester 2025) evaluiert. Die Ergebnisse der Ursprungsarbeit konnten bestätigt werden.
-  \item \textbf{Überlegenheit der Hill-Climbing-Varianten:} In den meisten der 14 getesteten Szenarien erzielten Hill-Climbing v1 und v3 eine höhere Lösungsqualität (\textit{Mark}) als der Offering-Order-Algorithmus. Insbesondere bei Szenarien mit vorgegebenen Kursen (Szenario 12) kann man die Schwäche der statischen Sortierung sehen: Der Algorithmus verfängt sich in lokalen Optima und erfüllt in manchen Fällen die Mindestanzahl an zu wählenden Lehrveranstaltungen nicht. Offering-Order war jedoch in allen Szenarien die schnellste Heuristik.
-  \item \textbf{Effizienz moderner ILP-Solver:} Ein zentrales und unerwartetes Ergebnis dieser Arbeit ist, dass ein moderner Integer-Linear-Programming-Solver (CBC/Gurobi via Python-MIP) die heuristischen Algorithmen in der Laufzeit in fast allen Szenarien übertrifft. Lediglich in Szenario 8 ("Mehr als ein Kurs pro Tag") war der ILP-Ansatz langsamer als die Heuristiken.
-  \item \textbf{GPU vs. CPU:} Der Vergleich einer GPU-optimierten ILP-Implementierung (NVIDIA RTX A5000, CUDA 12.4) mit der CPU-Variante zeigt, dass die GPU-Implementierung bei kleinen und mittleren Probleminstanzen langsamer ist als die CPU, jedoch bei steigender Komplexität aufholt.
+    \item Die Algorithmen von Feldman und Golumbic \cite{feldmangolumbic} --- Hill-Climbing v1, Hill-Climbing v3 und Offering-Order --- wurden nachprogrammiert und mit einem aktuellen Datensatz der Wirtschaftsuniversität Wien (Hauptstudium Wirtschaftsinformatik, Sommersemester 2025) evaluiert. Die Ergebnisse der Ursprungsarbeit konnten bestätigt werden.
+    \item \textbf{Überlegenheit der Hill-Climbing-Varianten:} In den meisten der 14 getesteten Szenarien erzielten Hill-Climbing v1 und v3 eine höhere Lösungsqualität (\textit{Mark}) als der Offering-Order-Algorithmus. Insbesondere bei Szenarien mit vorgegebenen Kursen (Szenario 12) kann man die Schwäche der statischen Sortierung sehen: Der Algorithmus verfängt sich in lokalen Optima und erfüllt in manchen Fällen die Mindestanzahl an zu wählenden Lehrveranstaltungen nicht. Offering-Order war jedoch in allen Szenarien die schnellste Heuristik.
+    \item \textbf{Effizienz moderner ILP-Solver:} Ein zentrales und unerwartetes Ergebnis dieser Arbeit ist, dass ein moderner Integer-Linear-Programming-Solver (CBC/Gurobi via Python-MIP) die heuristischen Algorithmen in der Laufzeit in fast allen Szenarien übertrifft. Lediglich in Szenario 8 ("Mehr als ein Kurs pro Tag") war der ILP-Ansatz langsamer als die Heuristiken.
+    \item \textbf{GPU vs. CPU:} Der Vergleich einer GPU-optimierten ILP-Implementierung (NVIDIA RTX A5000, CUDA 12.4) mit der CPU-Variante zeigt, dass die GPU-Implementierung bei kleinen und mittleren Probleminstanzen langsamer ist als die CPU, jedoch bei steigender Komplexität aufholt.
 \end{itemize}
 
 
@@ -77,17 +77,17 @@ Um die Nachvollziehbarkeit dieser Replikationsstudie zu gewährleisten, sind all
 Die Umsetzung dieser Arbeit war mit einer Reihe von Herausforderungen verbunden, die im Folgenden kurz skizziert werden.
 
 \begin{itemize}
-  \item \textbf{Unvollständiger Pseudocode:} Die zentrale Schwierigkeit war die exakte Nachprogrammierung der Algorithmen von Feldman und Golumbic \cite{feldmangolumbic}. Der in der Originalarbeit beschriebene Pseudocode lässt an mehreren Stellen Interpretationsspielraum offen, was für eine Replikationsstudie besondere Sorgfalt erfordert. Da keine Referenzimplementierungen oder aktuellen Codebeispiele verfügbar sind, mussten Unklarheiten durch eigene Interpretation und iteratives Testen aufgelöst werden. Dies betrifft insbesondere die Zielfunktion (\textit{Mark}), deren exakte Berechnung ebenfalls nicht vollständig spezifiziert ist und daher auf Basis der Beschreibung im Paper rekonstruiert werden musste.
-  \item \textbf{Rekursive Implementierung des Offering-Order-Algorithmus:} Der Offering-Order-Algorithmus basiert auf einer rekursiven Backtracking-Strategie. Die korrekte Implementierung dieser Rekursion erforderte einige Iterationen.
-  \item \textbf{Testumgebung mit benchexec:} Die Einrichtung der Testumgebung mittels benchexec \cite{benchexec} gestaltete sich aufwändiger als erwartet. Das Tool ist extrem umfangreich und eine Implementierung für die "einfache" Messung von Laufzeit und Speichernutzung erforderte einige Einarbeitungszeit.
-  \item \textbf{Datenbeschaffung:} Der automatisierte Scraping-Prozess der Vorlesungsdaten aus dem Vorlesungsverzeichnis der WU (vgl. Kapitel \ref{chap:scraping}) stellte eine Herausforderung dar, da keine offizielle API zur Verfügung steht und die HTML-Struktur der Webseite zuerst entsprechend analysiert werden musste.
+    \item \textbf{Unvollständiger Pseudocode:} Die zentrale Schwierigkeit war die exakte Nachprogrammierung der Algorithmen von Feldman und Golumbic \cite{feldmangolumbic}. Der in der Originalarbeit beschriebene Pseudocode lässt an mehreren Stellen Interpretationsspielraum offen, was für eine Replikationsstudie besondere Sorgfalt erfordert. Da keine Referenzimplementierungen oder aktuellen Codebeispiele verfügbar sind, mussten Unklarheiten durch eigene Interpretation und iteratives Testen aufgelöst werden. Dies betrifft insbesondere die Zielfunktion (\textit{Mark}), deren exakte Berechnung ebenfalls nicht vollständig spezifiziert ist und daher auf Basis der Beschreibung im Paper rekonstruiert werden musste.
+    \item \textbf{Rekursive Implementierung des Offering-Order-Algorithmus:} Der Offering-Order-Algorithmus basiert auf einer rekursiven Backtracking-Strategie. Die korrekte Implementierung dieser Rekursion erforderte einige Iterationen.
+    \item \textbf{Testumgebung mit benchexec:} Die Einrichtung der Testumgebung mittels benchexec \cite{benchexec} gestaltete sich aufwändiger als erwartet. Das Tool ist extrem umfangreich und eine Implementierung für die "einfache" Messung von Laufzeit und Speichernutzung erforderte einige Einarbeitungszeit.
+    \item \textbf{Datenbeschaffung:} Der automatisierte Scraping-Prozess der Vorlesungsdaten aus dem Vorlesungsverzeichnis der WU (vgl. Kapitel \ref{chap:scraping}) stellte eine Herausforderung dar, da keine offizielle API zur Verfügung steht und die HTML-Struktur der Webseite zuerst entsprechend analysiert werden musste.
 \end{itemize}
 
 
 
 % Aufbau der Arbeit
 
-Die Arbeit gliedert sich in acht Kapitel. Kapitel \ref{chap:hintergrund} legt die theoretischen Grundlagen fest, verortet die Arbeit innerhalb der Hierarchie der Zeittafelprobleme ein --- vom University Course Timetabling Problem über das Student Sectioning Problem bis hin zum Single Student Scheduling --- und erläutert die wissenschaftlichen Anforderungen an eine Replikationsstudie.
+Die Arbeit gliedert sich in acht Kapitel. Kapitel \ref{chap:hintergrund} legt die theoretischen Grundlagen fest, verortet die Arbeit innerhalb der Hierarchie der Zeittafelprobleme --- vom University Course Timetabling Problem über das Student Sectioning Problem bis hin zum Single Student Scheduling --- und erläutert die wissenschaftlichen Anforderungen an eine Replikationsstudie.
 
 Kapitel \ref{chap:zielsetzung_abgrenzung} präzisiert die Zielsetzung und grenzt den Forschungsumfang ab.
 
