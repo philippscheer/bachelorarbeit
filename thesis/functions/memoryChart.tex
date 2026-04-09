@@ -31,7 +31,7 @@
                 axis y line*=left,
                 xlabel={Difficulty},
                 ylabel={ILP Speichernutzung (Bytes)},
-                ymin=0,
+                ymode=log,
                 % xmax=\currentXmax,
                 ymajorgrids=true,
                 width=0.95\textwidth,
@@ -74,22 +74,6 @@
                     y error={ILP GPU stdev},
                 ] {\loadedMemoryData};
             \addlegendentry{ILP GPU RAM}
-
-        \end{axis}
-
-        % --- Right axis (Hill-Climbing & Offering-Order) ---
-        \begin{axis}[
-                axis y line*=right,
-                axis x line=none,
-                ylabel={Algorithmus Speichernutzung (Bytes)},
-                ymin=0,
-                % xmax=\currentXmax,
-                ymajorgrids=false,
-                width=0.95\textwidth,
-                height=7cm,
-                legend style={at={(0.5,-0.35)}, anchor=north, legend columns=-1},
-                table/x=difficulty,
-            ]
 
             % --- Hill-Climbing v1 ---
             \addplot[
