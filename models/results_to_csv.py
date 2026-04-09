@@ -2,11 +2,11 @@
 """Transform results/*.json files into CSV reports matching the reports/csv/old/ format.
 
 Algorithm block order in each result JSON (alphabetical XML filename order, 50 rounds each):
-  0  –  49 : Hill Climbing v1
-  50 –  99 : Hill Climbing v3
-  100 – 149 : ILP GPU
-  150 – 199 : ILP
-  200 – 249 : Offering Order
+  0   -  49 : Hill Climbing v1
+  50  -  99 : Hill Climbing v3
+  100 - 149 : ILP GPU
+  150 - 199 : ILP
+  200 - 249 : Offering Order
 """
 
 import csv
@@ -56,6 +56,19 @@ def algo_stats(entries: list) -> dict:
         if len(values) >= 2:
             return statistics.stdev(values)
         return 0.0 if len(values) == 1 else None
+
+    # If no valid score exists for this (result, algorithm, difficulty),
+    # force timing and memory fields to nan in the CSV output as well.
+    if not valid_scores:
+        return {
+            "score": None,
+            "time_mean": None,
+            "time_stdev": None,
+            "mem_mean": None,
+            "mem_stdev": None,
+            "vram_mean": None,
+            "vram_stdev": None,
+        }
 
     return {
         "score": mean(valid_scores),

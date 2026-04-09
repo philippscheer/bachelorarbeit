@@ -13,7 +13,7 @@
 
 
 \usepackage{url}
-\usepackage{hyperref}
+\usepackage[pdftex,hypertexnames=false]{hyperref}
 
 \usepackage{algorithm}
 \usepackage{algpseudocode}
@@ -22,7 +22,7 @@
 \usepackage{tikz}
 \usepackage{tikz-uml}
 
-\usetikzlibrary{shapes.geometric, arrows.meta, positioning, shadows}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, shadows, external}
 
 
 \usepackage{float}
@@ -51,6 +51,14 @@
 \usepackage{filecontents}
 \usepackage{siunitx}
 \pgfplotsset{compat=1.18}
+\usepgfplotslibrary{external}
+\tikzexternalize[prefix=tikzcache/]
+
+
+\usepackage{xltabular}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{ragged2e}
 
 
 \usepackage{amsmath}
@@ -101,7 +109,8 @@
 
 \begin{document}
 
-\includepdf[pages={1}]{scan-of-declaration-of-authorship.pdf}
+% {\includegraphics[page=1]{file.pdf}}
+% \includepdf[pages={1}]{scan-of-declaration-of-authorship.pdf}
 \pagebreak
 
 \AddToShipoutPicture*{\BackgroundPic}
@@ -151,7 +160,7 @@
 \bigskip\bigskip\bigskip\bigskip\bigskip\bigskip
 
 {\em\noindent Department of Information Systems \& Operations Management, Vienna University of
-    Economics and Business, Welthandelsplatz 1, 1020 Vienna, Austria
+  Economics and Business, Welthandelsplatz 1, 1020 Vienna, Austria
 }
 
 
@@ -165,7 +174,7 @@
 
 
 \begin{abstract}
-    \textit{Todo}
+  \textit{Todo}
 \end{abstract}
 
 \pagebreak

@@ -2,6 +2,147 @@
 
 \subsection{Verwandte Arbeiten}
 
+Im Folgenden werden 18 verwandte Arbeiten entlang vier Dimensionen eingeordnet: Problem, Lösungsverfahren, Datenbasis und zentrale Erkenntnisse.
+
+\paragraph{Student Sectioning (SSP):}
+
+Akbarzadeh \& Maenhout \cite{v-akbarzadeh2021exact} lösen die Zuweisung von Medizinstudierenden zu Krankenhausstationen mit \textbf{Branch-and-Price (exakt)} --- der Algorithmus zerlegt das Problem in kleinere Teilprobleme und löst sie systematisch. Getestet an synthetischen Instanzen der Uni Gent (bis 80 Studierende). Fairness und Präferenzen konnten gleichzeitig optimiert werden. Zanazzo et al. \cite{v-zanazzo2025solving} greifen dasselbe Problem auf, nutzen aber \textbf{Simulated Annealing (Metaheuristik)} --- eine Methode, die zufällig Lösungen verbessert und dabei bewusst auch schlechtere Lösungen akzeptiert, um nicht in lokalen Optima steckenzubleiben. Mit bis zu 320 Studierenden findet der Ansatz dieselbe Qualität wie das exakte Verfahren --- aber in einem Bruchteil der Rechenzeit.
+Heitmann \& Brüggemann \cite{v-heitmann2014preference} lösen das SSP der Uni Hamburg (3.700 Studierende, 300 Gruppen) mit \textbf{Mixed-Integer Programming / ILP (exakt)} via CPLEX --- dabei werden die Zuweisungen als mathematisches Optimierungsproblem formuliert und mit einem kommerziellen Solver gelöst. Ergebnis: optimale Lösung in Sekunden. Van den Broek et al. \cite{v-van2009timetabling} machen dasselbe an der TU Eindhoven (350 Studierende), zerlegen das Problem aber in vier hierarchische Teilprobleme. Fast alle Studierenden erhielten ihre Top-Präferenzen.
+
+\paragraph{University Course Timetabling (UCTTP):}
+Alvarez-Valdes et al. \cite{v-alvarez2002design} setzen \textbf{Tabu Search (Metaheuristik)} ein --- eine lokale Suche, die bereits besuchte Lösungen auf einer "Tabu-Liste" speichert, um Schleifen zu vermeiden. An der Uni Valencia (4.300 Studierende) wurde der wochenlange manuelle Prozess auf wenige Stunden reduziert. Elmohamed et al. \cite{v-elmohamed1997comparison} vergleichen mehrere \textbf{Simulated-Annealing-Varianten} an der Syracuse University (13.000+ Studierende) und zeigen: Erst die Kombination mit einem regelbasierten Vorverarbeitungsschritt liefert fehlerfreie Pläne.
+Wang \cite{v-wang2003using} wendet einen \textbf{Genetischen Algorithmus (Metaheuristik)} an --- inspiriert von Evolution, werden Lösungen durch Kreuzung und Mutation verbessert. Am Far East College (90 Kurse) entstehen nach ~4.000 Generationen fehlerfreie Pläne. Zhang \cite{v-zhang2022optimized} verstärkt diesen Ansatz durch einen \textbf{koevolutionären Multi-Populations-GA}, bei dem mehrere Gruppen von Lösungen parallel evolvieren und die besten Ergebnisse austauschen --- das verhindert vorzeitiges Feststecken. Shiau \cite{v-shiau2011hybrid} adaptiert \textbf{Particle Swarm Optimization (Metaheuristik)} --- Lösungen bewegen sich wie ein Schwarm auf der Suche nach dem Optimum --- für Stundenpläne und schlägt klassische Genetische Algorithmen in Qualität und Geschwindigkeit.
+Wasfy \& Aloul \cite{v-wasfy2007solving} formulieren das Raumzuweisungsproblem an der American University of Sharjah sowohl als \textbf{ILP} als auch als \textbf{SAT-Problem (exakt)}. Überraschend: SAT-Solver scheitern hier, während CPLEX alle Instanzen in unter einer Sekunde löst. Yoshikawa et al. \cite{v-yoshikawa1996constraint} kombinieren \textbf{Constraint Programming mit Hill-Climbing (hybrid)} für japanische Schulen --- dadurch sank die Rechenzeit um Faktor 50.
+
+\paragraph{Überblickswerke:}
+Burke \& De Causmaecker \cite{v-cheng1995investigations} stellen fest, dass hybride Algorithmen zunehmend die besten Ergebnisse liefern. Chen et al. \cite{chen-2021} identifizieren in einem Survey von 35 Arbeiten die zentrale Lücke der Forschung: Algorithmen, die auf Benchmark-Daten funktionieren, scheitern oft an den individuellen Anforderungen echter Universitäten.
+
+
+\scriptsize
+\begin{xltabular}{\textwidth}{@{}
+  >{\RaggedRight\arraybackslash}p{2.2cm}
+  >{\RaggedRight\arraybackslash}p{1.2cm}
+  >{\RaggedRight\arraybackslash}p{3cm}
+  >{\RaggedRight\arraybackslash}p{3cm}
+  >{\RaggedRight\arraybackslash}X
+  @{}}
+  \toprule
+  % --- FIRST PAGE HEADER ---
+  % \caption{Übersicht der Forschungsliteratur zum Scheduling und Timetabling} \label{tab:forschung_uebersicht} \\
+  % \toprule
+  \textbf{Paper-Titel} & \textbf{Problem-Dimension} & \textbf{Lösungsverfahren} & \textbf{Datenbasis} & \textbf{Wichtigste Aussagen} \\ \midrule
+  \endfirsthead
+
+  % --- SUBSEQUENT PAGES HEADER ---
+  \multicolumn{5}{c}{{\bfseries \tablename\ \thetable{} -- Fortsetzung von vorheriger Seite}} \\ \addlinespace
+  \toprule
+  \textbf{Paper-Titel} & \textbf{Problem-Dimension} & \textbf{Lösungsverfahren} & \textbf{Datenbasis} & \textbf{Wichtigste Aussagen} \\ \midrule
+  \endhead
+
+  % --- FOOTER (Bottom of every page except last) ---
+  \midrule
+  \multicolumn{5}{r}{{Fortsetzung auf nächster Seite...}} \\
+  \endfoot
+
+  % --- LAST FOOTER ---
+  \bottomrule
+  \caption{Übersicht der Forschungsliteratur zu University Timetabling Problemen}
+  \endlastfoot
+
+  An exact branch-and-price approach for the medical student scheduling problem (Akbarzadeh \& Maenhout)  &
+  SSP (Zuweisung von Medizinstudierenden)                                                                    &
+  Branch-and-Price, Dynamische Programmierung, Greedy-Heuristik, Ungarische Methode                          &
+  Synthetische Datensätze (Gent, Belgien; bis 80 Stud., 24 Disziplinen).                                     &
+  Bietet exakte und effiziente Lösungen unter Berücksichtigung von Präferenzen und Fairness.                                                                                                                               \\ \addlinespace
+
+  Design and implementation of a course scheduling system using Tabu Search (Alvarez-Valdes et al.)       &
+  UCTTP                                                                                                      &
+  Tabu Search, lokale Suchheuristiken                                                                        &
+  Universität Valencia (4300 Studierende, 84 Kurse).                                                         &
+  Das System HORARIS generiert konfliktfreie Pläne durch flexible Tabu-Search-Strategien.                                                                                                                                  \\ \addlinespace
+
+  A Comparison of Annealing Techniques for Academic Course Scheduling (Elmohamed et al.)                  &
+  UCTTP                                                                                                      &
+  Simulated Annealing (SA), Mean-Field Annealing, Expertensystem                                             &
+  Syracuse University (bis 3839 Kurse, 13653 Studierende).                                                   &
+  SA mit adaptiver Kühlung liefert als einzige Methode valide Pläne für Großinstanzen.                                                                                                                                     \\ \addlinespace
+
+  Preference-based assignment of university students to multiple teaching groups (Heitmann \& Brüggemann) &
+  SSP                                                                                                        &
+  MIP, ILP (CPLEX)                                                                                           &
+  Uni Hamburg (3735 Studierende, 300 Gruppen).                                                               &
+  Automatisiert die Zuweisung, maximiert Präferenzen und vermeidet Überschneidungen in Minuten.                                                                                                                            \\ \addlinespace
+
+  A hybrid particle swarm optimization for a university course scheduling problem (Shiau)                 &
+  UCTTP                                                                                                      &
+  Hybrid PSO (HPSO), Lokale Suche                                                                            &
+  Kun-Shan \& Fooyin Uni (Taiwan).                                                                           &
+  Übertrifft GA; ermöglicht hochflexible Einbindung von Dozentenpräferenzen.                                                                                                                                               \\ \addlinespace
+
+  Timetabling problems at the TU Eindhoven (van den Broek et al.)                                         &
+  SSP                                                                                                        &
+  Lexikographische Optimierung, ILP                                                                          &
+  TU Eindhoven (350 Studierende, 60 Kurse).                                                                  &
+  Zerlegung in vier sequenzielle ILP-Teilprobleme löst das NP-schwere Problem optimal.                                                                                                                                     \\ \addlinespace
+
+  Using genetic algorithm methods to solve course scheduling problems (Wang)                              &
+  UCTTP                                                                                                      &
+  Genetische Algorithmen (GA)                                                                                &
+  Far East College (26 Dozenten, 90 Kurse).                                                                  &
+  Reduziert den Zeitaufwand erheblich und bildet Dozentenpräferenzen robust ab.                                                                                                                                            \\ \addlinespace
+
+  Practice and Theory of Automated Timetabling IV (Burke \& De Causmaecker)                               &
+  Nicht relevant                                                                                             &
+  Diverse (ILP, Metaheuristiken)                                                                             &
+  Diverse Benchmarks                                                                                         &
+  Trend zu hybriden Verfahren und Integration weicher Restriktionen.                                                                                                                                                       \\ \addlinespace
+
+  A Constraint-Based High School Scheduling System (Yoshikawa et al.)                                    &
+  UCTTP (High School)                                                                                        &
+  Constraint Programming, Hill Climbing                                                                      &
+  Japanische High Schools (z.B. 34 Klassen).                                                                 &
+  Senkt Arbeitsaufwand von hunderten Stunden auf wenige Tage mittels "SchoolMagic".                                                                                                                                        \\ \addlinespace
+
+  Solving the medical student scheduling problem using simulated annealing (Zanazzo et al.)              &
+  SSP                                                                                                        &
+  Simulated Annealing, MIP                                                                                   &
+  Synthetische Benchmarks (bis 320 Studierende).                                                             &
+  SA-basierte Suche findet optimale Lösungen in drastisch reduzierter Laufzeit.                                                                                                                                            \\ \addlinespace
+
+  A Survey of University Course Timetabling Problem (Chen et al.)                                        &
+  UCTTP (Review)                                                                                             &
+  Diverse                                                                                                    &
+  Literaturrecherche                                                                                         &
+  Identifiziert Lücke bei der Flexibilität in realen institutionellen Umgebungen.                                                                                                                                          \\ \addlinespace
+
+  An optimized solution... under an improved genetic algorithm (Zhang)                                   &
+  UCTTP                                                                                                      &
+  Verbesserter GA                                                                                            &
+  Simulierte Daten (20 Klassen, 25 Räume).                                                                   &
+  Multi-Populations-Koevolution verbessert Konvergenz und vermeidet lokale Optima.                                                                                                                                         \\ \addlinespace
+
+  Optimization Algorithms for Student Scheduling (Feldman \& Golumbic)                                   &
+  SSS                                                                                                        &
+  CSP, Tree Search, Hill Climbing                                                                            &
+  Bar-Ilan University, Israel.                                                                               &
+  Ermöglicht Studierenden interaktive, konfliktfreie Erstellung persönlicher Pläne.                                                                                                                                        \\ \addlinespace
+
+  Solving the University Class Scheduling Problem (Wasfy \& Aloul)                                       &
+  UCTTP                                                                                                      &
+  0-1 ILP, SAT                                                                                               &
+  Uni Sharjah (UAE).                                                                                         &
+  ILP-Solver (CPLEX) schlagen SAT-Ansätze und finden Optima meist in unter einer Sekunde.                                                                                                                                  \\ \addlinespace
+
+  Flow Formulations for the Student Scheduling Problem (Cheng et al.)                                    &
+  SSP                                                                                                        &
+  Multi-Commodity Flow Models                                                                                &
+  Theoretisch / Nordamerika High School.                                                                     &
+  Klassifiziert SSP als NP-schwer; nutzt Netzwerkflussmodelle für praktische Zielvorgaben.                                                                                                                                 \\
+\end{xltabular}
+\normalsize
+
+
+
 \subsection{Anwendungsfälle und Weiterentwicklung}
 
 Die Ergebnisse dieser Arbeit legen nahe, dass ein ILP-basierter Ansatz zur automatisierten Semesterplanung für WU-Studierende aufgrund von Laufzeit und Lösungsqualität die beste Wahl ist. Der naheliegendste Anwendungsfall ist die Integration der entwickelten Algorithmen in bestehende studentische Tools: Der ÖH-WU Studienplaner \cite{studienplaner-oeh} bietet bereits eine Weboberfläche zur manuellen Prüfung von Überschneidungsfreiheit. Eine Erweiterung um eine automatisierte Stundenplanoptimierung --- auf Basis des in dieser Arbeit implementierten ILP-Ansatzes --- würde den Mehrwert des Tools steigern, da Studierende nicht mehr manuell kombinieren müssten, sondern einen nach individuellen Präferenzen optimierten Stundenplan erhalten könnten.

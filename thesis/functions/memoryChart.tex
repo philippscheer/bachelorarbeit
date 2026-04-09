@@ -22,113 +22,116 @@
         \let\currentXmax\pgfkeysnovalue
     \fi
 
-    \begin{tikzpicture}
+    \begin{center}
+        \begin{tikzpicture}[trim axis left, trim axis right]
 
-        % --- Left axis (ILP memory) ---
-        \begin{axis}[
-                title={Hauptspeicher (Bytes)},
-                name=ilpaxis,
-                axis y line*=left,
-                xlabel={Difficulty},
-                ylabel={ILP Speichernutzung (Bytes)},
-                ymode=log,
-                % xmax=\currentXmax,
-                ymajorgrids=true,
-                width=0.95\textwidth,
-                height=7cm,
-                grid=major,
-                legend style={at={(0.5,-0.2)}, anchor=north, legend columns=-1},
-                table/x=difficulty,
-            ]
+            % --- Left axis (ILP memory) ---
+            \begin{axis}[
+                    title={Hauptspeicher (Bytes)},
+                    name=ilpaxis,
+                    axis y line*=left,
+                    xlabel={Difficulty},
+                    ylabel={ILP Speichernutzung (Bytes)},
+                    ymode=log,
+                    % xmax=\currentXmax,
+                    ymajorgrids=true,
+                    width=0.95\textwidth,
+                    height=7cm,
+                    grid=major,
+                    legend style={at={(0.5,-0.2)}, anchor=north, legend columns=-1},
+                    table/x=difficulty,
+                ]
 
-            % --- ILP Memory Usage ---
-            \addplot[
-                mark=*,
-                color=blue,
-                line width=1pt,
-                smooth,
-                error bars/.cd,
-                y dir=both,
-                y explicit,
-                /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
-            ] table [
-                    x=difficulty,
-                    y=ILP,
-                    y error expr=\thisrow{ILP stdev},
-                ] {\loadedMemoryData};
-            \addlegendentry{ILP}
+                % --- ILP Memory Usage ---
+                \addplot[
+                    mark=*,
+                    color=blue,
+                    line width=1pt,
+                    smooth,
+                    error bars/.cd,
+                    y dir=both,
+                    y explicit,
+                    /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
+                ] table [
+                        x=difficulty,
+                        y=ILP,
+                        y error expr=\thisrow{ILP stdev},
+                    ] {\loadedMemoryData};
+                \addlegendentry{ILP}
 
-            % --- ILP GPU RAM ---
-            \addplot[
-                mark=*,
-                color=purple,
-                line width=1pt,
-                smooth,
-                error bars/.cd,
-                y dir=both,
-                y explicit,
-                /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
-            ] table [
-                    x=difficulty,
-                    y={ILP GPU},
-                    y error={ILP GPU stdev},
-                ] {\loadedMemoryData};
-            \addlegendentry{ILP GPU RAM}
+                % --- ILP GPU RAM ---
+                \addplot[
+                    mark=*,
+                    color=purple,
+                    line width=1pt,
+                    smooth,
+                    error bars/.cd,
+                    y dir=both,
+                    y explicit,
+                    /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
+                ] table [
+                        x=difficulty,
+                        y={ILP GPU},
+                        y error={ILP GPU stdev},
+                    ] {\loadedMemoryData};
+                \addlegendentry{ILP GPU RAM}
 
-            % --- Hill-Climbing v1 ---
-            \addplot[
-                mark=square*,
-                color=red,
-                line width=1pt,
-                smooth,
-                error bars/.cd,
-                y dir=both,
-                y explicit,
-                /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
-            ] table [
-                    x=difficulty,
-                    y={Hill Climbing v1},
-                    y error expr=\thisrow{Hill Climbing v1 stdev},
-                ] {\loadedMemoryData};
-            \addlegendentry{Hill-Climbing v1}
+                % --- Hill-Climbing v1 ---
+                \addplot[
+                    mark=square*,
+                    color=red,
+                    line width=1pt,
+                    smooth,
+                    error bars/.cd,
+                    y dir=both,
+                    y explicit,
+                    /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
+                ] table [
+                        x=difficulty,
+                        y={Hill Climbing v1},
+                        y error expr=\thisrow{Hill Climbing v1 stdev},
+                    ] {\loadedMemoryData};
+                \addlegendentry{Hill-Climbing v1}
 
-            % --- Hill-Climbing v3 ---
-            \addplot[
-                mark=triangle*,
-                color=green!60!black,
-                line width=1pt,
-                smooth,
-                error bars/.cd,
-                y dir=both,
-                y explicit,
-                /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
-            ] table [
-                    x=difficulty,
-                    y={Hill Climbing v3},
-                    y error expr=\thisrow{Hill Climbing v3 stdev},
-                ] {\loadedMemoryData};
-            \addlegendentry{Hill-Climbing v3}
+                % --- Hill-Climbing v3 ---
+                \addplot[
+                    mark=triangle*,
+                    color=green!60!black,
+                    line width=1pt,
+                    smooth,
+                    error bars/.cd,
+                    y dir=both,
+                    y explicit,
+                    /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
+                ] table [
+                        x=difficulty,
+                        y={Hill Climbing v3},
+                        y error expr=\thisrow{Hill Climbing v3 stdev},
+                    ] {\loadedMemoryData};
+                \addlegendentry{Hill-Climbing v3}
 
-            % --- Offering-Order ---
-            \addplot[
-                mark=diamond*,
-                color=orange,
-                line width=1pt,
-                dashed,
-                smooth,
-                error bars/.cd,
-                y dir=both,
-                y explicit,
-                /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
-            ] table [
-                    x=difficulty,
-                    y={Offering Order},
-                    y error expr=\thisrow{Offering Order stdev},
-                ] {\loadedMemoryData};
-            \addlegendentry{Offering-Order}
+                % --- Offering-Order ---
+                \addplot[
+                    mark=diamond*,
+                    color=orange,
+                    line width=1pt,
+                    dashed,
+                    smooth,
+                    error bars/.cd,
+                    y dir=both,
+                    y explicit,
+                    /pgfplots/x filter/.code={\ifnum\hasMax=1 \ifdim\pgfmathresult pt>\maxDifficulty pt \def\pgfmathresult{} \fi \fi}
+                ] table [
+                        x=difficulty,
+                        y={Offering Order},
+                        y error expr=\thisrow{Offering Order stdev},
+                    ] {\loadedMemoryData};
+                \addlegendentry{Offering-Order}
 
-        \end{axis}
-    \end{tikzpicture}
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+
 }
 
 \newcommand{\vramChart}[2][]{%
@@ -145,37 +148,39 @@
         \def\vramHasMax{1}%
     \fi
 
-    \begin{tikzpicture}
-        \begin{axis}[
-                title={ILP GPU VRAM (Bytes)},
-                axis y line*=left,
-                xlabel={Difficulty},
-                ylabel={VRAM Nutzung (Bytes)},
-                ymajorgrids=true,
-                width=0.95\textwidth,
-                height=7cm,
-                grid=major,
-                legend style={at={(0.5,-0.2)}, anchor=north, legend columns=-1},
-                table/x=difficulty,
-            ]
+    \begin{center}
+        \begin{tikzpicture}[trim axis left, trim axis right]
+            \begin{axis}[
+                    title={ILP GPU VRAM (Bytes)},
+                    axis y line*=left,
+                    xlabel={Difficulty},
+                    ylabel={VRAM Nutzung (Bytes)},
+                    ymajorgrids=true,
+                    width=0.95\textwidth,
+                    height=7cm,
+                    grid=major,
+                    legend style={at={(0.5,-0.2)}, anchor=north, legend columns=-1},
+                    table/x=difficulty,
+                ]
 
-            \addplot[
-                mark=pentagon*,
-                color=cyan!70!black,
-                line width=1pt,
-                dashed,
-                smooth,
-                error bars/.cd,
-                y dir=both,
-                y explicit,
-                /pgfplots/x filter/.code={\ifnum\vramHasMax=1 \ifdim\pgfmathresult pt>\vramMaxDifficulty pt \def\pgfmathresult{} \fi \fi}
-            ] table [
-                    x=difficulty,
-                    y={ILP GPU VRAM},
-                    y error={ILP GPU VRAM stdev},
-                ] {\loadedVramData};
-            \addlegendentry{ILP GPU VRAM}
+                \addplot[
+                    mark=pentagon*,
+                    color=cyan!70!black,
+                    line width=1pt,
+                    dashed,
+                    smooth,
+                    error bars/.cd,
+                    y dir=both,
+                    y explicit,
+                    /pgfplots/x filter/.code={\ifnum\vramHasMax=1 \ifdim\pgfmathresult pt>\vramMaxDifficulty pt \def\pgfmathresult{} \fi \fi}
+                ] table [
+                        x=difficulty,
+                        y={ILP GPU VRAM},
+                        y error={ILP GPU VRAM stdev},
+                    ] {\loadedVramData};
+                \addlegendentry{ILP GPU VRAM}
 
-        \end{axis}
-    \end{tikzpicture}
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
 }
