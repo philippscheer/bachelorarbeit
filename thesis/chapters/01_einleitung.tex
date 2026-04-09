@@ -5,10 +5,9 @@ Kaum eine Entscheidung im Alltag von Studierenden erscheint so simpel und erweis
 
 In einer Zeit, in der viele Entscheidungsprozesse bereits durch Algorithmen unterstützt werden, stellt sich die Frage, ob auch die Stundenplanerstellung automatisiert und optimiert werden kann. Hier setzt die folgende Arbeit an: Sie untersucht, wie sich das \textit{Student Schedulung Problem (SSP)} mithilfe von verschiedenen Optimierungsverfahren modellieren und lösen lässt.
 
-% TODO: schreibe so etwas wie "das Problem besteht schon lange. bereits im jahre 1990 haben sich feldmangolumbic damit auseinander gesetzt". wie gut funktionieren diese algorithmen unter den heutigen technischen gegebenheiten und für das Vorlesungsverzeichnis der WU Wien
 
 
-\subsection{Motivation}
+% Motivation
 
 Studierende sehen sich im Studium mit einem umfangreichen Kursangebot konfrontiert und müssen ihre Stundenpläne meist händisch zusammenstellen. Dieser manuelle Prozess ist jedoch mehr als eine rein administrative Aufgabe; er ist eine Optimierungsentscheidung, bei der persönliche und akademische Rahmenbedingungen gegeneinander abgewogen werden müssen.
 
@@ -17,12 +16,9 @@ Bezüglich der zeitlichen Präferenzen werden Mittagsstunden am häufigsten gew�
 
 Obwohl sich diese Präferenzen grundsätzlich leicht modellieren lassen, stehen derzeit keine Programme zur Verfügung, die eine automatisierte Erstellung entsprechender Stundenpläne an der WU ermöglichen. Lediglich der Studienplaner der Österreichischen Hochschüler*innenschaft der WU \cite{studienplaner-oeh} erlaubt die manuelle Kombination von Lehrveranstaltungen und Prüfungen im Hinblick auf Überschneidungsfreiheit, bietet jedoch keine Möglichkeit zur Optimierung nach individuellen Präferenzen.
 
-% Diese Diskrepanz zwischen den Anforderungen der Studierenden und den limitierten bestehenden Programmen führt zu einer suboptimalen Planungssituation.
 
 
-
-\subsection{State of the Art}
-
+% State of the Art
 
 Bestehende Lösungen zur Stundenplanung im universitären Umfeld lassen sich grob in zwei Kategorien unterteilen: institutionelle Planungssysteme und studentenzentrierte Hilfsmittel.
 
@@ -34,21 +30,15 @@ Im österreichischen Kontext bietet der Studienplaner der Österreichischen Hoch
 
 Die beschriebene Lücke --- ein automatisiertes, präferenzbasiertes System zur Erstellung individueller Stundenpläne auf Basis des tatsächlichen WU-Kursangebots --- ist der Ausgangspunkt der vorliegenden Arbeit.
 
-Anstatt jedoch eine vollständig neue Lösung zu entwickeln, stellt sich die Frage: Existieren bereits algorithmische Ansätze, die dieses Problem formal gelöst haben --- und sind sie unter modernen Bedingungen noch relevant? Feldman und Golumbic \cite{feldmangolumbic} entwickelten 1990 genau solche Algorithmen für das Student Scheduling Problem. Ihre Arbeit wurde seither nie mit realen, aktuellen Universitätsdaten validiert. Genau hier setzt die vorliegende Arbeit an.
-
-Sie knüpft dabei an die algorithmischen Grundlagen von Feldman und Golumbic \cite{feldmangolumbic} an und überprüft deren Anwendbarkeit unter heutigen Bedingungen --- ein Ansatz, der in der Wissenschaft als Replikationsstudie bezeichnet wird: die Überprüfung, ob Ergebnisse einer früheren Arbeit unter veränderten Rahmenbedingungen standhalten. Was das konkret bedeutet und wie diese Arbeit dabei vorgeht, wird in Kapitel \ref{chap:replikationsarbeit} erläutert.
 
 
+% Offene Probleme, was ist der Sinn dieser Arbeit?
 
-\subsection{Offene Probleme}
-
-TODO: Was ist gemeint?
+Feldman und Golumbic \cite{feldmangolumbic} entwickelten bereits 1990 algorithmische Ansätze für genau dieses Problem. Ihre Arbeit wurde seither jedoch nie mit realen, aktuellen Universitätsdaten validiert --- und ein systematischer Vergleich ihrer heuristischen Verfahren mit modernen exakten Lösungsmethoden wie Integer Linear Programming (ILP) existiert bis heute nicht. Während Feldman und Golumbic ihre Algorithmen ausschließlich gegen Brute-Force benchmarkten und auf synthetischen Kleinstinstanzen testeten, bleibt offen, ob ihre Heuristiken unter realen Bedingungen --- mit einem echten, größeren Datensatz und im Vergleich zu modernen ILP-Solvern --- noch konkurrenzfähig sind. Genau hier setzt die vorliegende Arbeit an: Sie knüpft an die algorithmischen Grundlagen von Feldman und Golumbic \cite{feldmangolumbic} an, überprüft deren Anwendbarkeit unter heutigen Bedingungen anhand eines realen WU-Datensatzes und stellt erstmals einen systematischen Vergleich zwischen den historischen Heuristiken und einem modernen ILP-Ansatz an. Dieser Ansatz wird in der Wissenschaft als Replikationsstudie bezeichnet --- konkret als konzeptionelle Replikation mit Erweiterung ---, da geprüft wird, ob Ergebnisse einer früheren Arbeit unter veränderten Rahmenbedingungen standhalten. Was das konkret bedeutet und wie diese Arbeit dabei vorgeht, wird in Kapitel \ref{chap:replikationsarbeit} erläutert.
 
 
 
-\subsection{Einordnung und Umsetzung in dieser Arbeit}
-
-Die vorliegende Bachelorarbeit ordnet sich als Replikationsstudie der Arbeit von Feldman und Golumbic \cite{feldmangolumbic} ein. Sie kann als konzeptionelle Replikation mit Erweiterung angesehen werden.
+% Einordnung und Umsetzung der Arbeit
 
 Eine exakte Replikation --- also die Reproduktion der ursprünglichen Ergebnisse mit denselben Daten und derselben Implementierung --- wäre in diesem Fall grundsätzlich nicht möglich: Weder der originale Datensatz von Feldman und Golumbic noch eine Referenzimplementierung der Algorithmen sind verfügbar. Zudem lässt der in der Originalarbeit beschriebene Pseudocode an mehreren Stellen Interpretationsspielraum offen, was eine Nachbildung erschwert. Ziel dieser Arbeit ist es daher nicht, die exakten Ergebnisse von 1990 zu reproduzieren, sondern die Validität der vorgeschlagenen Lösungsansätze (Hill-Climbing und Offering-Order) in einem neuen Kontext zu überprüfen. Dies entspricht der von Burman et al. \cite{burman-2010} beschriebenen validierenden Replikation, bei der geprüft wird, ob Ergebnisse robust gegenüber Veränderungen in Datensätzen und Zeiträumen sind.
 
@@ -61,34 +51,9 @@ Um die wissenschaftlichen Anforderungen an diese Replikation zu erfüllen, werde
   \item \textbf{Transparenz (Computational Reproducibility):} Im Sinne der "Ten Simple Rules" von Sandve et al. \cite{sandve-2013} werden alle Schritte der Datenextraktion und Analyse dokumentiert. Der Quellcode der Implementierungen ist, wie in der Arbeit referenziert, öffentlich einsehbar, um vollständige Nachvollziehbarkeit zu garantieren \cite{gh-general}.
 \end{itemize}
 
-Durch dieses Vorgehen leistet die Arbeit einen Beitrag zur Überprüfung der Generalisierbarkeit historischer Optimierungsansätze unter modernen Rahmenbedingungen.
 
 
-
-\subsection{Aufbau der Arbeit}
-
-Die Arbeit gliedert sich in acht Kapitel, die aufeinander aufbauen und den Weg von der Problemstellung bis zur Diskussion der Ergebnisse nachvollziehbar machen.
-
-
-Nach der Einleitung legt Kapitel \ref{chap:hintergrund} die theoretischen Grundlagen fest. Es führt in die Hierarchie der Zeittafelprobleme ein - vom University Course Timetabling Problem über das Student Sectioning Problem bis hin zum Single Student Scheduling - und verortet die vorliegende Arbeit innerhalb dieser Problemfamilie. Zusätzlich werden die wissenschaftlichen Anforderungen an eine Replikationsstudie erläutert, da die Arbeit als konzeptionelle Replikation der Studie von Feldman und Golumbic \cite{feldmangolumbic} einzuordnen ist.
-
-Kapitel \ref{chap:zielsetzung_abgrenzung} präzisiert die Zielsetzung und grenzt den Forschungsumfang ab. Es wird klargestellt, welche Aspekte des Scheduling-Problems untersucht werden und welche - etwa die universitäre Ressourcenplanung oder die Entwicklung einer vollständigen Anwendung - bewusst ausgeklammert sind.
-
-Kapitel \ref{chap:datenbereitstellung} beschreibt die Datengrundlage der Arbeit. Es erläutert, wie die Vorlesungsdaten der Wirtschaftsuniversität Wien automatisiert aus dem Vorlesungsverzeichnis extrahiert wurden, und gibt anhand einer deskriptiven Analyse einen Überblick über die Struktur und Komplexität des Datensatzes - etwa die Verteilung der Lehrveranstaltungen auf Wochentage und Tageszeiten.
-
-Kapitel \ref{chap:analyse} bildet den methodischen Kern der Arbeit. Es beschreibt die Implementierung der drei untersuchten Algorithmen: den ILP-Baseline-Ansatz (inklusive einer GPU-optimierten Variante), die beiden Hill-Climbing-Algorithmen (v1 und v3) sowie den Offering-Order-Algorithmus. Darüber hinaus werden die 14 Testszenarien definiert und der Versuchsaufbau inklusive der verwendeten Zielfunktion erläutert.
-
-Die Ergebnisse der Benchmarks werden in Kapitel \ref{chap:ergebnisse} szenarioweise präsentiert. Für jedes der 14 Szenarien werden Lösungsqualität, Laufzeit und Speichernutzung der Algorithmen grafisch dargestellt und einander gegenübergestellt.
-
-Kapitel \ref{chap:diskussion} interpretiert die Ergebnisse und setzt sie in Bezug zur Originalarbeit von Feldman und Golumbic \cite{feldmangolumbic}. Es diskutiert, wo die Ergebnisse übereinstimmen, wo sie abweichen und welche Einschränkungen bei der Interpretation zu berücksichtigen sind.
-
-Kapitel \ref{chap:fazit} schließt die Arbeit mit einem Fazit ab, das verwandte Arbeiten einordnet, mögliche Anwendungsfälle und Weiterentwicklungen skizziert und die wesentlichen Erkenntnisse zusammenfasst.
-
-
-
-
-
-\subsection{Überblick der Beiträge}
+% Beiträge
 
 Die vorliegende Bachelorarbeit leistet folgende wesentliche Beiträge:
 
@@ -101,24 +66,13 @@ Die vorliegende Bachelorarbeit leistet folgende wesentliche Beiträge:
 
 
 
+% Artifakte 
+
+Um die Nachvollziehbarkeit dieser Replikationsstudie zu gewährleisten, sind alle im Rahmen dieser Arbeit entstandenen Materialien öffentlich zugänglich. Das zentrale Repository \cite{gh-general} umfasst die Implementierungen aller Algorithmen \cite{gh-hc1,gh-hc3,gh-oo,gh-ilp,gh-ilp-gpu}, den extrahierten Vorlesungsdatensatz \cite{gh-vvz,gh-vvz-script}, die Konfigurationsdateien aller 14 Testszenarien sowie die vollständigen Rohdaten der Benchmarks inklusive Auswertungsskripten \cite{gh-raw-results,gh-results-to-csv-script}.
 
 
 
-\subsection{Artefakte}
-
-Um die Nachvollziehbarkeit dieser Replikationsstudie zu gewährleisten, sind alle im Rahmen dieser Arbeit entstandenen Materialien öffentlich zugänglich. Das zentrale Repository der Arbeit ist unter folgendem Link erreichbar: \cite{gh-general}.
-
-Es umfasst die folgenden Artefakte:
-\begin{itemize}
-  \item \textbf{Implementierungen:} Die Quellcodes aller implementierten Algorithmen: ILP (CPU) \cite{gh-ilp}, ILP (GPU) \cite{gh-ilp-gpu}, Hill-Climbing v1 \cite{gh-hc1}, Hill-Climbing v3 \cite{gh-hc3} sowie Offering-Order \cite{gh-oo}.
-  \item \textbf{Datensatz:} Die extrahierten Vorlesungsdaten der Wirtschaftsuniversität Wien für das Sommersemester 2025 als DataFrame \cite{gh-vvz}, inklusive des Extraktionsskripts \cite{gh-vvz-script} (vgl. Kapitel \ref{0302_daten_extraktion}).
-  \item \textbf{Szenarien:} Die Konfigurationsdateien aller 14 Testszenarien, mit denen die in Kapitel \ref{chap:szenariendefinition} definierten Constraints exakt nachvollzogen werden können. \cite{gh-scenarios}
-  \item \textbf{Messdaten:} Die vollständigen Rohdaten der Benchmarks \cite{gh-raw-results}, inklusive aller 50 Messwiederholungen pro Algorithmus, Szenario und Schwierigkeitsgrad, sowie die Auswertungsskripte \cite{gh-results-to-csv-script} zur Reproduktion der Grafiken aus Kapitel \ref{chap:ergebnisse}.
-\end{itemize}
-
-
-
-\subsection{Herausforderungen}
+% Herausforderungen
 
 Die Umsetzung dieser Arbeit war mit einer Reihe von Herausforderungen verbunden, die im Folgenden kurz skizziert werden.
 
@@ -131,5 +85,17 @@ Die Umsetzung dieser Arbeit war mit einer Reihe von Herausforderungen verbunden,
 
 
 
+% Aufbau der Arbeit
 
+Die Arbeit gliedert sich in acht Kapitel. Kapitel \ref{chap:hintergrund} legt die theoretischen Grundlagen fest, verortet die Arbeit innerhalb der Hierarchie der Zeittafelprobleme ein --- vom University Course Timetabling Problem über das Student Sectioning Problem bis hin zum Single Student Scheduling --- und erläutert die wissenschaftlichen Anforderungen an eine Replikationsstudie.
+
+Kapitel \ref{chap:zielsetzung_abgrenzung} präzisiert die Zielsetzung und grenzt den Forschungsumfang ab.
+
+Kapitel \ref{chap:datenbereitstellung} beschreibt die Datengrundlage der Arbeit und gibt einen Überblick über die Struktur des Vorlesungsdatensatzes
+
+Kapitel \ref{chap:analyse} bildet den methodischen Kern mit der Beschreibung der implementierten Algorithmen, der 14 Testszenarien und des Versuchsaufbaus.
+
+Die Ergebnisse werden in Kapitel \ref{chap:ergebnisse} szenarioweise präsentiert, in Kapitel \ref{chap:diskussion} diskutiert und in Bezug zur Ursprungsarbeit gesetzt.
+
+Kapitel \ref{chap:fazit} schließt die Arbeit mit einem Fazit ab.
 
