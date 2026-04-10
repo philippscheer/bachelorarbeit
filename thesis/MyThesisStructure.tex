@@ -160,7 +160,7 @@
 \bigskip\bigskip\bigskip\bigskip\bigskip\bigskip
 
 {\em\noindent Department of Information Systems \& Operations Management, Vienna University of
-  Economics and Business, Welthandelsplatz 1, 1020 Vienna, Austria
+    Economics and Business, Welthandelsplatz 1, 1020 Vienna, Austria
 }
 
 
@@ -174,8 +174,11 @@
 
 
 \begin{abstract}
-  \textit{Todo}
+    Die Erstellung eines konfliktfreien und präferenzgerechten Semesterplans stellt Studierende vor ein kombinatorisches Optimierungsproblem, für das an der Wirtschaftsuniversität Wien (WU) bislang keine automatisierten Lösungen existieren. Diese Bachelorarbeit knüpft an die algorithmischen Grundlagen von Feldman und Golumbic (1990) an, die mit Hill-Climbing und Offering-Order zwei heuristische Verfahren für das Single Student Scheduling Problem (SSP) vorschlugen, und unterzieht diese einer konzeptionellen Replikation mit Erweiterung. Da weder der originale Datensatz noch eine Referenzimplementierung verfügbar sind, wurden die Algorithmen auf Basis des Pseudocodes neu implementiert und anhand eines realen Datensatzes des Hauptstudiums Wirtschaftsinformatik der WU (Sommersemester 2025, 381 Offerings, 28 Courses) evaluiert. Da Brute-Force für diesen Datensatz rechnerisch nicht praktikabel ist, wurde als zeitgemäße Baseline ein Integer-Linear-Programming-Ansatz (ILP via CBC/Gurobi) eingeführt, der dieselbe Rolle übernimmt wie Brute-Force in der Ursprungsarbeit. Die Algorithmen wurden in 14 Szenarien --- abgeleitet aus empirischen Studien zu studentischen Präferenzen sowie klassischen Constraints aus der Timetabling-Literatur --- systematisch hinsichtlich Lösungsqualität, Laufzeit und Speicherbedarf verglichen. Die Ergebnisse bestätigen, dass Offering-Order in der Laufzeit konsistent schneller ist als beide Hill-Climbing-Varianten, während Hill-Climbing in der Lösungsqualität in den meisten Szenarien überlegen ist. Das überraschendste Ergebnis ist, dass moderne ILP-Solver die heuristischen Verfahren in der Laufzeit in fast allen Szenarien übertreffen --- womit ein Trade-off zwischen Lösungsqualität und Geschwindigkeit für Probleminstanzen dieser Größenordnung nicht mehr gilt.
 \end{abstract}
+
+\paragraph{Keywords:} Student Scheduling Problem, Single Student Scheduling, Hill-Climbing, Offering-Order, Integer Linear Programming, Replikationsstudie, Stundenplanoptimierung, Wirtschaftsuniversität Wien
+
 
 \pagebreak
 
