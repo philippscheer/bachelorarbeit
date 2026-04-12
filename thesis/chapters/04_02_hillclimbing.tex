@@ -8,7 +8,7 @@ Basierend auf der Methodik von Feldman und Golumbic \cite{feldmangolumbic} wurde
 
 \subsubsection{Hill-Climbing v1}
 
-Der \textit{Hill-Climbing v1}-Algorithmus wählt bei jedem Schritt das beste verfügbare \textit{Offering} aus \textbf{allen verfügbaren Offerings} gemessen am \textit{Mark} des Stundenplans inklusive des gewählten \textit{Offering} \cite{gh-hc1}.
+Der \textit{Hill-Climbing v1}-Algorithmus wählt bei jedem Schritt das beste verfügbare \textit{Offering} aus \textbf{allen verfügbaren Offerings} gemessen am \textit{Mark} des Stundenplans inklusive des gewählten \textit{Offering} \cite{gh-repo}.
 
 
 
@@ -17,7 +17,7 @@ Der \textit{Hill-Climbing v1}-Algorithmus wählt bei jedem Schritt das beste ver
 \subsubsection{Hill-Climbing v3}
 
 Der \textit{Hill-Climbing-v3}-Algorithmus unterscheidet sich vom \textit{v1}-Ansatz dadurch, dass der Suchraum für einen neuen Kurs reduziert wird. Anstatt alle verfügbaren \textit{Offerings} zu evaluieren, beschränkt \textit{v3} die Auswahl auf eine Teilmenge der nach \textit{Mark} sortierten Liste.
-Konkret wird in der Implementierung nur die zweite Hälfte --- die Offerings mit der individuell besten \textit{Mark} --- der verfügbaren \textit{Offerings} betrachtet \cite{gh-hc3}.
+Konkret wird in der Implementierung nur die zweite Hälfte --- die Offerings mit der individuell besten \textit{Mark} --- der verfügbaren \textit{Offerings} betrachtet \cite{gh-repo}.
 
 
 
@@ -44,7 +44,7 @@ Der Algorithmus bricht ab, wenn einer der folgenden Zustände eintritt:
 \begin{enumerate}
     \item Der Stundenplan ist valide und hat die maximale Anzahl von Lehrveranstaltungen erreicht.
     \item Der Stundenplan ist valide, und es kann keine weitere gültige \textit{Offering} gefunden werden, ohne dass eine Nebenbedingung verletzt wird.
-    \item Es kann kein weiteres \textit{Offering} gefunden werden, die keine Constraints verletzt. Wenn die minimale Anzahl der Lehrveranstaltungen noch nicht erfüllt ist, führt das zu einem ungültigen Ergebnis.
+    \item Es kann kein weiteres \textit{Offering} gefunden werden, das keine \textit{Constraints} verletzt. Wenn die minimale Anzahl der Lehrveranstaltungen noch nicht erfüllt ist, führt das zu einem ungültigen Ergebnis.
 \end{enumerate}
 
 
@@ -83,4 +83,5 @@ Der Algorithmus bricht ab, wenn einer der folgenden Zustände eintritt:
 \subsubsection{Zur Nicht-Implementierung von Hill-Climbing v2}
 
 Der von Feldman und Golumbic vorgeschlagene \textit{Hill-Climbing v2}-Algorithmus priorisiert zusätzlich auf der Ebene von \textit{Gruppen} (\textit{Groups}). Im Originalkontext des Papers beziehen sich Gruppen auf die Unterscheidung zwischen Pflichtveranstaltungen (\textit{Mandatory}) und Wahlveranstaltungen (\textit{Elective}), wobei die Priorität der Gruppen die Auswahl von Pflichtveranstaltungen vor Wahlveranstaltungen erzwingt \cite{feldmangolumbic}.
-Da es im Hauptstudium Wirtschaftsinformatik keine Unterscheidung zwischen Pflicht- und Wahlveranstaltungen gibt, wäre die Implementierung funktional identisch mit \textit{v1}.
+% Da es im Hauptstudium Wirtschaftsinformatik keine Unterscheidung zwischen Pflicht- und Wahlveranstaltungen gibt, wäre die Implementierung funktional identisch mit \textit{v1}.
+Zwar sieht der Studienplan des Bachelorstudiums Wirtschafts- und Sozialwissenschaften der WU grundsätzlich Wahlveranstaltungen vor. Der im Rahmen dieser Arbeit verwendete Datensatz beschränkt sich jedoch explizit auf die Pflichtlehrveranstaltungen des Hauptstudiums Wirtschaftsinformatik (vgl. Kapitel \ref{chap:zielsetzung_abgrenzung}, Punkt 4) --- Wahlfächer, freie Wahlfächer und Wahlpflichtfächer sind bewusst ausgeschlossen. Die für \textit{v2} essentielle Unterscheidung zwischen Pflicht- und Wahlgruppen ist im vorliegenden Datensatz daher strukturell nicht vorhanden: Alle \textit{Offerings} gehören derselben Prioritätskategorie an, weshalb die Implementierung von \textit{v2} funktional identisch mit \textit{v1} wäre und keine zusätzlichen Erkenntnisse liefern würde. Da \textit{v1} und \textit{v3} aufgrund des unterschiedlich großen Suchraums bereits einen aussagekräftigeren Vergleich ermöglichen, wurde auf die Implementierung von \textit{v2} verzichtet.

@@ -4,7 +4,7 @@ Um die Komplexität des Datensatzes und des Optimierungsproblems zu quantifizier
 
 Der vollständige Datensatz besteht aus insgesamt 381 \textit{Offerings} ($|\mathcal{O}|$) und 28 \textit{Courses}, woraus sich eine durchschnittliche Anzahl von 13.6 \textit{Offerings} pro \textit{Course} ergibt. Eine genauere Analyse zeigt, dass die \textit{Offerings} sehr ungleichmäßig verteilt sind: Während die Mehrheit der \textit{Courses} (über 50 \%) zwei oder drei Angebote aufweist, gibt es einzelne Ausreißer mit bis zu 44 Angeboten. Diese starke Rechtsschiefe der Verteilung zeigt, dass der statistische Mittelwert durch wenige, sehr angebotsintensive \textit{Courses} nach oben verzerrt wird, während der Median deutlich unter dem Durchschnitt liegt.
 
-Grafik \ref{fig:descriptive_analysis_offerings_per_course} zeigt die Verteilung der \textit{Offerings} auf die \textit{Courses}.
+Abbildung \ref{fig:descriptive_analysis_offerings_per_course} zeigt die Verteilung der \textit{Offerings} auf die \textit{Courses}.
 
 
 \begin{figure}[H]
@@ -50,7 +50,7 @@ Grafik \ref{fig:descriptive_analysis_offerings_per_course} zeigt die Verteilung 
 % Feldman und Golumbic erzeugten für ihre Experimente zufällige Ausgangsdaten mit 10-20 Planpunkten, die durchschnittlich 2.5 \textit{Offerings} pro Planpunkt hatten \cite{feldmangolumbic}.
 
 \newpage
-Ein wesentlicher Faktor für die Schwierigkeit der Stundenplanerstellung ist die zeitliche Ungleichverteilung der angebotenen Kurse. Tabelle \ref{fig:descriptive_analysis_offering_weekday} zeigt die Verteilung der Lehrveranstaltungen über die Wochentage.
+Ein wesentlicher Faktor für die Schwierigkeit der Stundenplanerstellung ist die zeitliche Ungleichverteilung der angebotenen Kurse. Abbildung \ref{fig:descriptive_analysis_offering_weekday} zeigt die Verteilung der Lehrveranstaltungen über die Wochentage.
 
 
 % \begin{table}[h]
@@ -115,7 +115,7 @@ Wie aus den Daten ersichtlich wird, konzentriert sich der Großteil des Lehrange
 
 Zusätzlich zur Verteilung auf die Tage ist die zeitliche Platzierung innerhalb eines Tages entscheidend für die Modellierung von Präferenzen.
 Generell dürfen Vorlesungen an der WU Werktags von 8:00 bis 21:30 und Samstags von 8:00 bis 17:30 stattfinden.
-Tabelle \ref{fig:start_hour_distribution} schlüsselt die Startzeiten der einzelnen Kurseinheiten auf. Der Einfachheit halber werden angefangene Stunden bis 15 Minuten abgerundet und ab 30 Minuten aufgerundet. Vorlesungen dürfen nur im 15-Minuten-Takt beginnen.
+Abbildung \ref{fig:start_hour_distribution} schlüsselt die Startzeiten der einzelnen Kurseinheiten auf. Der Einfachheit halber werden angefangene Stunden bis 15 Minuten abgerundet und ab 30 Minuten aufgerundet. Vorlesungen dürfen nur im 15-Minuten-Takt beginnen.
 
 \begin{figure}[h]
     \centering
@@ -188,7 +188,7 @@ Die Analyse der Startzeiten zeigt, dass die WU Wien ein sehr breites Zeitfenster
 
 
 
-Neben dem Beginn der Einheiten variiert auch die Dauer der einzelnen Termine, was die Berechnung von Überschneidungsfreiheiten komplexer gestaltet als bei starren Zeitslots. Tabelle \ref{fig:descriptive_analysis_offering_duration} stellt die Dauer der Einheiten dar.
+Neben dem Beginn der Einheiten variiert auch die Dauer der einzelnen Termine, was die Berechnung von Überschneidungsfreiheiten komplexer gestaltet als bei starren Zeitslots. Abbildung \ref{fig:descriptive_analysis_offering_duration} stellt die Dauer der Einheiten dar.
 
 
 \begin{figure}[h]

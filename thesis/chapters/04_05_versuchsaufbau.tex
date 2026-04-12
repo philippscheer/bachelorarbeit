@@ -1,9 +1,9 @@
 \subsection{Versuchsaufbau}
 
-Das Paper von Feldman und Golumbic \cite{feldmangolumbic} wählte einen Brute-Force-Algorithmus als Baseline für Performance-Vergleiche.
-Da ein Brute-Force Algorithmus bei der großen Anzahl der Vorlesungen im VVZ der WU eine zu lange Laufzeit hätte, wurde eine Integer Linear Programming (ILP) Lösung als neue Baseline gewählt. Diese gewährleistet, ebenso wie der Brute-Force-Ansatz für kleine Instanzen, die Ermittlung des optimalen Stundenplans (mit der höchsten \textit{Mark}). Die Ergebnisse der heuristischen Algorithmen (\textit{Hill-Climbing v1}, \textit{Hill-Climbing v3}, \textit{Offering-Order}) werden folglich relativ zur optimalen Lösung des ILP-Ansatzes bewertet. Zusätzlich zu den heuristischen Algorithmen wird auch eine GPU-optimierte Variante des ILP-Ansatzes getestet.
+Das Paper von Feldman und Golumbic \cite{feldmangolumbic} wählte einen \textit{brute force}-Algorithmus als Baseline für Performance-Vergleiche.
+Da ein \textit{brute force} Algorithmus bei der großen Anzahl der Vorlesungen im VVZ der WU eine zu lange Laufzeit hätte, wurde eine \textit{Integer Linear Programming} (ILP) Lösung als neue Baseline gewählt. Diese gewährleistet, ebenso wie der \textit{brute force}-Ansatz für kleine Instanzen, die Ermittlung des optimalen Stundenplans (mit der höchsten \textit{Mark}). Die Ergebnisse der heuristischen Algorithmen (\textit{Hill-Climbing v1}, \textit{Hill-Climbing v3}, \textit{Offering-Order}) werden folglich relativ zur optimalen Lösung des ILP-Ansatzes bewertet. Zusätzlich zu den heuristischen Algorithmen wird auch eine GPU-optimierte Variante des ILP-Ansatzes getestet.
 
-Als Maß für die Schwierigkeit (\textit{Difficulty}) der Probleminstanz wird in dieser Arbeit nicht die Laufzeit des Brute-Force-Algorithmus verwendet, sondern die Anzahl der zu planenden Kurse (\textit{N}).
+Als Maß für die Schwierigkeit (\textit{Difficulty}) der Probleminstanz wird in dieser Arbeit nicht die Laufzeit des \textit{brute force}-Algorithmus verwendet, sondern die Anzahl der zu planenden Kurse (\textit{N}).
 
 Die Algorithmen wurden anhand der folgenden Leistungskennzahlen evaluiert:
 \begin{enumerate}
@@ -15,11 +15,11 @@ Die Algorithmen wurden anhand der folgenden Leistungskennzahlen evaluiert:
 
 \subsubsection{Zielfunktion}
 
-Die \textit{Mark} dient als Bewertungsfunktion für die Qualität eines erstellten Stundenplans und entspricht der im Paper von Feldman und Golumbic \cite{feldmangolumbic} definierten Zielfunktion. Sie quantifiziert, wie gut ein Stundenplan die Präferenzen und Constraints der Studierenden erfüllt. Die Berechnung erfolgt ausschließlich für \textit{gültige} Stundenpläne, d.\,h. solche, die keine restriktiven Constraints (\(|p| = P\)) verletzen.
+Die \textit{Mark} dient als Bewertungsfunktion für die Qualität eines erstellten Stundenplans und entspricht der im Paper von Feldman und Golumbic \cite{feldmangolumbic} definierten Zielfunktion. Sie quantifiziert, wie gut ein Stundenplan die Präferenzen und \textit{Constraints} der Studierenden erfüllt. Die Berechnung erfolgt ausschließlich für \textbf{gültige} Stundenpläne, d.\,h. solche, die keine restriktiven \textit{Constraints} (\(|p| = P\)) verletzen.
 
 Jede Präferenz oder Restriktion ist im Modell durch eine \textit{Priorität} \(p\) im Wertebereich \([-P, P]\) definiert. Positive Prioritäten kennzeichnen wünschenswerte Eigenschaften (z.\,B. bevorzugte Lehrveranstaltungen oder Zeitfenster), negative Prioritäten hingegen unerwünschte. Die Stärke des Präferenzwerts ist proportional zum Absolutwert der Priorität.
 
-Die \textit{Mark} eines gültigen Stundenplans \(S\) ergibt sich aus der Summe der positiven Beiträge durch gewählte Kurse und den Abzügen für Verletzungen sogenannter \textit{fixed} und \textit{non-fixed} Constraints:
+Die \textit{Mark} eines gültigen Stundenplans \(S\) ergibt sich aus der Summe der positiven Beiträge durch gewählte Kurse und den Abzügen für Verletzungen sogenannter \textit{fixed} und \textit{non-fixed Constraints}:
 
 \begin{equation}
     Mark(S) =
@@ -34,15 +34,15 @@ wobei gilt:
 \begin{itemize}
     \item \(C_S\): Menge aller im Stundenplan \(S\) enthaltenen Kurse.
     \item \(q_c\): Priorität des Kurses \(c\).
-    \item \(H_{\text{violated}}^{(f)}\): Menge aller Stunden, in denen ein \textit{fixed}-Constraint verletzt wurde.
+    \item \(H_{\text{violated}}^{(f)}\): Menge aller Stunden, in denen ein \textit{fixed Constraint} verletzt wurde.
     \item \(p_h^{(f)}\): Priorität der Stunde \(h\). Eine Verletzung liegt vor, wenn
           \begin{itemize}
               \item \(p_h^{(f)} < 0\) und die Stunde aktiv ist (der Studierende hat in einer ungewünschten Stunde Unterricht), oder
               \item \(p_h^{(f)} > 0\) und die Stunde inaktiv ist (der Studierende hat in einer gewünschten Stunde keinen Unterricht).
           \end{itemize}
-    \item \(T_{\text{violated}}^{(n)}\): Menge der verletzten \textit{non-fixed}-Constraints.
-    \item \(p_t^{(n)}\): Priorität des Constraints \(t\).
-    \item \(v_t\): Anzahl der verletzten Stunden (bzw. des Zeitumfangs), der durch Constraint \(t\) betroffen ist.
+    \item \(T_{\text{violated}}^{(n)}\): Menge der verletzten \textit{non-fixed constraints}.
+    \item \(p_t^{(n)}\): Priorität des \textit{Constraint} \(t\).
+    \item \(v_t\): Anzahl der verletzten Stunden (bzw. des Zeitumfangs), der durch \textit{Constraint} \(t\) betroffen ist.
 \end{itemize}
 
 Je höher der Wert von \(M(S)\), desto besser erfüllt der Stundenplan die angegebenen Präferenzen. Ziel der Optimierungsalgorithmen ist daher die Maximierung von \(M(S)\).
@@ -50,7 +50,7 @@ Je höher der Wert von \(M(S)\), desto besser erfüllt der Stundenplan die angeg
 
 \subsubsection{Durchführung}
 
-Die experimentelle Evaluation der Algorithmen erfolgte durch systematische Benchmarks, die Performance und Lösungsqualität der implementierten Ansätze unter verschiedenen Szenarien und Schwierigkeitsgraden testet.
+Die experimentelle Evaluation der Algorithmen erfolgte durch systematische Benchmarks, die Performance und Lösungsqualität der implementierten Ansätze unter verschiedenen Szenarien und Schwierigkeitsgraden testen.
 
 Die Experimente wurden auf dem Hybridair-GPU-Server der Wirtschaftsuniversität Wien durchgeführt. Die Hardware Infrastruktur hat folgende Spezifikationen:
 
@@ -61,15 +61,15 @@ Die Experimente wurden auf dem Hybridair-GPU-Server der Wirtschaftsuniversität 
     \item \textbf{Betriebssystem:} Ubuntu/Debian via Proxmox Kernel (6.8.12-11-pve)
 \end{itemize}
 
-Um eine verlässliche und gleichbleibende Testumgebung zu garantieren, wurde das Tool \textbf{benchexec} genutzt. Jeder Testlauf hatte ein Zeitlimit von 15 Sekunden und lief auf einem Prozessorkern. Um die Ergebnisse nicht zu verfälschen, wurde der Server während der Tests nicht anderweitig verwendet.
+Um eine verlässliche und gleichbleibende Testumgebung zu garantieren, wurde das Tool \textbf{benchexec} genutzt. Jeder Testlauf hatte ein Zeitlimit von 10 Sekunden und lief auf einem Prozessorkern. Um die Ergebnisse nicht zu verfälschen, wurde der Server während der Tests nicht anderweitig verwendet.
 
-Die Algorithmen wurden in 14 verschiedenen Szenarien getestet. Jedes Szenario stellt eine vorkonfigurierte Zusammensetzung von Constraints dar (definiert in JSON-Konfigurationsdateien, z.B. \texttt{constraint1.json}).
+Die Algorithmen wurden in 14 verschiedenen Szenarien getestet. Jedes Szenario stellt eine vorkonfigurierte Zusammensetzung von \textit{Constraints} dar (definiert in JSON-Konfigurationsdateien, z.B. \texttt{constraint1.json}).
 
-Der Schwierigkeitsgrad (\textit{Difficulty}) einer Probleminstanz wird durch die Anzahl der zu planenden Kurse $N$ definiert, im Gegensatz zur Laufzeit des Brute-Force-Algorithmus, die in der Originalarbeit verwendet wurde. Die Tests wurden inkrementell für jede mögliche Kursanzahl $N$, beginnend bei $N=1$ bis zur maximal möglichen Kursanzahl im jeweiligen Szenario, durchgeführt. Die maximale Kursanzahl wurde dabei vorab mithilfe des ILP-Baseline-Ansatzes ermittelt.
+Der Schwierigkeitsgrad (\textit{Difficulty}) einer Probleminstanz wird durch die Anzahl der zu planenden Kurse $N$ definiert, im Gegensatz zur Laufzeit des \textit{brute force}-Algorithmus, die in der Originalarbeit verwendet wurde. Die Tests wurden inkrementell für jede mögliche Kursanzahl $N$, beginnend bei $N=1$ bis zur maximal möglichen Kursanzahl im jeweiligen Szenario, durchgeführt. Die maximale Kursanzahl wurde dabei vorab mithilfe des ILP-Baseline-Ansatzes ermittelt.
 
 % \paragraph{Ablauf der Messung}
 
-Für jeden Algorithmus ($A \in \{\text{ILP, ILP GPU, Offering-Order, Hill-Climbing V1, Hill-Climbing V3}\}$), für jede Kursanzahl $N$ und für jedes Szenario $S$ wurde die Messreihe wie folgt durchgeführt:
+Für jeden Algorithmus ($A \in \{ \text{ILP}, \allowbreak \text{ILP GPU}, \allowbreak \text{Offering-Order}, \allowbreak \text{Hill-Climbing v1}, \allowbreak \text{Hill-Climbing v3} \}$), für jede Kursanzahl $N$ und für jedes Szenario $S$ wurde die Messreihe wie folgt durchgeführt:
 
 \begin{enumerate}
     \item Jeder Algorithmus wurde für eine feste Kursanzahl $N$ 50 Mal unabhängig voneinander ausgeführt.

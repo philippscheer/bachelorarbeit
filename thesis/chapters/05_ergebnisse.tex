@@ -1,7 +1,7 @@
 \section{Ergebnisse}\label{chap:ergebnisse}
 
 
-Im Folgenden werden die Ergebnisse der Benchmarks vorgestellt. Dabei wird einmal ein komplettes Ergebnisset vorgestellt (\textit{Mark}, Laufzeit, Hauptspeicher und VRAM). Bei allen folgenden Ergebnissen werden nur Abweichungen hervorgehoben. Alle Charts finden sich im Kapitel \ref{chap:appendix}.
+Im Folgenden werden die Benchmark-Ergebnisse präsentiert. Für den ersten Datensatz wird ein vollständiges Ergebnisset aufgeführt (\textit{Mark}, Laufzeit, Hauptspeicher und VRAM). Bei allen nachfolgenden Ergebnissen werden ausschließlich relevante Abweichungen hervorgehoben. Sämtliche Diagramme sind in Kapitel \ref{chap:appendix} zu finden.
 
 
 \input{functions/markChart}
@@ -12,17 +12,14 @@ Im Folgenden werden die Ergebnisse der Benchmarks vorgestellt. Dabei wird einmal
 \subsection{Szenario 1: Keine Kurse an Montagen}
 
 
-An diesem Szenario ist interessant, dass Offering-Order anfangs bessere Stundenpläne zusammenstellt als Hill-Climbing. Hervorzuheben am Memory-Chart ist, dass bei Schwierigkeit 11 der ILP GPU Hautspeicher nach oben springt, während er in den meisten anderen Szenarien sehr konstant verläuft. Auch ILP CPU Hauptspeicher springt nach oben, wenn auch nur leicht. Der Offering Order Hauptspeicher sinkt nach Schwierigkeit 10 schnell ab.
+In diesem Szenario liefert \textit{Offering-Order} bei geringen Schwierigkeitsstufen qualitativ bessere Stundenpläne als \textit{Hill-Climbing}. Auffällig im Memory-Chart ist ein deutlicher Anstieg des Hauptspeichers bei ILP GPU ab Schwierigkeitsstufe 11, während die Hauptspeicher-Nutzung in den übrigen Szenarien weitgehend konstant bleibt. Ein leichter Anstieg ist auch beim ILP-CPU-Hauptspeicher zu beobachten. Die Hauptspeicher-Nutzung von \textit{Offering-Order} sinkt ab Schwierigkeitsstufe 10 merklich ab.
 \vspace{1cm}
 
 
 \markChart[13]{../reports/csv/score_diff__constraint_4411_no_mondays.csv}
-\vspace{1cm}
 \timingChart[13]{../reports/csv/timing_diff__constraint_4411_no_mondays.csv}
-\memoryChart[13]{../reports/csv/memory_diff__constraint_4411_no_mondays.csv}
-
-
 \vspace{1cm}
+\memoryChart[13]{../reports/csv/memory_diff__constraint_4411_no_mondays.csv}
 \vramChart[13]{../reports/csv/memory_diff__constraint_4411_no_mondays.csv}
 \newpage
 
@@ -33,13 +30,13 @@ An diesem Szenario ist interessant, dass Offering-Order anfangs bessere Stundenp
 \subsection{Szenario 2: Keine Kurse an Freitagen}
 
 
-Verglichen mit Szenario 1 stellt Offering-Order schlechtere Stundenpläne zusammen als Hill-Climbing. Die Laufzeit verhält sich ähnlich wie bei Szenario 1, jedoch ist ILP GPU konstant langsamer als ILP CPU. Bei Schwierigkeit 14, ist Offering-Order ins Timeout gelaufen. Der Hauptspeicher bei ILP und ILP GPU verhält sich jetzt konstant. Der VRAM ist konstant bei 23.7 GB.
+Im Vergleich zu Szenario 1 erzielen die Stundenpläne von \textit{Offering-Order} eine geringere Qualität als \textit{Hill-Climbing}. Das Laufzeitverhalten verhält sich ähnlich wie in Szenario 1, wobei ILP GPU durchgehend höhere Laufzeiten aufweist als ILP CPU. Bei Schwierigkeitsstufe 14 überschreitet \textit{Offering-Order} das vorgegebene Timeout von 10 Sekunden. Der Hauptspeicherverbrauch von ILP CPU und ILP GPU ist in diesem Szenario konstant. Der VRAM-Verbrauch liegt konstant bei 13,7 GB.
 \vspace{1cm}
 
 
 \markChart[14]{../reports/csv/score_diff__constraint_4412_no_fridays.csv}
-\vspace{1cm}
 \timingChart[14]{../reports/csv/timing_diff__constraint_4412_no_fridays.csv}
+\vspace{1cm}
 \memoryChart[14]{../reports/csv/memory_diff__constraint_4412_no_fridays.csv}
 \newpage
 
@@ -50,7 +47,7 @@ Verglichen mit Szenario 1 stellt Offering-Order schlechtere Stundenpläne zusamm
 \subsection{Szenario 3: Jeder Tag der Woche bis 9:45 frei}
 
 
-Die Ergebnisse verhalten sich ähnlich wie vorhin. Interessant ist, dass Hill-Climbing v3 trotz kleinerem Suchraum, zwischen Schwierigkeit 4 und 7 bessere Stundenpläne findet.
+Die Ergebnisse verhalten sich weitgehend analog zu den vorherigen Szenarien. Bemerkenswert ist, dass \textit{Hill-Climbing v3} trotz des reduzierten Suchraums zwischen den Schwierigkeitsstufen 4 und 7 bessere Stundenpläne generiert als \textit{Hill-Climbing v1}.
 \vspace{1cm}
 
 
@@ -64,7 +61,7 @@ Die Ergebnisse verhalten sich ähnlich wie vorhin. Interessant ist, dass Hill-Cl
 \subsection{Szenario 4: Keine Kurse an Donnerstagen und Freitagen}
 
 
-Ähnliche Ergebnisse wie Szenario 2.
+Die Ergebnisse sind mit denen aus Szenario 2 vergleichbar.
 \vspace{1cm}
 
 
@@ -79,7 +76,7 @@ Die Ergebnisse verhalten sich ähnlich wie vorhin. Interessant ist, dass Hill-Cl
 \subsection{Szenario 5: Erhöhte Priorität (+90) für Nachmittags, negative Priorität (-90) für Abend}
 
 
-Interessant ist, zu sehen, dass bei steigender Schwierigkeit Offering-Order und ILP CPU stark steigende Laufzeiten haben, während ILP GPU nur leicht betroffen und Hill-Climbing gar nicht betroffen ist. Offering-Order läuft bei Schwierigkeit 17 ins Timeout.
+Mit steigender Schwierigkeitsstufe sind bei \textit{Offering-Order} und ILP CPU zunehmende Laufzeiten zu sehen. ILP GPU ist davon weniger betroffen, während \textit{Hill-Climbing} keine nennenswerte Laufzeitveränderung zeigt. Bei Schwierigkeitsstufe 17 überschreitet \textit{Offering-Order} das Timeout.
 \vspace{1cm}
 
 
@@ -95,7 +92,7 @@ Interessant ist, zu sehen, dass bei steigender Schwierigkeit Offering-Order und 
 \subsection{Szenario 6: Erhöhte Priorität (+70) für Vormittag, neutrale Priorität (0) für Nachmittag, negative Priorität (-80) für Abend}
 
 
-Interessant ist, dass Hill-Climbing v3 und Offering-Order auch bei steigender Schwierigkeit noch mögliche Lösungen findet, während Hill-Climbing v1 früher aussteigt. Man kann an der Laufzeit-Grafik das Verhalten sehen, dass Offering-Order sich bei steigender Schwierigkeit wie Brute-Force verhält durch häufiges Backtracking (steigende Laufzeit).
+\textit{Hill-Climbing v3} und \textit{Offering-Order} finden auch bei höheren Schwierigkeitsstufen noch gültige Lösungen, während \textit{Hill-Climbing v1} bei niedrigeren Schwierigkeitsstufen keine Lösung mehr produziert. In der Laufzeitgrafik ist erkennbar, dass die Laufzeit von \textit{Offering-Order} mit steigender Schwierigkeit stark zunimmt, was auf häufiges \textit{Backtracking} zurückzuführen ist und ein damit verbundenes \textit{brute force}-ähnliches Suchverhalten zeigt.
 \vspace{1cm}
 
 
@@ -111,7 +108,7 @@ Interessant ist, dass Hill-Climbing v3 und Offering-Order auch bei steigender Sc
 \subsection{Szenario 7: Studierende müssen von 12:00 bis 13:00 Zeit für ein Mittagessen haben}
 
 
-Hier wie bei Szenario 1: Hill-Climbing v3 stellt zwischen Schwierigkeit 6 und 10 trotz begrenztem Suchraum bessere Stundenpläne zusammen, als Hill-Climbing v1. Hier performt Offering-Order bei größeren Schwierigkeitsstufen immer besser bei sinkender Laufzeit.
+Analog zu Szenario 1 erzielt \textit{Hill-Climbing v3} zwischen den Schwierigkeitsstufen 6 und 10 trotz eingeschränktem Suchraum bessere Planqualitäten als \textit{Hill-Climbing v1}. Bei höheren Schwierigkeitsstufen verbessern sich die Ergebnisse von \textit{Offering-Order}, während die Laufzeit gleichzeitig sinkt.
 \vspace{1cm}
 
 
@@ -127,12 +124,12 @@ Hier wie bei Szenario 1: Hill-Climbing v3 stellt zwischen Schwierigkeit 6 und 10
 \subsection{Szenario 8: Studierende müssen mehr als einen Kurs pro Tag besuchen}
 
 
-Hier schwanken die Ergebnisse besonders stark. Sowohl hinsichtlich der Qualität als auch Laufzeit und Hauptspeicher.
-\vspace{1cm}
+In diesem Szenario weisen die Ergebnisse besonders hohe Schwankungen in der Qualität der Stundenpläne, der Laufzeiten und dem Hauptspeicherverbrauch auf. \vspace{1cm}
 
 \markChart[9]{../reports/csv/score_diff__constraint_4432_more_than_one_course_a_day.csv}
 \vspace{1cm}
 \timingChart[9]{../reports/csv/timing_diff__constraint_4432_more_than_one_course_a_day.csv}
+\vspace{1cm}
 \memoryChart[9]{../reports/csv/memory_diff__constraint_4432_more_than_one_course_a_day.csv}
 \newpage
 
@@ -143,7 +140,7 @@ Hier schwanken die Ergebnisse besonders stark. Sowohl hinsichtlich der Qualität
 \subsection{Szenario 9: Studierende dürfen nicht mehr als drei Kurse pro Tag besuchen}
 
 
-Interessant ist, dass mit steigender Laufzeit ILP CPU immer langsamer wird und bei Schwierigkeit 14 von ILP GPU bezüglich der Laufzeit unterboten wird.
+Mit steigender Schwierigkeitsstufe nimmt die Laufzeit von ILP CPU kontinuierlich zu, sodass ab Schwierigkeitsstufe 14 ILP GPU eine geringere Laufzeit aufweist als ILP CPU.
 \vspace{1cm}
 
 
@@ -159,11 +156,9 @@ Interessant ist, dass mit steigender Laufzeit ILP CPU immer langsamer wird und b
 \subsection{Szenario 10: Alle Kurse können frei von Constraints gewählt werden}
 
 
-Ähnliche Ergebnisse wie Szenario 9.
+Die Ergebnisse sind mit denen aus Szenario 9 vergleichbar.
 \vspace{1cm}
 
-
-\newpage
 
 
 
@@ -172,12 +167,10 @@ Interessant ist, dass mit steigender Laufzeit ILP CPU immer langsamer wird und b
 \subsection{Szenario 11: 25\%- 75\% aller Kurse können nicht belegt werden.}
 
 
-Ähnliche Ergebnisse wie Szenario 2.
+Die Ergebnisse sind mit denen aus Szenario 2 vergleichbar.
 \vspace{1cm}
 
-
 \newpage
-
 
 
 
@@ -185,7 +178,7 @@ Interessant ist, dass mit steigender Laufzeit ILP CPU immer langsamer wird und b
 \subsection{Szenario 12: 1 - 7 Kurse sind vorgegeben}
 
 
-Interessant ist, dass Offering-Order besonders schlecht performt und ab Schwierigkeit 5 gar keine Ergebnisse mehr produziert und nur noch ins Timeout läuft.
+\textit{Offering-Order} zeigt in diesem Szenario besonders schwache Leistungen. Ab Schwierigkeitsstufe 5 produziert \textit{Offering-Order} keine Ergebnisse mehr und überschreitet durchgehend das Timeout.
 \vspace{1cm}
 
 
@@ -202,10 +195,10 @@ Interessant ist, dass Offering-Order besonders schlecht performt und ab Schwieri
 
 
 
-\subsection{Szenario 13: Keine Kurse zwischem 6:00 morgens und 13:00}
+\subsection{Szenario 13: Keine Kurse zwischen 6:00 morgens und 13:00}
 
 
-Interessant ist, dass Hill-Climbing v3 durchgehend bessere Ergebnisse als Hill-Climbing v1 erzielt.
+\textit{Hill-Climbing v3} erzielt in diesem Szenario über alle Schwierigkeitsstufen hinweg durchgehend bessere Ergebnisse als \textit{Hill-Climbing v1}.
 \vspace{1cm}
 
 
@@ -221,7 +214,7 @@ Interessant ist, dass Hill-Climbing v3 durchgehend bessere Ergebnisse als Hill-C
 \subsection{Szenario 14: Keine Kurse Montags, Dienstags und Mittwochs}
 
 
-%  \vspace{1cm}
+\textit{Offering-Order} erzielt in diesem Szenario bei höheren Schwierigkeitsstufen noch Ergebnisse, während \textit{Hill-Climbing v1} und \textit{v3} keine gültigen Stundenpläne mehr erstellen. Die ILP CPU-Laufzeit ist durchgehend niedriger als die der ILP GPU Implementierung.
 
 
 \markChart[8]{../reports/csv/score_diff__constraint_4445_no_course_monday_tuesday_wednesday.csv}
