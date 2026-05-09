@@ -1,224 +1,451 @@
 \section{Ergebnisse}\label{chap:ergebnisse}
 
-
-Im Folgenden werden die Benchmark-Ergebnisse präsentiert. Für den ersten Datensatz wird ein vollständiges Ergebnisset aufgeführt (\textit{Mark}, Laufzeit, Hauptspeicher und VRAM). Bei allen nachfolgenden Ergebnissen werden ausschließlich relevante Abweichungen hervorgehoben. Sämtliche Diagramme sind in Kapitel \ref{chap:appendix} zu finden.
-
+Im Folgenden werden die Benchmark-Ergebnisse präsentiert. Für das erste Szenario wird ein
+vollständiger Ergebnissatz aufgeführt (\textit{Mark}, Laufzeit, Hauptspeicher und VRAM). Bei
+allen nachfolgenden Ergebnissen werden ausschließlich relevante Abweichungen hervorgehoben.
+Sämtliche Diagramme sind in Kapitel \ref{chap:appendix} zu finden.
 
 \input{functions/markChart}
 \input{functions/memoryChart}
 \input{functions/timingChart}
 
 
+% -----------------------------------------------------------------------
 \subsection{Szenario 1: Keine Kurse an Montagen}
 
+Bis Schwierigkeitsstufe 10 findet \textit{Offering-Order} stets den optimalen Stundenplan und
+erreicht konstant 100\,\% des ILP-Optimums. \textit{Hill-Climbing v1} und \textit{v3} liefern
+in diesem Bereich gleichwertige Ergebnisse: Bei den Stufen 1--3 erzielen beide ebenfalls
+100\,\%, sinken jedoch bis Stufe 9 leicht auf 96--97\,\% ab und bleiben damit durchgehend
+hinter \textit{Offering-Order}. Ab Schwierigkeitsstufe 10 divergieren die beiden Varianten:
+\textit{Hill-Climbing v1} hält sich bei den Stufen 11 und 12 stabil bei rund 94\,\%, während
+\textit{Hill-Climbing v3} von 95\,\% bei Stufe 10 auf 90\,\% bei Stufe 11 und weiter auf
+ca.\,88\,\% bei Stufe 12 abfällt und bei Stufe 13 keine gültige Lösung mehr findet. Die
+Lösungsqualität von \textit{Offering-Order} bricht ab Schwierigkeitsstufe 10 deutlich ein ---
+von 100\,\% auf ca.\,90\,\% --- und fällt damit unter jene von \textit{Hill-Climbing v1}.
 
-In diesem Szenario liefert \textit{Offering-Order} bei geringen Schwierigkeitsstufen qualitativ bessere Stundenpläne als \textit{Hill-Climbing}. Auffällig im Memory-Chart ist ein deutlicher Anstieg des Hauptspeichers bei ILP GPU ab Schwierigkeitsstufe 11, während die Hauptspeicher-Nutzung in den übrigen Szenarien weitgehend konstant bleibt. Ein leichter Anstieg ist auch beim ILP-CPU-Hauptspeicher zu beobachten. Die Hauptspeicher-Nutzung von \textit{Offering-Order} sinkt ab Schwierigkeitsstufe 10 merklich ab.
 \vspace{1cm}
-
-
 \markChart[13]{../reports/csv/score_diff__constraint_4411_no_mondays.csv}
+
+\newpage
+
+Bis Schwierigkeitsstufe 10 steigen die Laufzeiten von \textit{Hill-Climbing v1} und
+\textit{v3} gleichmäßig an --- von jeweils rund 0{,}1\,s bei Stufe 1 auf ca.\,0{,}9\,s bei
+Stufe 10. ILP weist mit konstant ca.\,0{,}35\,s eine höhere, aber stabile Laufzeit auf, die
+selbst bei niedrigen Schwierigkeitsgraden über jener der \textit{Hill-Climbing}-Varianten
+liegt. ILP GPU steigt im selben Bereich von 0{,}07\,s auf 0{,}5\,s an. \textit{Offering-Order}
+bleibt bis Stufe 10 konstant bei ca.\,0{,}17\,s und ist damit der schnellste Algorithmus.
+Auffällig ist, dass ab Schwierigkeitsstufe 10 die Laufzeiten --- mit Ausnahme von
+\textit{Hill-Climbing v1} --- zurückgehen: \textit{Hill-Climbing v3} sinkt von 0{,}9\,s auf
+0{,}6\,s, ILP von 0{,}35\,s auf 0{,}2\,s, und \textit{Offering-Order} besonders stark von
+0{,}18\,s auf 0{,}05\,s.
+
+\vspace{1cm}
 \timingChart[13]{../reports/csv/timing_diff__constraint_4411_no_mondays.csv}
+
+\newpage
+
+Bis Schwierigkeitsgrad 10 ist die Hauptspeichernutzung aller Algorithmen konstant, jedoch auf
+deutlich unterschiedlichen Niveaus: ILP CPU belegt stabil ca.\,1{,}3\,MB und
+\textit{Offering-Order} ca.\,2{,}3\,MB, während \textit{Hill-Climbing v1},
+\textit{Hill-Climbing v3} und ILP GPU mit jeweils ca.\,35\,KB deutlich darunter liegen. Ab
+Schwierigkeitsgrad 10 verschiebt sich dieses Bild: Die Speichernutzung von ILP GPU steigt auf
+ca.\,1{,}3\,MB an und nähert sich damit dem Niveau von ILP CPU, während
+\textit{Offering-Order} auf ca.\,35\,KB fällt. Alle übrigen Algorithmen bleiben stabil.
+
 \vspace{1cm}
 \memoryChart[13]{../reports/csv/memory_diff__constraint_4411_no_mondays.csv}
+
+\newpage
+
+Die VRAM-Auslastung von ILP GPU beträgt über alle gemessenen Schwierigkeitsstufen konstant
+ca.\,14\,Gigabyte.
+
+\vspace{1cm}
 \vramChart[13]{../reports/csv/memory_diff__constraint_4411_no_mondays.csv}
+
 \newpage
 
 
-
-
-
+% -----------------------------------------------------------------------
 \subsection{Szenario 2: Keine Kurse an Freitagen}
 
+Die Lösungsqualität von \textit{Hill-Climbing v1} und \textit{v3} entwickelt sich bis
+Schwierigkeitsgrad 10 identisch: Ausgehend von 100\,\% bei den Stufen 1--3 sinkt sie
+kontinuierlich auf ca.\,94\,\% bei Stufe 10. Ab Schwierigkeitsgrad 11 divergieren die beiden
+Varianten --- \textit{Hill-Climbing v3} fällt auf 88\,\%, während \textit{Hill-Climbing v1}
+mit 89\,\% leicht besser abschneidet. \textit{Offering-Order} liegt über alle
+Schwierigkeitsstufen hinweg unter beiden \textit{Hill-Climbing}-Varianten und sinkt von
+95\,\% bei Stufe 2 auf ca.\,86\,\% bei Stufe 13.
 
-Im Vergleich zu Szenario 1 erzielen die Stundenpläne von \textit{Offering-Order} eine geringere Qualität als \textit{Hill-Climbing}. Das Laufzeitverhalten verhält sich ähnlich wie in Szenario 1, wobei ILP GPU durchgehend höhere Laufzeiten aufweist als ILP CPU. Bei Schwierigkeitsstufe 14 überschreitet \textit{Offering-Order} das vorgegebene Timeout von 10 Sekunden. Der Hauptspeicherverbrauch von ILP CPU und ILP GPU ist in diesem Szenario konstant. Der VRAM-Verbrauch liegt konstant bei 13,7 GB.
 \vspace{1cm}
-
-
 \markChart[14]{../reports/csv/score_diff__constraint_4412_no_fridays.csv}
+
+\newpage
+
+Die Laufzeiten von \textit{Hill-Climbing v1} und \textit{v3} steigen mit zunehmender
+Schwierigkeit an: \textit{Hill-Climbing v1} wächst von 0{,}15\,s bei Stufe 1 auf bis zu
+0{,}95\,s bei den Stufen 12--14, \textit{Hill-Climbing v3} von 0{,}1\,s auf 0{,}58\,s bei
+den Stufen 10--13. \textit{Offering-Order} bleibt durchgehend der schnellste Algorithmus und
+hält sich stabil zwischen 0{,}08\,s bei Stufe 1 und 0{,}06\,s bei Stufe 13. ILP CPU und ILP
+GPU weisen konstante, aber höhere Laufzeiten auf --- ca.\,0{,}30\,s bzw.\,0{,}67\,s ---, wobei
+die Laufzeit von ILP CPU ab Schwierigkeitsgrad 6 leicht zwischen 0{,}33\,s und 0{,}69\,s
+schwankt.
+
+\vspace{1cm}
 \timingChart[14]{../reports/csv/timing_diff__constraint_4412_no_fridays.csv}
+
+\newpage
+
+Die Hauptspeicherauslastung ist in diesem Szenario über alle Schwierigkeitsstufen hinweg
+konstant. ILP CPU belegt mit ca.\,4\,MB den höchsten Speicherbedarf, gefolgt von ILP GPU mit
+ca.\,2{,}1\,MB. \textit{Hill-Climbing v1}, \textit{Hill-Climbing v3} und
+\textit{Offering-Order} belegen mit ca.\,40\,KB, 33\,KB bzw.\,26\,KB deutlich weniger
+Speicher.
+
 \vspace{1cm}
 \memoryChart[14]{../reports/csv/memory_diff__constraint_4412_no_fridays.csv}
+
 \newpage
 
 
-
-
-
+% -----------------------------------------------------------------------
 \subsection{Szenario 3: Jeder Tag der Woche bis 9:45 frei}
 
+Die Ergebnisse verlaufen weitgehend analog zu den vorigen Szenarien. Bemerkenswert ist, dass
+\textit{Hill-Climbing v3} trotz des reduzierten Suchraums zwischen den Schwierigkeitsstufen 4
+und 7 bessere Stundenpläne generiert als \textit{Hill-Climbing v1}: \textit{Hill-Climbing v3}
+hält in diesem Bereich konstant 100\,\%, während \textit{Hill-Climbing v1} auf 98--99\,\%
+absinkt. Ab Stufe 7 kehrt sich dieses Verhältnis um --- bei Stufe 12 etwa erzielt
+\textit{Hill-Climbing v1} 94\,\% gegenüber 90\,\% bei \textit{Hill-Climbing v3}. Auffällig
+ist zudem, dass \textit{Offering-Order} bei Schwierigkeitsstufe 14 mit 94\,\% einen besseren
+Stundenplan erzeugen konnte als \textit{Hill-Climbing v1} mit 92\,\%.
 
-Die Ergebnisse verhalten sich weitgehend analog zu den vorherigen Szenarien. Bemerkenswert ist, dass \textit{Hill-Climbing v3} trotz des reduzierten Suchraums zwischen den Schwierigkeitsstufen 4 und 7 bessere Stundenpläne generiert als \textit{Hill-Climbing v1}.
 \vspace{1cm}
-
-
 \markChart[14]{../reports/csv/score_diff__constraint_4413_everyday_free_until_0945.csv}
+
 \newpage
 
 
-
-
-
+% -----------------------------------------------------------------------
 \subsection{Szenario 4: Keine Kurse an Donnerstagen und Freitagen}
 
+Auch hier verhalten sich die Ergebnisse weitgehend analog zu den vorherigen Szenarien.
+Auffällig ist, dass \textit{Hill-Climbing v1} und \textit{v3} über alle Schwierigkeitsstufen
+hinweg identische Ergebnisse liefern. \textit{Offering-Order} hält gut mit, liegt bei
+einzelnen Schwierigkeitsgraden jedoch leicht darunter: bei Stufe 4 etwa 95\,\% gegenüber
+99\,\%, bei Stufe 6 93\,\% gegenüber 95\,\%, bei Stufe 7 94\,\% gegenüber 95\,\% und bei
+Stufe 9 91\,\% gegenüber 92{,}5\,\%. Interessant ist, dass \textit{Offering-Order} bei
+Schwierigkeitsgrad 11 noch eine gültige Lösung mit 89\,\% findet, während die
+\textit{Hill-Climbing}-Varianten an dieser Stelle bereits scheitern.
 
-Die Ergebnisse sind mit denen aus Szenario 2 vergleichbar.
 \vspace{1cm}
-
-
 \markChart[11]{../reports/csv/score_diff__constraint_4414_free_thursday_friday.csv}
 
 \newpage
 
 
+% -----------------------------------------------------------------------
+\subsection{Szenario 5: Erhöhte Priorität (+90) für Nachmittag, negative Priorität (-90) für Abend}
 
+Bis Schwierigkeitsstufe 5 erreichen alle heuristischen Algorithmen das optimale Ergebnis von
+100\,\%. Danach setzt eine Staffelung ein: \textit{Hill-Climbing v1} liefert die längste
+Lösungsserie --- bis Stufe 16 hält es ca.\,95\,\%, bevor es bei Stufe 17 auf 88\,\% abfällt.
+\textit{Hill-Climbing v3} produziert bis Stufe 9 stabile 99\,\%, sinkt dann jedoch
+kontinuierlich und erreicht bei Stufe 15 noch 87\,\%. \textit{Offering-Order} zeigt ein
+volatileres Bild: Bei Stufe 6 fällt die \textit{Mark} auf 85\,\% und erreicht bei Stufe 9 mit 70\,\%
+ihren niedrigsten Wert, bevor sie sich bei den Stufen 11--15 auf ca.\,88\,\% erholt. Bei Stufe
+16 fällt \textit{Offering-Order} erneut auf 72\,\% und findet ab Stufe 17 keine gültige Lösung
+mehr.
 
-
-\subsection{Szenario 5: Erhöhte Priorität (+90) für Nachmittags, negative Priorität (-90) für Abend}
-
-
-Mit steigender Schwierigkeitsstufe sind bei \textit{Offering-Order} und ILP CPU zunehmende Laufzeiten zu sehen. ILP GPU ist davon weniger betroffen, während \textit{Hill-Climbing} keine nennenswerte Laufzeitveränderung zeigt. Bei Schwierigkeitsstufe 17 überschreitet \textit{Offering-Order} das Timeout.
 \vspace{1cm}
-
-
 \markChart[17]{../reports/csv/score_diff__constraint_4421_priority.csv}
+
+\newpage
+
+Das Laufzeitverhalten ähnelt jenem aus Szenario 2. ILP zeigt bis Schwierigkeitsstufe 13 eine
+stabile Laufzeit von ca.\,0{,}55\,s, steigt danach jedoch kontinuierlich an und erreicht bei
+Stufe 17 ca.\,2\,s. \textit{Hill-Climbing v1} wächst von unter 1\,s bei den Stufen 1--2 auf
+ca.\,3\,s ab Stufe 9 und verbleibt auf diesem Niveau. \textit{Hill-Climbing v3} bleibt bis
+Stufe 6 unter 1\,s und stabilisiert sich ab Stufe 10 bei ca.\,1{,}3\,s. ILP GPU ist mit
+1{,}1--1{,}2\,s konstant. \textit{Offering-Order} läuft bis Stufe 15 stabil bei ca.\,0{,}17\,s,
+schnellt bei Stufe 16 auf 7{,}4\,s hoch und überschreitet bei Stufe 17 das Zeitlimit.
+
 \vspace{1cm}
 \timingChart[17]{../reports/csv/timing_diff__constraint_4421_priority.csv}
+
 \newpage
 
 
-
-
-
+% -----------------------------------------------------------------------
 \subsection{Szenario 6: Erhöhte Priorität (+70) für Vormittag, neutrale Priorität (0) für Nachmittag, negative Priorität (-80) für Abend}
 
+Auffällig ist, dass \textit{Hill-Climbing v3} und \textit{Offering-Order} ab
+Schwierigkeitsstufe 14 noch gültige Lösungen finden, während \textit{Hill-Climbing v1} an
+dieser Stelle bereits keine Ergebnisse mehr produziert. Gleichzeitig bleibt die
+Lösungsqualität von \textit{Hill-Climbing v1} in diesem Szenario durchgehend hoch und fällt
+nie unter 95\,\%. \textit{Hill-Climbing v3} hingegen bewegt sich zwischen den Stufen 8 und 13
+im Bereich von 90--95\,\%, fällt bei Stufe 14 auf 75\,\% und bei Stufe 15 auf 60\,\%.
+\textit{Offering-Order} findet bei Stufe 15 noch eine Lösung mit 72\,\%, schwankt aber bei
+den Stufen 16 und 17 zwischen 58\,\% und 62\,\%.
 
-\textit{Hill-Climbing v3} und \textit{Offering-Order} finden auch bei höheren Schwierigkeitsstufen noch gültige Lösungen, während \textit{Hill-Climbing v1} bei niedrigeren Schwierigkeitsstufen keine Lösung mehr produziert. In der Laufzeitgrafik ist erkennbar, dass die Laufzeit von \textit{Offering-Order} mit steigender Schwierigkeit stark zunimmt, was auf häufiges \textit{Backtracking} zurückzuführen ist und ein damit verbundenes \textit{brute force}-ähnliches Suchverhalten zeigt.
 \vspace{1cm}
-
-
 \markChart[17]{../reports/csv/score_diff__constraint_4422_priority.csv}
+
+\newpage
+
+Das Laufzeitverhalten ähnelt jenem aus Szenario 2. \textit{Hill-Climbing v1} steigt von
+0{,}5\,s bei Stufe 1 auf ca.\,5\,s ab Stufe 9, wo es sich stabilisiert. ILP GPU bleibt
+konstant bei ca.\,1{,}2\,s, während ILP CPU von 0{,}5\,s bei Stufe 1 auf maximal 1{,}3\,s bei
+Stufe 16 ansteigt. \textit{Offering-Order} hält bis Schwierigkeitsstufe 14 eine stabile
+Laufzeit von ca.\,0{,}26\,s, steigt dann jedoch stark an --- auf 0{,}5\,s bei Stufe 15, 4\,s
+bei Stufe 16 und 7\,s bei Stufe 17 --- und überschreitet bei Stufe 18 das Zeitlimit. Dieser
+starke Anstieg lässt sich auf häufiges \textit{Backtracking} zurückführen, das ein
+\textit{Brute-Force}-ähnliches Suchverhalten nach sich zieht.
+
 \vspace{1cm}
 \timingChart[17]{../reports/csv/timing_diff__constraint_4422_priority.csv}
+
 \newpage
 
 
-
-
-
+% -----------------------------------------------------------------------
 \subsection{Szenario 7: Studierende müssen von 12:00 bis 13:00 Zeit für ein Mittagessen haben}
 
+\textit{Hill-Climbing v3} erzeugt zwischen den Schwierigkeitsstufen 6 und 10 trotz
+eingeschränktem Suchraum bessere Stundenpläne als \textit{Hill-Climbing v1}: In diesem Bereich
+hält \textit{Hill-Climbing v3} konstant 100\,\%, während \textit{Hill-Climbing v1} auf 98\,\%
+abfällt. Bei höheren Schwierigkeitsstufen verbessern sich die Ergebnisse von
+\textit{Offering-Order} zunehmend: Nach einem Tiefpunkt von 78\,\% bei Stufe 5 steigt die
+Qualität kontinuierlich auf 92\,\% bei Stufe 13 und verbleibt auf diesem Niveau.
 
-Analog zu Szenario 1 erzielt \textit{Hill-Climbing v3} zwischen den Schwierigkeitsstufen 6 und 10 trotz eingeschränktem Suchraum bessere Planqualitäten als \textit{Hill-Climbing v1}. Bei höheren Schwierigkeitsstufen verbessern sich die Ergebnisse von \textit{Offering-Order}, während die Laufzeit gleichzeitig sinkt.
 \vspace{1cm}
-
-
 \markChart[17]{../reports/csv/score_diff__constraint_4431_lunch.csv}
+
+\newpage
+
+Auch die Laufzeiten verlaufen ähnlich wie in Szenario 2. \textit{Hill-Climbing v1} steigt von
+0{,}3\,s bei Stufe 1 auf ca.\,3\,s bei Stufe 9 und verbleibt auf diesem Niveau.
+\textit{Hill-Climbing v3} wächst von 0{,}2\,s auf 2\,s bei Stufe 10 und stabilisiert sich
+dort. ILP CPU und ILP GPU sind mit ca.\,0{,}22\,s bzw.\,0{,}38\,s konstant, wobei ILP GPU
+leicht höhere Laufzeiten aufweist. Bemerkenswert ist, dass die Laufzeit von
+\textit{Offering-Order} mit steigender Schwierigkeitsstufe sogar leicht abnimmt: von 0{,}17\,s
+bei den Stufen 2--8 auf 0{,}13\,s bei den Stufen 9--14 und schließlich 0{,}1\,s bei den
+Stufen 15--17.
+
 \vspace{1cm}
 \timingChart[17]{../reports/csv/timing_diff__constraint_4431_lunch.csv}
+
 \newpage
 
 
-
-
-
+% -----------------------------------------------------------------------
 \subsection{Szenario 8: Studierende müssen mehr als einen Kurs pro Tag besuchen}
 
+Die Qualität der erstellten Stundenpläne schwankt in diesem Szenario stark.
+\textit{Hill-Climbing v1} und \textit{v3} liefern bis Schwierigkeitsgrad 6 gleichwertige
+Ergebnisse, die zwischen 100\,\% bei Stufe 1 und 67\,\% bei Stufe 6 schwanken. Bei
+Schwierigkeitsgrad 7 liegt \textit{Hill-Climbing v1} mit 89\,\% knapp vor
+\textit{Hill-Climbing v3} mit 88\,\%. \textit{Offering-Order} zeigt das volatilste Verhalten:
+Die Qualität startet bei 70\,\% bei Stufe 1 und schwankt in der Folge zwischen 69\,\% bei
+Stufe 8 und 98\,\% bei Stufe 7.
 
-In diesem Szenario weisen die Ergebnisse besonders hohe Schwankungen in der Qualität der Stundenpläne, der Laufzeiten und dem Hauptspeicherverbrauch auf. \vspace{1cm}
-
+\vspace{1cm}
 \markChart[9]{../reports/csv/score_diff__constraint_4432_more_than_one_course_a_day.csv}
+
+\newpage
+
+Die Laufzeiten von ILP und ILP GPU schwanken in diesem Szenario erheblich: ILP bewegt sich
+zwischen 0{,}1\,s bei Stufe 5 und 5{,}7\,s bei Stufe 8, ILP GPU zwischen 1{,}2\,s bei Stufe
+1 und 6{,}7\,s bei Stufe 5. \textit{Hill-Climbing v1} und \textit{v3} steigen moderat an ---
+von 0{,}04\,s bzw.\,0{,}03\,s bei Stufe 1 auf 0{,}14\,s bzw.\,0{,}09\,s bei Stufe 7.
+\textit{Offering-Order} bleibt bis Schwierigkeitsgrad 8 konstant bei 0{,}13\,s und steigt
+erst bei Schwierigkeitsgrad 9 auf 0{,}6\,s an.
+
 \vspace{1cm}
 \timingChart[9]{../reports/csv/timing_diff__constraint_4432_more_than_one_course_a_day.csv}
+
+\newpage
+
+Der Hauptspeicherbedarf von ILP schwankt in diesem Szenario stark: Im Regelfall belegt ILP
+ca.\,8{,}4\,MB, fällt jedoch bei Schwierigkeitsstufe 5 auf 38\,KB und bei Stufe 7 auf
+700\,KB ab. ILP GPU bewegt sich zwischen 4{,}2\,MB und 8{,}4\,MB.
+\textit{Hill-Climbing v1}, \textit{Hill-Climbing v3} und \textit{Offering-Order} sind mit
+15--23\,KB, 23--33\,KB bzw.\,29--41\,KB konstant auf niedrigem Niveau.
+
 \vspace{1cm}
 \memoryChart[9]{../reports/csv/memory_diff__constraint_4432_more_than_one_course_a_day.csv}
+
 \newpage
 
 
-
-
-
+% -----------------------------------------------------------------------
 \subsection{Szenario 9: Studierende dürfen nicht mehr als drei Kurse pro Tag besuchen}
 
+Die Lösungsqualität von \textit{Hill-Climbing v1} und \textit{v3} ist bis Schwierigkeitsstufe
+13 gleichwertig: Ausgehend von 100\,\% bei Stufe 1 sinkt sie kontinuierlich auf 96\,\% bei
+Stufe 13 ab. Danach erzielt \textit{Hill-Climbing v1} leicht bessere Ergebnisse --- bei Stufe
+16 etwa 95\,\% gegenüber 94\,\% bei \textit{Hill-Climbing v3}. \textit{Offering-Order} liegt
+über alle Schwierigkeitsstufen hinweg unter den \textit{Hill-Climbing}-Varianten und erreicht
+bei den Stufen 8 und 9 mit 88\,\% seinen niedrigsten Wert, der damit als einziger unter die
+90\,\%-Marke fällt. Generell ist die Lösungsqualität in diesem Szenario sehr gut.
 
-Mit steigender Schwierigkeitsstufe nimmt die Laufzeit von ILP CPU kontinuierlich zu, sodass ab Schwierigkeitsstufe 14 ILP GPU eine geringere Laufzeit aufweist als ILP CPU.
 \vspace{1cm}
-
-
 \markChart[17]{../reports/csv/score_diff__constraint_4433_max_3_courses.csv}
+
+\newpage
+
+Die Laufzeit von ILP CPU steigt kontinuierlich von 0{,}3\,s bei Stufe 1 auf 1{,}8\,s bei
+Stufe 17, sodass ab Stufe 14 ILP GPU mit konstant ca.\,1\,s die kürzeren Laufzeiten aufweist.
+\textit{Hill-Climbing v1} und \textit{v3} steigen ebenfalls mit der Schwierigkeit an --- von
+0{,}2\,s bzw.\,0{,}1\,s bei Stufe 1 auf 2\,s bzw.\,1\,s bei Stufe 17. \textit{Offering-Order}
+bleibt mit ca.\,0{,}1\,s konstant auf dem niedrigsten Niveau aller Algorithmen.
+
 \vspace{1cm}
 \timingChart[17]{../reports/csv/timing_diff__constraint_4433_max_3_courses.csv}
+
 \newpage
 
 
-
-
-
+% -----------------------------------------------------------------------
 \subsection{Szenario 10: Alle Kurse können frei von Constraints gewählt werden}
 
+Die Qualität der Stundenpläne ist mit jener aus Szenario 9 vergleichbar. Die Lösungsqualität von \textit{Hill-Climbing v1} und \textit{v3} ist bis Schwierigkeitsstufe
+13 gleichwertig: Ausgehend von 100\,\% bei Stufe 1 sinkt sie kontinuierlich auf 96\,\% bei
+Stufe 13 ab. Danach erzielt \textit{Hill-Climbing v1} leicht bessere Ergebnisse --- bei Stufe
+16 etwa 95\,\% gegenüber 94\,\% bei \textit{Hill-Climbing v3}. \textit{Offering-Order} liegt
+über alle Schwierigkeitsstufen hinweg unter den \textit{Hill-Climbing}-Varianten und erreicht
+bei den Stufen 8 und 9 mit 88\,\% seinen niedrigsten Wert, der damit als einziger unter die
+90\,\%-Marke fällt. Generell ist die Lösungsqualität in diesem Szenario sehr gut.
 
-Die Ergebnisse sind mit denen aus Szenario 9 vergleichbar.
-\vspace{1cm}
-
-
-
-
-
-
-\subsection{Szenario 11: 25\%- 75\% aller Kurse können nicht belegt werden.}
-
-
-Die Ergebnisse sind mit denen aus Szenario 2 vergleichbar.
+\markChart[17]{../reports/csv/score_diff__constraint_4441_no_constraints.csv}
 \vspace{1cm}
 
 \newpage
 
+Die Laufzeit von ILP CPU steigt kontinuierlich von 0{,}3\,s bei Stufe 1 auf 1{,}8\,s bei
+Stufe 17, sodass ab Stufe 14 ILP GPU mit konstant ca.\,1\,s die kürzeren Laufzeiten aufweist.
+\textit{Hill-Climbing v1} und \textit{v3} steigen ebenfalls mit der Schwierigkeit an --- von
+0{,}2\,s bzw.\,0{,}1\,s bei Stufe 1 auf 2\,s bzw.\,1\,s bei Stufe 17. \textit{Offering-Order}
+bleibt mit ca.\,0{,}1\,s konstant auf dem niedrigsten Niveau aller Algorithmen.
 
-
-
-\subsection{Szenario 12: 1 - 7 Kurse sind vorgegeben}
-
-
-\textit{Offering-Order} zeigt in diesem Szenario besonders schwache Leistungen. Ab Schwierigkeitsstufe 5 produziert \textit{Offering-Order} keine Ergebnisse mehr und überschreitet durchgehend das Timeout.
 \vspace{1cm}
+\timingChart[17]{../reports/csv/timing_diff__constraint_4441_no_constraints.csv}
+
+\newpage
 
 
+% -----------------------------------------------------------------------
+\subsection{Szenario 11: 25\% -- 75\% aller Kurse können nicht belegt werden}
+
+Beide \textit{Hill-Climbing}-Varianten erzielen über alle Schwierigkeitsstufen hinweg
+identische Ergebnisse: Ausgehend von 100\,\% bei Stufe 1 sinkt die Lösungsqualität
+kontinuierlich auf 94\,\% bei Stufe 15. \textit{Offering-Order} liegt ab Schwierigkeitsgrad 2
+durchgehend darunter und bewegt sich zwischen den Stufen 4 und 15 im Bereich von 85--90\,\%.
+
+\vspace{1cm}
+\markChart[15]{../reports/csv/score_diff__constraint_4442_25_pct_blocked_1.csv}
+
+\newpage
+
+Die Laufzeiten von \textit{Hill-Climbing v1} und \textit{v3} steigen kontinuierlich mit der
+Schwierigkeit: \textit{Hill-Climbing v1} wächst von 0{,}13\,s bei Stufe 1 auf 1{,}2\,s bei
+Stufe 15, \textit{Hill-Climbing v3} von 0{,}09\,s auf 0{,}7\,s. \textit{Offering-Order} bleibt
+bis Schwierigkeitsgrad 14 konstant bei ca.\,0{,}07\,s und steigt bei Stufe 15 deutlich auf
+0{,}4\,s an --- womit es über alle Stufen der schnellste Algorithmus ist. ILP GPU ist mit
+ca.\,0{,}7\,s konstant. ILP CPU zeigt bis Schwierigkeitsgrad 6 eine stabile Laufzeit von
+ca.\,0{,}36\,s und steigt danach leicht auf 0{,}5--0{,}6\,s an.
+
+\vspace{1cm}
+\timingChart[15]{../reports/csv/timing_diff__constraint_4442_25_pct_blocked_1.csv}
+
+\newpage
+
+
+% -----------------------------------------------------------------------
+\subsection{Szenario 12: 1 -- 7 Kurse sind vorgegeben}
+
+\textit{Offering-Order} zeigt in diesem Szenario besonders schwache Leistungen: Bei Stufe 1
+erreicht der Algorithmus noch 100\,\%, fällt bei Stufe 2 jedoch abrupt auf 30\,\% und hält
+sich bei den Stufen 3 und 4 bei ca.\,27\,\%, bevor er ab Schwierigkeitsstufe 5 das Zeitlimit
+überschreitet und keine Ergebnisse mehr produziert. \textit{Hill-Climbing v1} und \textit{v3}
+liefern bis Schwierigkeitsstufe 12 gleichwertige Ergebnisse im Bereich von 100\,\% bis
+ca.\,95\,\%; danach erzeugt \textit{Hill-Climbing v1} leicht bessere Stundenpläne --- bei
+Stufe 16 etwa 93\,\% gegenüber 91\,\% bei \textit{Hill-Climbing v3}.
+
+\vspace{1cm}
 \markChart[17]{../reports/csv/score_diff__constraint_4443_1_scheduled_1.csv}
-% \markChart[18]{../reports/csv/score_diff__constraint_4443_1_scheduled_2.csv}
-% \markChart[18]{../reports/csv/score_diff__constraint_4443_1_scheduled_3.csv}
+
+\newpage
+
+Die Laufzeiten beider \textit{Hill-Climbing}-Varianten steigen kontinuierlich mit zunehmender
+Schwierigkeit: \textit{Hill-Climbing v1} wächst von 0{,}18\,s bei Stufe 1 auf 2{,}7\,s bei
+Stufe 17, \textit{Hill-Climbing v3} von 0{,}1\,s auf 1{,}3\,s bei Stufe 16.
+\textit{Offering-Order} weist mit konstant 0{,}13\,s stabil geringe Laufzeiten auf, läuft
+jedoch bereits ab Schwierigkeitsstufe 4 ins Zeitlimit.
+
 \vspace{1cm}
 \timingChart[17]{../reports/csv/timing_diff__constraint_4443_1_scheduled_1.csv}
-% \timingChart[18]{../reports/csv/timing_diff__constraint_4443_1_scheduled_2.csv}
-% \timingChart[18]{../reports/csv/timing_diff__constraint_4443_1_scheduled_3.csv}
+
 \newpage
 
 
+% -----------------------------------------------------------------------
+\subsection{Szenario 13: Keine Kurse zwischen 6:00 Uhr morgens und 13:00 Uhr}
 
+\textit{Hill-Climbing v3} erzielt in diesem Szenario ab Schwierigkeitsstufe 3 durchgehend
+bessere Ergebnisse als \textit{Hill-Climbing v1}: Bei den Stufen 1--3 erzielen beide noch
+100\,\%; bei den Stufen 4 und 5 hält \textit{Hill-Climbing v3} 100\,\%, während
+\textit{Hill-Climbing v1} bereits zurückfällt. Dieser Vorsprung wächst mit der Schwierigkeit
+--- bei Stufe 10 etwa erreicht \textit{Hill-Climbing v3} 92\,\%, \textit{Hill-Climbing v1}
+nur 83\,\%. Bemerkenswert ist, dass \textit{Hill-Climbing v3} und \textit{Offering-Order} bei
+Schwierigkeitsstufe 11 noch gültige Lösungen finden, obwohl \textit{Hill-Climbing v1} hier
+bereits scheitert --- und das, obwohl der Suchraum bei \textit{Hill-Climbing v3} eingeschränkt
+ist. \textit{Offering-Order} bewegt sich bei den Stufen 1--3 bei 100\,\% und schwankt danach
+zwischen 82\,\% (Stufe 10) und 92\,\% (Stufe 7).
 
-
-\subsection{Szenario 13: Keine Kurse zwischen 6:00 morgens und 13:00}
-
-
-\textit{Hill-Climbing v3} erzielt in diesem Szenario über alle Schwierigkeitsstufen hinweg durchgehend bessere Ergebnisse als \textit{Hill-Climbing v1}.
 \vspace{1cm}
-
-
 \markChart[11]{../reports/csv/score_diff__constraint_4444_no_course_between_6_and_13.csv}
+
+\newpage
+
+Die Laufzeiten der \textit{Hill-Climbing}-Varianten steigen gleichmäßig mit zunehmender
+Schwierigkeit: \textit{Hill-Climbing v1} wächst von 0{,}13\,s bei Stufe 1 auf 0{,}84\,s bei
+Stufe 10, \textit{Hill-Climbing v3} von 0{,}11\,s auf 0{,}7\,s. \textit{Offering-Order} ist
+die schnellste Heuristik und hält bei den Stufen 1--6 ca.\,0{,}07\,s, sinkt bis Stufe 10
+sogar leicht auf 0{,}04\,s, bevor es bei Stufe 11 mit 2{,}4\,s einen deutlichen Anstieg
+verzeichnet.
+
 \vspace{1cm}
 \timingChart[11]{../reports/csv/timing_diff__constraint_4444_no_course_between_6_and_13.csv}
+
 \newpage
 
 
+% -----------------------------------------------------------------------
+\subsection{Szenario 14: Keine Kurse am Montag, Dienstag und Mittwoch}
 
+\textit{Offering-Order} erzielt in diesem Szenario bei den Schwierigkeitsstufen 7 und 8 noch
+gültige Lösungen, während \textit{Hill-Climbing v1} und \textit{v3} an dieser Stelle bereits
+scheitern. \textit{Hill-Climbing v1} erreicht bei den Stufen 1--4 noch 100\,\% und sinkt bis
+Stufe 6 auf 94\,\%, findet danach jedoch keine Lösung mehr. \textit{Hill-Climbing v3} fällt
+nach 100\,\% bei den Stufen 1--3 bereits bei Stufe 4 auf 90\,\% und bei Stufe 5 auf 86\,\% ab.
+\textit{Offering-Order} hält bei den Stufen 1--4 ebenfalls 100\,\%, erreicht bei den Stufen
+6 und 7 seinen niedrigsten Wert von 94\,\% und steigt bei Stufe 8 wieder auf 96\,\%.
 
-
-\subsection{Szenario 14: Keine Kurse Montags, Dienstags und Mittwochs}
-
-
-\textit{Offering-Order} erzielt in diesem Szenario bei höheren Schwierigkeitsstufen noch Ergebnisse, während \textit{Hill-Climbing v1} und \textit{v3} keine gültigen Stundenpläne mehr erstellen. Die ILP CPU-Laufzeit ist durchgehend niedriger als die der ILP GPU Implementierung.
-
-
+\vspace{1cm}
 \markChart[8]{../reports/csv/score_diff__constraint_4445_no_course_monday_tuesday_wednesday.csv}
+
+\newpage
+
+Die Laufzeit von ILP CPU ist mit konstant ca.\,0{,}03\,s durchgehend niedriger als jene von
+ILP GPU mit ca.\,0{,}18\,s. \textit{Hill-Climbing v1} steigt von 0{,}03\,s bei Stufe 1 auf
+0{,}07\,s bei Stufe 4 und verbleibt dort bis Stufe 6. \textit{Hill-Climbing v3} wächst von
+0{,}03\,s auf 0{,}04\,s bei Stufe 2 und stabilisiert sich bis Stufe 5 auf diesem Niveau.
+\textit{Offering-Order} ist die schnellste Heuristik und läuft konstant bei ca.\,0{,}01\,s,
+verzeichnet bei Schwierigkeitsstufe 8 jedoch einen Anstieg auf 0{,}18\,s.
+
 \vspace{1cm}
 \timingChart[8]{../reports/csv/timing_diff__constraint_4445_no_course_monday_tuesday_wednesday.csv}
-\newpage
 
+\newpage

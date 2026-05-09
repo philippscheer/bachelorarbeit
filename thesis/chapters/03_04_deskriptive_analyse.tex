@@ -1,161 +1,139 @@
-\subsection{Deskriptive Analyse}
+\subsection{Deskriptive Analyse}\label{chap:deskriptive_analyse}
 
 Um die Komplexität des Datensatzes und des Optimierungsproblems zu quantifizieren, wurde eine deskriptive Analyse durchgeführt. In der Analyse wurden nur \textit{Offerings} aus dem Hauptstudium Wirtschaftsinformatik des Bachelor Wirtschafts- und Sozialwissenschaften im Sommersemester 2025 berücksichtigt.
 
-Der vollständige Datensatz besteht aus insgesamt 381 \textit{Offerings} ($|\mathcal{O}|$) und 28 \textit{Courses}, woraus sich eine durchschnittliche Anzahl von 13.6 \textit{Offerings} pro \textit{Course} ergibt. Eine genauere Analyse zeigt, dass die \textit{Offerings} sehr ungleichmäßig verteilt sind: Während die Mehrheit der \textit{Courses} (über 50 \%) zwei oder drei Angebote aufweist, gibt es einzelne Ausreißer mit bis zu 44 Angeboten. Diese starke Rechtsschiefe der Verteilung zeigt, dass der statistische Mittelwert durch wenige, sehr angebotsintensive \textit{Courses} nach oben verzerrt wird, während der Median deutlich unter dem Durchschnitt liegt.
+Der vollständige Datensatz besteht aus insgesamt 381 \textit{Offerings} ($|\mathcal{O}|$) und 28 \textit{Courses}, woraus sich eine durchschnittliche Anzahl von 13{,}6 \textit{Offerings} pro \textit{Course} ergibt. Eine genauere Analyse zeigt, dass die \textit{Offerings} sehr ungleichmäßig verteilt sind: Während die Mehrheit der \textit{Courses} (über 50 \%) zwei oder drei Angebote aufweist, gibt es einzelne Ausreißer mit bis zu 44 Angeboten. Diese starke Rechtsschiefe der Verteilung zeigt, dass der statistische Mittelwert durch wenige, sehr angebotsintensive \textit{Courses} nach oben verzerrt wird, während der Median deutlich unter dem Durchschnitt liegt.
 
 Abbildung \ref{fig:descriptive_analysis_offerings_per_course} zeigt die Verteilung der \textit{Offerings} auf die \textit{Courses}.
 
 
 \begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-                ybar,                                  % Specifies a vertical bar chart
-                enlarge x limits=0.1,                  % Adds space at the left/right
-                ylabel={Häufigkeit},     % Y-axis label
-                xlabel={\textit{Offerings} pro \textit{Course}}, % X-axis label
-                symbolic x coords={2, 3, 5, 11, 14, 22, 26, 31, 33, 38, 40, 42, 44},
-                xtick=data,                            % Use the symbolic names as ticks
-                x tick label style={rotate=45, anchor=east}, % Rotates labels for better fit
-                nodes near coords,                     % Displays the value above each bar
-                nodes near coords align={vertical},
-                ymin=0, ymax=12,                       % Adjusted to fit your max value of 10
-                width=\textwidth,                      % Chart width
-                height=7cm,                            % Chart height
-                bar width=15pt,                        % Thickness of the bars
-            ]
-            \addplot[fill=blue!30] coordinates {
-                    (2, 10)
-                    (3, 4)
-                    (5, 3)
-                    (11, 1)
-                    (14, 1)
-                    (22, 1)
-                    (26, 1)
-                    (31, 1)
-                    (33, 2)
-                    (38, 1)
-                    (40, 1)
-                    (42, 1)
-                    (44, 1)
-                };
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Verteilung der \textit{Offerings} pro \textit{Course}}
-    \label{fig:descriptive_analysis_offerings_per_course}
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        ybar,                                  % Specifies a vertical bar chart
+        enlarge x limits=0.1,                  % Adds space at the left/right
+        ylabel={Häufigkeit},     % Y-axis label
+        xlabel={\textit{Offerings} pro \textit{Course}}, % X-axis label
+        symbolic x coords={2, 3, 5, 11, 14, 22, 26, 31, 33, 38, 40, 42, 44},
+        xtick=data,                            % Use the symbolic names as ticks
+        x tick label style={rotate=45, anchor=east}, % Rotates labels for better fit
+        nodes near coords,                     % Displays the value above each bar
+        nodes near coords align={vertical},
+        ymin=0, ymax=12,                       % Adjusted to fit your max value of 10
+        width=\textwidth,                      % Chart width
+        height=7cm,                            % Chart height
+        bar width=15pt,                        % Thickness of the bars
+      ]
+      \addplot[fill=blue!30] coordinates {
+          (2, 10)
+          (3, 4)
+          (5, 3)
+          (11, 1)
+          (14, 1)
+          (22, 1)
+          (26, 1)
+          (31, 1)
+          (33, 2)
+          (38, 1)
+          (40, 1)
+          (42, 1)
+          (44, 1)
+        };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Verteilung der \textit{Offerings} pro \textit{Course}}
+  \label{fig:descriptive_analysis_offerings_per_course}
 \end{figure}
 
 
-% Feldman und Golumbic erzeugten für ihre Experimente zufällige Ausgangsdaten mit 10-20 Planpunkten, die durchschnittlich 2.5 \textit{Offerings} pro Planpunkt hatten \cite{feldmangolumbic}.
 
 \newpage
 Ein wesentlicher Faktor für die Schwierigkeit der Stundenplanerstellung ist die zeitliche Ungleichverteilung der angebotenen Kurse. Abbildung \ref{fig:descriptive_analysis_offering_weekday} zeigt die Verteilung der Lehrveranstaltungen über die Wochentage.
 
 
-% \begin{table}[h]
-%     \centering % This centers the minipage on the page
-%     \begin{minipage}{0.6\textwidth} % Adjust width as needed
-%         \centering % This centers the tabular inside the minipage
-%         \begin{tabular}{l|r}        \hline
-%         \textbf{Wochentag} & \textbf{Anteil (\%)} \\ \hline
-%         Montag             & 21.1\%               \\
-%         Dienstag           & 25.4\%               \\
-%         Mittwoche          & 21.8\%               \\
-%         Donnerstag         & 19.7\%               \\
-%         Freitag            & 11.3\%               \\
-%         Samstag            & 0.7\%                \\
-%         Sonntag            & 0\%                  \\ \hline
-%         \textbf{Total}     & \textbf{100.0\%}     \\ \hline
-%     \end{tabular}
-%     \caption{Prozentuale Verteilung der Kurse auf Wochentage}
-%     \label{descriptive_analysis_offering_weekday}
-% \end{minipage}
-% \end{table}
 \begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-                ybar,                          % Specifies a vertical bar chart
-                enlarge x limits=0.1,         % Adds space at the left/right of the chart
-                legend style={at={(0.5,-0.15)},
-                        anchor=north,legend columns=-1},
-                ylabel={Anteil (\%)},          % Y-axis label
-                symbolic x coords={Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag},
-                xtick=data,                    % Use the symbolic names as ticks
-                nodes near coords,             % Displays the value above each bar
-                nodes near coords align={vertical},
-                ymin=0, ymax=30,               % Adjust range to fit the data
-                width=1\textwidth,           % Chart width
-                height=7cm,                    % Chart height
-                bar width=20pt,                % Thickness of the bars
-            ]
-            \addplot[fill=blue!30] coordinates {
-                    (Montag, 21.1)
-                    (Dienstag, 25.4)
-                    (Mittwoch, 21.8)
-                    (Donnerstag, 19.7)
-                    (Freitag, 11.3)
-                    (Samstag, 0.7)
-                };
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Verteilung der Kurse auf Wochentage}
-    \label{fig:descriptive_analysis_offering_weekday}
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        ybar,                          % Specifies a vertical bar chart
+        enlarge x limits=0.1,         % Adds space at the left/right of the chart
+        legend style={at={(0.5,-0.15)},
+            anchor=north,legend columns=-1},
+        ylabel={Anteil (\%)},          % Y-axis label
+        symbolic x coords={Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag},
+        xtick=data,                    % Use the symbolic names as ticks
+        nodes near coords,             % Displays the value above each bar
+        nodes near coords align={vertical},
+        ymin=0, ymax=30,               % Adjust range to fit the data
+        width=1\textwidth,           % Chart width
+        height=7cm,                    % Chart height
+        bar width=20pt,                % Thickness of the bars
+      ]
+      \addplot[fill=blue!30] coordinates {
+          (Montag, 21.1)
+          (Dienstag, 25.4)
+          (Mittwoch, 21.8)
+          (Donnerstag, 19.7)
+          (Freitag, 11.3)
+          (Samstag, 0.7)
+        };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Verteilung der Kurse auf Wochentage}
+  \label{fig:descriptive_analysis_offering_weekday}
 \end{figure}
 
 
-Wie aus den Daten ersichtlich wird, konzentriert sich der Großteil des Lehrangebots (ca. 88 \%) auf die Kernzeit von Montag bis Donnerstag, während der Freitag mit 11.3 \% bereits deutlich seltener belegt ist. Samstage spielen im regulären Lehrbetrieb nahezu keine Rolle. Diese ungleiche Verteilung verschärft die Problematik zeitlicher Überschneidungen ($\mathcal{F}_{Zeit}$) an Tagen mit besonders vielen Kursen.
+Wie aus den Daten ersichtlich wird, konzentriert sich der Großteil des Lehrangebots (ca. 88 \%) auf die Kernzeit von Montag bis Donnerstag, während der Freitag mit 11{,}3 \% bereits deutlich seltener belegt ist. Samstage spielen im regulären Lehrbetrieb nahezu keine Rolle. Diese ungleiche Verteilung verschärft die Problematik zeitlicher Überschneidungen ($\mathcal{F}_{Zeit}$) an Tagen mit besonders vielen Kursen.
 
 
 
 \newpage
 
-
-
 Zusätzlich zur Verteilung auf die Tage ist die zeitliche Platzierung innerhalb eines Tages entscheidend für die Modellierung von Präferenzen.
-Generell dürfen Vorlesungen an der WU Werktags von 8:00 bis 21:30 und Samstags von 8:00 bis 17:30 stattfinden.
-Abbildung \ref{fig:start_hour_distribution} schlüsselt die Startzeiten der einzelnen Kurseinheiten auf. Der Einfachheit halber werden angefangene Stunden bis 15 Minuten abgerundet und ab 30 Minuten aufgerundet. Vorlesungen dürfen nur im 15-Minuten-Takt beginnen.
+Abbildung \ref{fig:start_hour_distribution} schlüsselt die Startzeiten der einzelnen Kurseinheiten auf. Der Einfachheit halber werden angefangene Stunden bis 15 Minuten abgerundet und ab 30 Minuten aufgerundet. Vorlesungen beginnen ausschließlich im 15-Minuten-Takt.
+Aus den Daten geht hervor, dass Kurseinheiten unter der Woche zwischen 8:00 und 21:00 Uhr sowie samstags zwischen 9:00 und 15:00 Uhr stattfinden.
 
 \begin{figure}[h]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-                ybar,
-                enlarge x limits=0.05,
-                legend style={at={(0.5,-0.15)}, anchor=north, legend columns=-1},
-                ylabel={Anteil (\%)},
-                xlabel={Startzeit (Uhrzeit)},
-                symbolic x coords={8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21},
-                xtick=data,
-                nodes near coords={\pgfmathprintnumber[fixed, precision=1]{\pgfplotspointmeta}\%}, % Fügt %-Zeichen hinzu
-                nodes near coords align={vertical},
-                every node near coord/.append style={font=\tiny}, % Kleinere Schrift für die Prozentwerte
-                ymin=0, ymax=20,
-                width=\textwidth,
-                height=7cm,
-                bar width=12pt,
-            ]
-            \addplot[fill=blue!30] coordinates {
-                    (8, 15.6)
-                    (9, 9.0)
-                    (10, 5.3)
-                    (11, 11.1)
-                    (12, 6.9)
-                    (13, 11.6)
-                    (14, 6.9)
-                    (15, 5.4)
-                    (16, 8.0)
-                    (17, 10.6)
-                    (18, 6.7)
-                    (19, 2.8)
-                    (20, 0)
-                    (21, 0)
-                };
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Verteilung der Kurs-Startzeiten (in Prozent)}
-    \label{fig:start_hour_distribution}
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        ybar,
+        enlarge x limits=0.05,
+        legend style={at={(0.5,-0.15)}, anchor=north, legend columns=-1},
+        ylabel={Anteil (\%)},
+        xlabel={Startzeit (Uhrzeit)},
+        symbolic x coords={8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21},
+        xtick=data,
+        nodes near coords={\pgfmathprintnumber[fixed, precision=1]{\pgfplotspointmeta}\%}, % Fügt %-Zeichen hinzu
+        nodes near coords align={vertical},
+        every node near coord/.append style={font=\tiny}, % Kleinere Schrift für die Prozentwerte
+        ymin=0, ymax=20,
+        width=\textwidth,
+        height=7cm,
+        bar width=12pt,
+      ]
+      \addplot[fill=blue!30] coordinates {
+          (8, 15.6)
+          (9, 9.0)
+          (10, 5.3)
+          (11, 11.1)
+          (12, 6.9)
+          (13, 11.6)
+          (14, 6.9)
+          (15, 5.4)
+          (16, 8.0)
+          (17, 10.6)
+          (18, 6.7)
+          (19, 2.8)
+          (20, 0)
+          (21, 0)
+        };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Verteilung der Kurs-Startzeiten (in Prozent)}
+  \label{fig:start_hour_distribution}
 \end{figure}
 
 % \begin{table}[h]
@@ -180,7 +158,7 @@ Abbildung \ref{fig:start_hour_distribution} schlüsselt die Startzeiten der einz
 %     \label{descriptive_analysis_start_hour_of_offerings}
 % \end{table}
 
-Die Analyse der Startzeiten zeigt, dass die WU Wien ein sehr breites Zeitfenster nutzt. Ein signifikanter Anteil der Kurse beginnt bereits um 08:00 Uhr (15.6 \%), was für Studierende mit Präferenzen für einen späteren Vorlesungsbeginn (vgl. Szenario \ref{scenario_free_day}) eine hohe Anzahl an potenziell zu vermeidenden Einheiten bedeutet.
+Die Analyse der Startzeiten zeigt, dass die WU Wien ein sehr breites Zeitfenster nutzt. Ein signifikanter Anteil der Kurse beginnt bereits um 08:00 Uhr (15{,}6 \%), was für Studierende mit Präferenzen für einen späteren Vorlesungsbeginn (vgl. Szenario \ref{scenario_free_day}) eine hohe Anzahl an potenziell zu vermeidenden Einheiten bedeutet.
 
 
 
@@ -192,51 +170,51 @@ Neben dem Beginn der Einheiten variiert auch die Dauer der einzelnen Termine, wa
 
 
 \begin{figure}[h]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-                ybar,
-                enlarge x limits=0.08,
-                ylabel={Anteil (\%)},
-                xlabel={Dauer (Minuten)},
-                % Nur Vielfache von 60 auf der X-Achse anzeigen:
-                xtick={60, 120, 180, 240, 300, 360, 420, 480},
-                % Bereich der X-Achse definieren:
-                xmin=45, xmax=495,
-                nodes near coords={\pgfmathprintnumber[fixed, precision=1]{\pgfplotspointmeta}\%},
-                nodes near coords align={vertical},
-                every node near coord/.append style={font=\tiny, rotate=90, anchor=west}, % Rotiert für bessere Lesbarkeit
-                ymin=0, ymax=40,
-                width=\textwidth,
-                height=8cm,
-                bar width=6pt, % Schmalere Balken, da es viele Datenpunkte sind
-            ]
-            \addplot[fill=blue!30] coordinates {
-                    (60, 0.68)
-                    (90, 11.18)
-                    (120, 15.21)
-                    (135, 0.74)
-                    (150, 33.59)
-                    (180, 8.30)
-                    (210, 0.98)
-                    (225, 0.09)
-                    (240, 20.19)
-                    (255, 5.96)
-                    (270, 1.27)
-                    (285, 0.06)
-                    (300, 0.44)
-                    (315, 0.03)
-                    (330, 0.44)
-                    (345, 0.03)
-                    (360, 0.36)
-                    (420, 0.12)
-                    (450, 0.03)
-                    (480, 0.30)
-                };
-        \end{axis}
-    \end{tikzpicture}
-    \caption{Verteilung der Terminlänge der Buchungsstunden in 15-Minuten-Intervallen}
-    \label{fig:descriptive_analysis_offering_duration}
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        ybar,
+        enlarge x limits=0.08,
+        ylabel={Anteil (\%)},
+        xlabel={Dauer (Minuten)},
+        % Nur Vielfache von 60 auf der X-Achse anzeigen:
+        xtick={60, 120, 180, 240, 300, 360, 420, 480},
+        % Bereich der X-Achse definieren:
+        xmin=45, xmax=495,
+        nodes near coords={\pgfmathprintnumber[fixed, precision=1]{\pgfplotspointmeta}\%},
+        nodes near coords align={vertical},
+        every node near coord/.append style={font=\tiny, rotate=90, anchor=west}, % Rotiert für bessere Lesbarkeit
+        ymin=0, ymax=40,
+        width=\textwidth,
+        height=8cm,
+        bar width=6pt, % Schmalere Balken, da es viele Datenpunkte sind
+      ]
+      \addplot[fill=blue!30] coordinates {
+          (60, 0.68)
+          (90, 11.18)
+          (120, 15.21)
+          (135, 0.74)
+          (150, 33.59)
+          (180, 8.30)
+          (210, 0.98)
+          (225, 0.09)
+          (240, 20.19)
+          (255, 5.96)
+          (270, 1.27)
+          (285, 0.06)
+          (300, 0.44)
+          (315, 0.03)
+          (330, 0.44)
+          (345, 0.03)
+          (360, 0.36)
+          (420, 0.12)
+          (450, 0.03)
+          (480, 0.30)
+        };
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Verteilung der Terminlänge der Buchungsstunden in 15-Minuten-Intervallen}
+  \label{fig:descriptive_analysis_offering_duration}
 \end{figure}
 
 % \begin{table}[h]

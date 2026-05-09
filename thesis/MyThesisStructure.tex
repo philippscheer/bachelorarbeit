@@ -44,6 +44,7 @@
 
 %% PACKAGE FOR CODE SNIPPETS
 \usepackage{listings}
+\usepackage{xcolor}
 
 %% PACKAGE FOR GRAPH GENERATION
 \usepackage{pgfplots}
@@ -118,6 +119,25 @@
     \par\noindent\small\textit{#1}\par
 }
 
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\bfseries,
+    commentstyle=\itshape\color{gray},
+    stringstyle=\color{black},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    captionpos=b,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    xleftmargin=1.5em,
+    framexleftmargin=1.5em,
+}
+\lstset{style=pythonstyle}
+
+
 
 \begin{document}
 
@@ -187,10 +207,12 @@
 \pagebreak
 \listoftables
 \pagebreak
+\lstlistoflistings
+\pagebreak
 
 
 \begin{abstract}
-  Die Erstellung eines konfliktfreien und präferenzgerechten Semesterplans stellt Studierende vor ein kombinatorisches Optimierungsproblem, für das an der Wirtschaftsuniversität Wien (WU) bislang keine automatisierten Lösungen existieren. Diese Bachelorarbeit knüpft an die algorithmischen Grundlagen von Feldman und Golumbic (1990) an, die mit \textit{Hill-Climbing} und \textit{Offering-Order} zwei heuristische Verfahren für das Single Student Scheduling Problem (SSP) vorschlugen, und unterzieht diese einer konzeptionellen Replikation mit Erweiterung. Da weder der originale Datensatz noch eine Referenzimplementierung verfügbar sind, wurden die Algorithmen auf Basis des Pseudocodes neu implementiert und anhand eines realen Datensatzes des Hauptstudiums Wirtschaftsinformatik der WU (Sommersemester 2025, 381 Offerings, 28 Courses) evaluiert. Da \textit{brute force} für diesen Datensatz rechnerisch nicht praktikabel ist, wurde als zeitgemäße Baseline ein \textit{Integer Linear Programming}-Ansatz (ILP via CBC/Gurobi) eingeführt, der dieselbe Rolle übernimmt wie \textit{brute force} in der Ursprungsarbeit. Die Algorithmen wurden in 14 Szenarien --- abgeleitet aus empirischen Studien zu studentischen Präferenzen sowie klassischen \textit{Constraints} aus der Timetabling-Literatur --- systematisch hinsichtlich Lösungsqualität, Laufzeit und Speicherbedarf verglichen. Die Ergebnisse bestätigen, dass \textit{Offering-Order} in der Laufzeit konsistent schneller ist als beide \textit{Hill-Climbing}-Varianten, während \textit{Hill-Climbing} in der Lösungsqualität in den meisten Szenarien überlegen ist. Das überraschendste Ergebnis ist, dass moderne ILP-Solver die heuristischen Verfahren in der Laufzeit in fast allen Szenarien übertreffen --- womit ein Trade-off zwischen Lösungsqualität und Geschwindigkeit für Probleminstanzen dieser Größenordnung nicht mehr gilt.
+  Die Erstellung eines konfliktfreien und präferenzgerechten Semesterplans stellt Studierende vor ein kombinatorisches Optimierungsproblem, für das an der Wirtschaftsuniversität Wien (WU) bislang keine automatisierten Lösungen existieren. Diese Bachelorarbeit knüpft an die algorithmischen Grundlagen von Feldman und Golumbic (1990) an, die mit \textit{Hill-Climbing} und \textit{Offering-Order} zwei heuristische Verfahren für das \textit{Single Student Scheduling Problem (SSP)} vorschlugen, und unterzieht diese einer konzeptionellen Replikation mit Erweiterung. Da weder der originale Datensatz noch eine Referenzimplementierung verfügbar sind, wurden die Algorithmen auf Basis des Pseudocodes neu implementiert und anhand eines realen Datensatzes des Hauptstudiums Wirtschaftsinformatik der WU (Sommersemester 2025, 381 Kurse, 28 Planpunkte) evaluiert. Da \textit{Brute-Force} für diesen Datensatz rechnerisch nicht praktikabel ist, wurde als zeitgemäße \textit{Baseline} ein \textit{Integer Linear Programming}-Ansatz (ILP via CBC/Gurobi) eingeführt, der dieselbe Rolle übernimmt wie \textit{Brute-Force} in der Ursprungsarbeit. Die Algorithmen wurden in 14 Szenarien --- abgeleitet aus empirischen Studien zu studentischen Präferenzen sowie klassischen \textit{Constraints} aus der \textit{Timetabling}-Literatur --- systematisch hinsichtlich Lösungsqualität, Laufzeit und Speicherbedarf verglichen. Die Ergebnisse bestätigen, dass \textit{Offering-Order} in der Laufzeit konsistent schneller ist als beide \textit{Hill-Climbing}-Varianten, während \textit{Hill-Climbing} in der Lösungsqualität in den meisten Szenarien überlegen ist. Das überraschendste Ergebnis ist, dass moderne ILP-\textit{Solver} als exakte Verfahren die heuristischen Verfahren in der Laufzeit in fast allen Szenarien übertreffen --- womit ein Trade-off zwischen Lösungsqualität und Geschwindigkeit für Probleminstanzen dieser Größenordnung nicht mehr gilt.
 \end{abstract}
 
 % \scriptsize
